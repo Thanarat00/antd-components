@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -38,6 +39,27 @@ function copyDir(src, dest) {
       fs.copyFileSync(srcPath, destPath);
       log(`  ✓ ${destPath}`, 'green');
     }
+  }
+}
+
+function installDependencies(cwd) {
+  const dependencies = ['antd', '@ant-design/icons', 'dayjs', 'clsx'];
+  
+  log('\n📦 กำลังติดตั้ง dependencies...', 'yellow');
+  log(`   ${dependencies.join(', ')}`, 'blue');
+  
+  try {
+    execSync(`npm install ${dependencies.join(' ')}`, {
+      cwd: cwd,
+      stdio: 'inherit'
+    });
+    log('\n✅ ติดตั้ง dependencies เสร็จสิ้น!', 'green');
+    return true;
+  } catch (error) {
+    log('\n❌ ติดตั้ง dependencies ไม่สำเร็จ', 'red');
+    log('กรุณารันคำสั่งนี้เอง:', 'yellow');
+    log(`npm install ${dependencies.join(' ')}`, 'blue');
+    return false;
   }
 }
 
@@ -110,20 +132,20 @@ export * from './antd/Other';
   fs.writeFileSync(indexPath, indexContent);
   log(`  ✓ ${indexPath}`, 'green');
 
-  log('\n✅ สร้าง components เสร็จสิ้น!\n', 'green');
+  log('\n✅ สร้าง components เสร็จสิ้น!', 'green');
   
-  log('📦 Dependencies ที่ต้องติดตั้ง:', 'cyan');
-  log('npm install antd @ant-design/icons dayjs clsx\n', 'yellow');
+  // Auto install dependencies
+  installDependencies(cwd);
   
-  log('📝 วิธีใช้งาน:', 'cyan');
-  log(`import { CustomInput, CustomTable, CustomCard } from '@/components';`, 'blue');
+  log('\n📝 วิธีใช้งาน:', 'cyan');
+  log(`import { CustomInput, CustomTable, CustomCard } from './components';`, 'blue');
   log('');
 }
 
 function help() {
   log('\n🎨 Antd Components CLI\n', 'cyan');
   log('Usage:', 'yellow');
-  log('  npx antd-components init    สร้าง component ทั้งหมด');
+  log('  npx antd-components init    สร้าง component ทั้งหมดและติดตั้ง dependencies');
   log('  npx antd-components help    แสดงคำสั่ง\n');
 }
 
@@ -140,4 +162,3 @@ switch (command) {
   default:
     help();
 }
-

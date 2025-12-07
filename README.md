@@ -2,7 +2,7 @@
 
 Custom Ant Design Component Library ที่พัฒนาด้วย React + TypeScript + Tailwind CSS สำหรับใช้งานในโปรเจกต์ต่างๆ
 
-**Version:** 0.5.0
+**Version:** 0.6.0
 
 ## Features
 
@@ -16,17 +16,15 @@ Custom Ant Design Component Library ที่พัฒนาด้วย React +
 
 ### วิธีที่ 1: CLI (แนะนำ) - Copy ไฟล์ลงโปรเจกต์
 
-รันคำสั่งเดียว จะสร้างไฟล์ component ทั้งหมดใน `src/components/antd`
+รันคำสั่งเดียว จะสร้างไฟล์ component ทั้งหมด + ติดตั้ง dependencies อัตโนมัติ
 
 ```bash
 npx github:Thanarat00/antd-components init
 ```
 
-หลังจากรันแล้วต้องติดตั้ง dependencies:
-
-```bash
-npm install antd @ant-design/icons dayjs clsx
-```
+**เพียงคำสั่งเดียว!** ระบบจะ:
+1. ✅ สร้างไฟล์ components ทั้งหมดใน `src/components/antd`
+2. ✅ ติดตั้ง `antd`, `@ant-design/icons`, `dayjs`, `clsx` อัตโนมัติ
 
 **โครงสร้างไฟล์หลังรัน CLI:**
 
@@ -228,7 +226,8 @@ export default App;
 | v0.2.0 | All Ant Design components |
 | v0.3.0 | Complete - Layout & Other |
 | v0.4.0 | Update antd to v6.0.1 |
-| v0.5.0 | **CLI Support** - รันคำสั่งเดียวสร้างไฟล์ทั้งหมด |
+| v0.5.0 | CLI Support - รันคำสั่งเดียวสร้างไฟล์ทั้งหมด |
+| v0.6.0 | **Auto Install** - ติดตั้ง dependencies อัตโนมัติ |
 
 ## Development
 
