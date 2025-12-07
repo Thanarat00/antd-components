@@ -48,6 +48,7 @@ function copyDir(src, dest) {
 
 function installDependencies(cwd) {
   const dependencies = ['antd', '@ant-design/icons', 'dayjs', 'clsx'];
+  const devDependencies = ['tailwindcss', 'postcss', 'autoprefixer'];
   
   log('\n📦 Installing dependencies...', 'yellow');
   
@@ -56,13 +57,108 @@ function installDependencies(cwd) {
       cwd: cwd,
       stdio: 'inherit'
     });
+    
+    log('\n📦 Installing Tailwind CSS...', 'yellow');
+    execSync(`npm install -D ${devDependencies.join(' ')}`, {
+      cwd: cwd,
+      stdio: 'inherit'
+    });
+    
     log('\n✅ Dependencies installed!', 'green');
     return true;
   } catch (error) {
     log('\n❌ Failed to install dependencies', 'red');
     log('Please run manually:', 'yellow');
     log(`npm install ${dependencies.join(' ')}`, 'blue');
+    log(`npm install -D ${devDependencies.join(' ')}`, 'blue');
     return false;
+  }
+}
+
+function setupTailwind(cwd) {
+  log('\n⚙️  Setting up Tailwind CSS...', 'yellow');
+  
+  // Create tailwind.config.js
+  const tailwindConfig = `/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+  corePlugins: {
+    preflight: false, // Disable preflight to avoid conflicts with Antd
+  },
+}
+`;
+
+  const tailwindConfigPath = path.join(cwd, 'tailwind.config.js');
+  if (!fs.existsSync(tailwindConfigPath)) {
+    fs.writeFileSync(tailwindConfigPath, tailwindConfig);
+    log('  + tailwind.config.js', 'green');
+  } else {
+    log('  ~ tailwind.config.js (already exists)', 'yellow');
+  }
+
+  // Create postcss.config.js
+  const postcssConfig = `export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+`;
+
+  const postcssConfigPath = path.join(cwd, 'postcss.config.js');
+  if (!fs.existsSync(postcssConfigPath)) {
+    fs.writeFileSync(postcssConfigPath, postcssConfig);
+    log('  + postcss.config.js', 'green');
+  } else {
+    log('  ~ postcss.config.js (already exists)', 'yellow');
+  }
+
+  // Check and update CSS file
+  const cssFiles = ['src/index.css', 'src/App.css', 'src/styles/index.css'];
+  let cssUpdated = false;
+  
+  for (const cssFile of cssFiles) {
+    const cssPath = path.join(cwd, cssFile);
+    if (fs.existsSync(cssPath)) {
+      let cssContent = fs.readFileSync(cssPath, 'utf-8');
+      if (!cssContent.includes('@tailwind')) {
+        const tailwindDirectives = `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+`;
+        fs.writeFileSync(cssPath, tailwindDirectives + cssContent);
+        log(`  + Added Tailwind directives to ${cssFile}`, 'green');
+        cssUpdated = true;
+        break;
+      } else {
+        log(`  ~ ${cssFile} (Tailwind already configured)`, 'yellow');
+        cssUpdated = true;
+        break;
+      }
+    }
+  }
+
+  if (!cssUpdated) {
+    // Create src/index.css if no CSS file exists
+    const srcDir = path.join(cwd, 'src');
+    if (!fs.existsSync(srcDir)) {
+      fs.mkdirSync(srcDir, { recursive: true });
+    }
+    const newCssPath = path.join(srcDir, 'index.css');
+    const tailwindCss = `@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`;
+    fs.writeFileSync(newCssPath, tailwindCss);
+    log('  + src/index.css', 'green');
   }
 }
 
@@ -129,6 +225,10 @@ export * from './Other';
   // Auto install dependencies
   installDependencies(cwd);
   
+  // Setup Tailwind CSS
+  setupTailwind(cwd);
+  
+  log('\n✅ Setup complete!', 'green');
   log('\n📝 Usage:', 'cyan');
   log(`import { CustomInput, CustomTable } from './components';`, 'blue');
   log('');
@@ -137,7 +237,7 @@ export * from './Other';
 function help() {
   log('\n🎨 Antd Components CLI\n', 'cyan');
   log('Usage:', 'yellow');
-  log('  npx antd-components init    Generate all components');
+  log('  npx antd-components init    Generate all components + setup Tailwind');
   log('  npx antd-components help    Show help\n');
 }
 
