@@ -24,6 +24,50 @@ function log(message, color = 'reset') {
   console.log(`${colors[color]}${message}${colors.reset}`);
 }
 
+function detectProjectType(cwd) {
+  // Check for Next.js
+  const nextConfigJs = path.join(cwd, 'next.config.js');
+  const nextConfigMjs = path.join(cwd, 'next.config.mjs');
+  const nextConfigTs = path.join(cwd, 'next.config.ts');
+  
+  if (fs.existsSync(nextConfigJs) || fs.existsSync(nextConfigMjs) || fs.existsSync(nextConfigTs)) {
+    // Check for App Router vs Pages Router
+    if (fs.existsSync(path.join(cwd, 'app')) || fs.existsSync(path.join(cwd, 'src', 'app'))) {
+      return 'nextjs-app';
+    }
+    return 'nextjs-pages';
+  }
+  
+  // Check for Vite
+  const viteConfig = path.join(cwd, 'vite.config.ts');
+  const viteConfigJs = path.join(cwd, 'vite.config.js');
+  if (fs.existsSync(viteConfig) || fs.existsSync(viteConfigJs)) {
+    return 'vite';
+  }
+  
+  // Default to src structure
+  return 'default';
+}
+
+function getBaseDir(cwd, projectType) {
+  switch (projectType) {
+    case 'nextjs-app':
+      // Check if using src/app or app
+      if (fs.existsSync(path.join(cwd, 'src', 'app'))) {
+        return path.join(cwd, 'src');
+      }
+      // Create in src if doesn't exist
+      return path.join(cwd, 'src');
+    case 'nextjs-pages':
+      if (fs.existsSync(path.join(cwd, 'src'))) {
+        return path.join(cwd, 'src');
+      }
+      return cwd;
+    default:
+      return path.join(cwd, 'src');
+  }
+}
+
 function copyDir(src, dest) {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
@@ -75,16 +119,32 @@ function installDependencies(cwd) {
   }
 }
 
-function setupTailwind(cwd) {
+function setupTailwind(cwd, projectType, baseDir) {
   log('\n⚙️  Setting up Tailwind CSS...', 'yellow');
+  
+  // Determine content paths based on project type
+  let contentPaths;
+  switch (projectType) {
+    case 'nextjs-app':
+    case 'nextjs-pages':
+      contentPaths = `[
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ]`;
+      break;
+    default:
+      contentPaths = `[
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ]`;
+  }
   
   // Create tailwind.config.js
   const tailwindConfig = `/** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ${contentPaths},
   theme: {
     extend: {
       colors: {
@@ -163,8 +223,8 @@ export default {
     log('  ~ tailwind.config.js (already exists)', 'yellow');
   }
 
-  // Create postcss.config.js
-  const postcssConfig = `export default {
+  // Create postcss.config.js (use .mjs for Next.js compatibility)
+  const postcssConfigMjs = `export default {
   plugins: {
     '@tailwindcss/postcss': {},
     autoprefixer: {},
@@ -172,16 +232,41 @@ export default {
 }
 `;
 
-  const postcssConfigPath = path.join(cwd, 'postcss.config.js');
-  if (!fs.existsSync(postcssConfigPath)) {
-    fs.writeFileSync(postcssConfigPath, postcssConfig);
-    log('  + postcss.config.js', 'green');
+  const postcssConfigPath = path.join(cwd, 'postcss.config.mjs');
+  const postcssConfigJsPath = path.join(cwd, 'postcss.config.js');
+  
+  if (!fs.existsSync(postcssConfigPath) && !fs.existsSync(postcssConfigJsPath)) {
+    fs.writeFileSync(postcssConfigPath, postcssConfigMjs);
+    log('  + postcss.config.mjs', 'green');
   } else {
-    log('  ~ postcss.config.js (already exists)', 'yellow');
+    log('  ~ postcss.config (already exists)', 'yellow');
   }
 
-  // Check and update CSS file
-  const cssFiles = ['src/index.css', 'src/App.css', 'src/styles/index.css'];
+  // Check and update CSS file based on project type
+  let cssFiles;
+  switch (projectType) {
+    case 'nextjs-app':
+      cssFiles = [
+        'app/globals.css',
+        'src/app/globals.css',
+        'styles/globals.css',
+        'src/styles/globals.css',
+      ];
+      break;
+    case 'nextjs-pages':
+      cssFiles = [
+        'styles/globals.css',
+        'src/styles/globals.css',
+      ];
+      break;
+    default:
+      cssFiles = [
+        'src/index.css',
+        'src/App.css',
+        'src/styles/index.css',
+      ];
+  }
+  
   let cssUpdated = false;
   
   for (const cssFile of cssFiles) {
@@ -207,26 +292,54 @@ export default {
   }
 
   if (!cssUpdated) {
-    // Create src/index.css if no CSS file exists
-    const srcDir = path.join(cwd, 'src');
-    if (!fs.existsSync(srcDir)) {
-      fs.mkdirSync(srcDir, { recursive: true });
+    // Create appropriate CSS file based on project type
+    let newCssPath;
+    switch (projectType) {
+      case 'nextjs-app':
+        const appDir = fs.existsSync(path.join(cwd, 'src', 'app')) 
+          ? path.join(cwd, 'src', 'app')
+          : path.join(cwd, 'app');
+        if (!fs.existsSync(appDir)) {
+          fs.mkdirSync(appDir, { recursive: true });
+        }
+        newCssPath = path.join(appDir, 'globals.css');
+        break;
+      case 'nextjs-pages':
+        const stylesDir = path.join(cwd, 'styles');
+        if (!fs.existsSync(stylesDir)) {
+          fs.mkdirSync(stylesDir, { recursive: true });
+        }
+        newCssPath = path.join(stylesDir, 'globals.css');
+        break;
+      default:
+        const srcStylesDir = path.join(baseDir, 'styles');
+        if (!fs.existsSync(srcStylesDir)) {
+          fs.mkdirSync(srcStylesDir, { recursive: true });
+        }
+        newCssPath = path.join(srcStylesDir, 'index.css');
     }
-    const newCssPath = path.join(srcDir, 'index.css');
+    
     const tailwindCss = `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 `;
     fs.writeFileSync(newCssPath, tailwindCss);
-    log('  + src/index.css', 'green');
+    log(`  + ${path.relative(cwd, newCssPath)}`, 'green');
   }
 }
 
 function init() {
   const cwd = process.cwd();
-  const targetDir = path.join(cwd, 'src', 'components');
   
   log('\n🚀 Antd Components Generator\n', 'cyan');
+  
+  // Detect project type
+  const projectType = detectProjectType(cwd);
+  log(`📋 Detected project: ${projectType}`, 'blue');
+  
+  // Get base directory
+  const baseDir = getBaseDir(cwd, projectType);
+  const targetDir = path.join(baseDir, 'components');
   
   // Find the package directory
   const packageDir = path.dirname(__dirname);
@@ -239,7 +352,7 @@ function init() {
   }
 
   // Copy components
-  log('📁 Creating components...', 'yellow');
+  log('\n📁 Creating components...', 'yellow');
   const componentsDir = path.join(srcDir, 'components');
   if (fs.existsSync(componentsDir)) {
     copyDir(componentsDir, targetDir);
@@ -248,7 +361,7 @@ function init() {
   // Copy utils
   log('\n📁 Creating utils...', 'yellow');
   const utilsDir = path.join(srcDir, 'utils');
-  const targetUtilsDir = path.join(cwd, 'src', 'utils');
+  const targetUtilsDir = path.join(baseDir, 'utils');
   if (fs.existsSync(utilsDir)) {
     copyDir(utilsDir, targetUtilsDir);
   }
@@ -256,7 +369,7 @@ function init() {
   // Copy hooks
   log('\n📁 Creating hooks...', 'yellow');
   const hooksDir = path.join(srcDir, 'hooks');
-  const targetHooksDir = path.join(cwd, 'src', 'hooks');
+  const targetHooksDir = path.join(baseDir, 'hooks');
   if (fs.existsSync(hooksDir)) {
     copyDir(hooksDir, targetHooksDir);
   }
@@ -264,7 +377,7 @@ function init() {
   // Copy styles
   log('\n📁 Creating styles...', 'yellow');
   const stylesDir = path.join(srcDir, 'styles');
-  const targetStylesDir = path.join(cwd, 'src', 'styles');
+  const targetStylesDir = path.join(baseDir, 'styles');
   if (fs.existsSync(stylesDir)) {
     copyDir(stylesDir, targetStylesDir);
   }
@@ -294,20 +407,40 @@ export * from './Other';
   installDependencies(cwd);
   
   // Setup Tailwind CSS
-  setupTailwind(cwd);
+  setupTailwind(cwd, projectType, baseDir);
   
   log('\n✅ Setup complete!', 'green');
+  
+  // Show usage based on project type
   log('\n📝 Usage:', 'cyan');
-  log(`// Import styles in main.tsx or App.tsx`, 'blue');
-  log(`import './styles/index.css';`, 'blue');
-  log('');
-  log(`// Import components`, 'blue');
-  log(`import { CustomInput, CustomTable } from './components';`, 'blue');
+  switch (projectType) {
+    case 'nextjs-app':
+      log(`// In app/layout.tsx or src/app/layout.tsx`, 'blue');
+      log(`import '@/styles/index.css';`, 'blue');
+      log('');
+      log(`// Import components`, 'blue');
+      log(`import { CustomInput, CustomTable } from '@/components';`, 'blue');
+      break;
+    case 'nextjs-pages':
+      log(`// In pages/_app.tsx`, 'blue');
+      log(`import '@/styles/index.css';`, 'blue');
+      log('');
+      log(`// Import components`, 'blue');
+      log(`import { CustomInput, CustomTable } from '@/components';`, 'blue');
+      break;
+    default:
+      log(`// Import styles in main.tsx or App.tsx`, 'blue');
+      log(`import './styles/index.css';`, 'blue');
+      log('');
+      log(`// Import components`, 'blue');
+      log(`import { CustomInput, CustomTable } from './components';`, 'blue');
+  }
   log('');
 }
 
 function help() {
   log('\n🎨 Antd Components CLI\n', 'cyan');
+  log('Supports: Vite, Next.js (App Router & Pages Router)\n', 'blue');
   log('Usage:', 'yellow');
   log('  npx antd-components init    Generate all components + setup Tailwind');
   log('  npx antd-components help    Show help\n');
