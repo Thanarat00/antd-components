@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom component styles */
+@layer components {
+  /* Custom Input styles */
+  .sgn-input {
+    @apply transition-all duration-200;
+  }
+
+  .sgn-input:hover {
+    @apply border-primary-400;
+  }
+
+  .sgn-input:focus {
+    @apply border-primary-500 ring-2 ring-primary-100;
+  }
+
+  /* Custom Card styles */
+  .sgn-card {
+    @apply bg-white rounded-antd shadow-antd transition-shadow duration-200;
+  }
+
+  .sgn-card:hover {
+    @apply shadow-antd-md;
+  }
+
+  /* Custom Button styles */
+  .sgn-btn {
+    @apply inline-flex items-center justify-center gap-2 transition-all duration-200;
+  }
+
+  .sgn-btn-primary {
+    @apply bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700;
+  }
+
+  .sgn-btn-success {
+    @apply bg-success-500 text-white hover:bg-success-600 active:bg-success-700;
+  }
+
+  .sgn-btn-warning {
+    @apply bg-warning-500 text-white hover:bg-warning-600 active:bg-warning-700;
+  }
+
+  .sgn-btn-error {
+    @apply bg-error-500 text-white hover:bg-error-600 active:bg-error-700;
+  }
+
+  /* Custom Table styles */
+  .sgn-table {
+    @apply w-full;
+  }
+
+  .sgn-table-header {
+    @apply bg-gray-50;
+  }
+
+  .sgn-table-row {
+    @apply hover:bg-primary-50 transition-colors duration-150;
+  }
+
+  /* Custom Modal styles */
+  .sgn-modal-overlay {
+    @apply fixed inset-0 bg-black/45 z-50;
+  }
+
+  .sgn-modal-content {
+    @apply bg-white rounded-antd-lg shadow-antd-lg;
+  }
+
+  /* Custom Sidebar styles */
+  .sgn-sidebar {
+    @apply bg-slate-900 text-white min-h-screen transition-all duration-300;
+  }
+
+  .sgn-sidebar-collapsed {
+    @apply w-20;
+  }
+
+  .sgn-sidebar-expanded {
+    @apply w-64;
+  }
+
+  .sgn-sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors duration-150;
+  }
+
+  .sgn-sidebar-item:hover {
+    @apply bg-slate-800;
+  }
+
+  .sgn-sidebar-item-active {
+    @apply bg-primary-600 text-white;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.3s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

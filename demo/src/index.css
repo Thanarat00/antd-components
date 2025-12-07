@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+}
+
+.sgn-input {
+  @apply transition-all duration-200;
+}
+
+.sgn-card {
+  @apply bg-white rounded-antd shadow-antd transition-shadow duration-200;
+}
+
+.sgn-card:hover {
+  @apply shadow-antd-md;
+}
+
