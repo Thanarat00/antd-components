@@ -1,11 +1,14 @@
 {
   "name": "antd-components",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Custom Ant Design Component Library with Tailwind CSS",
   "type": "module",
   "main": "./dist/antd-components.umd.cjs",
   "module": "./dist/antd-components.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "antd-components": "./cli/index.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/antd-components.js",
@@ -15,7 +18,9 @@
     "./styles": "./dist/style.css"
   },
   "files": [
-    "dist"
+    "dist",
+    "cli",
+    "src"
   ],
   "scripts": {
     "dev": "npx vite",
@@ -62,9 +67,9 @@
     "react",
     "components",
     "ui",
-    "tailwindcss"
+    "tailwindcss",
+    "cli"
   ],
   "author": "SGN",
   "license": "MIT"
 }
-

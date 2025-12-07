@@ -2,7 +2,7 @@
 
 Custom Ant Design Component Library ที่พัฒนาด้วย React + TypeScript + Tailwind CSS สำหรับใช้งานในโปรเจกต์ต่างๆ
 
-**Version:** 0.3.0
+**Version:** 0.5.0
 
 ## Features
 
@@ -14,17 +14,28 @@ Custom Ant Design Component Library ที่พัฒนาด้วย React +
 
 ## Installation
 
+### วิธีที่ 1: CLI (แนะนำ) - Copy ไฟล์ลงโปรเจกต์
+
 ```bash
-# From GitHub (แนะนำ)
-npm install github:Thanarat00/antd-components#v0.3.0
+# รันคำสั่งเดียว จะสร้างไฟล์ component ทั้งหมดใน src/components/antd
+npx github:Thanarat00/antd-components init
 ```
 
-**หมายเหตุ:** Library นี้จะติดตั้ง `antd` และ dependencies อื่นๆ ให้อัตโนมัติ  
-ต้องมี `react` และ `react-dom` ในโปรเจกต์อยู่แล้ว (ซึ่งโปรเจกต์ React ทุกตัวมีอยู่แล้ว)
+หลังจากรันแล้วต้องติดตั้ง dependencies:
+```bash
+npm install antd @ant-design/icons dayjs clsx
+```
+
+### วิธีที่ 2: Install เป็น Package
+
+```bash
+npm install github:Thanarat00/antd-components#v0.5.0
+```
 
 ## Quick Start
 
 ```tsx
+// ถ้าใช้ CLI (วิธีที่ 1)
 import { 
   CustomInput, 
   CustomSelect, 
@@ -33,7 +44,10 @@ import {
   CustomModal,
   ThaiLocaleProvider,
   useNotification 
-} from 'antd-components';
+} from '@/components';
+
+// หรือถ้าใช้ Package (วิธีที่ 2)
+import { ... } from 'antd-components';
 
 // Wrap your app with ThaiLocaleProvider
 function App() {
@@ -206,6 +220,8 @@ function YourApp() {
 | v0.1.1 | Easier installation |
 | v0.2.0 | All Ant Design components |
 | v0.3.0 | Complete - Layout & Other |
+| v0.4.0 | Update antd to v6.0.1 |
+| v0.5.0 | **CLI Support** - รันคำสั่งเดียวสร้างไฟล์ทั้งหมด |
 
 ## Development
 
