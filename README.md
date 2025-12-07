@@ -16,14 +16,40 @@ Custom Ant Design Component Library ที่พัฒนาด้วย React +
 
 ### วิธีที่ 1: CLI (แนะนำ) - Copy ไฟล์ลงโปรเจกต์
 
+รันคำสั่งเดียว จะสร้างไฟล์ component ทั้งหมดใน `src/components/antd`
+
 ```bash
-# รันคำสั่งเดียว จะสร้างไฟล์ component ทั้งหมดใน src/components/antd
 npx github:Thanarat00/antd-components init
 ```
 
 หลังจากรันแล้วต้องติดตั้ง dependencies:
+
 ```bash
 npm install antd @ant-design/icons dayjs clsx
+```
+
+**โครงสร้างไฟล์หลังรัน CLI:**
+
+```
+src/
+├── components/
+│   ├── antd/           ← Components ทั้งหมด
+│   │   ├── Form/       # CustomInput, CustomSelect, CustomDatePicker...
+│   │   ├── Layout/     # CustomCard, CustomSidebar, CustomDivider...
+│   │   ├── Table/      # CustomTable
+│   │   ├── Feedback/   # CustomModal, CustomAlert, CustomDrawer...
+│   │   ├── General/    # CustomButton, CustomTypography...
+│   │   ├── Navigation/ # CustomMenu, CustomTabs, CustomSteps...
+│   │   ├── DataEntry/  # CustomCheckbox, CustomRadio, CustomSwitch...
+│   │   ├── DataDisplay/# CustomAvatar, CustomBadge, CustomTag...
+│   │   └── Other/      # CustomAffix, CustomConfigProvider...
+│   └── index.ts        ← Import จากไฟล์นี้
+├── utils/
+│   ├── cn.ts
+│   └── dateUtils.ts
+└── hooks/
+    ├── useTableSearch.ts
+    └── useLocalStorage.ts
 ```
 
 ### วิธีที่ 2: Install เป็น Package
@@ -32,56 +58,37 @@ npm install antd @ant-design/icons dayjs clsx
 npm install github:Thanarat00/antd-components#v0.5.0
 ```
 
+---
+
 ## Quick Start
 
 ```tsx
-// ถ้าใช้ CLI (วิธีที่ 1)
+// src/App.tsx
 import { 
   CustomInput, 
-  CustomSelect, 
-  CustomTable, 
+  CustomButton,
   CustomCard,
-  CustomModal,
   ThaiLocaleProvider,
-  useNotification 
-} from '@/components';
+} from './components';  // หรือ '@/components' ถ้าตั้ง alias
 
-// หรือถ้าใช้ Package (วิธีที่ 2)
-import { ... } from 'antd-components';
-
-// Wrap your app with ThaiLocaleProvider
 function App() {
   return (
     <ThaiLocaleProvider>
-      <YourApp />
+      <CustomCard title="ฟอร์มทดสอบ">
+        <CustomInput 
+          label="ชื่อผู้ใช้" 
+          placeholder="กรอกชื่อผู้ใช้"
+          required 
+        />
+        <CustomButton type="primary">
+          บันทึก
+        </CustomButton>
+      </CustomCard>
     </ThaiLocaleProvider>
   );
 }
 
-// Use components
-function YourApp() {
-  const { toast } = useNotification();
-
-  return (
-    <CustomCard title="My Card">
-      <CustomInput 
-        label="ชื่อผู้ใช้" 
-        placeholder="กรอกชื่อผู้ใช้"
-        required 
-      />
-      <CustomSelect
-        label="หมวดหมู่"
-        options={[
-          { label: 'ตัวเลือก 1', value: '1' },
-          { label: 'ตัวเลือก 2', value: '2' },
-        ]}
-      />
-      <button onClick={() => toast.success('บันทึกสำเร็จ!')}>
-        บันทึก
-      </button>
-    </CustomCard>
-  );
-}
+export default App;
 ```
 
 ## Components
