@@ -26,12 +26,12 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "peerDependencies": {
-    "antd": "^5.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "antd": "^5.22.2",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13"
   },

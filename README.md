@@ -15,21 +15,15 @@ Custom Ant Design Component Library ที่พัฒนาด้วย React +
 ## Installation
 
 ```bash
-# From npm (after publishing)
-npm install antd-components
+# From GitHub (แนะนำ)
+npm install github:Thanarat00/antd-components#v0.1.0
 
 # From local path
 npm install ../And-compents
-
-# From GitHub
-npm install github:YOUR_USERNAME/antd-components
 ```
 
-## Peer Dependencies
-
-```bash
-npm install react react-dom antd
-```
+**หมายเหตุ:** Library นี้จะติดตั้ง `antd` และ dependencies อื่นๆ ให้อัตโนมัติ  
+ต้องมี `react` และ `react-dom` ในโปรเจกต์อยู่แล้ว (ซึ่งโปรเจกต์ React ทุกตัวมีอยู่แล้ว)
 
 ## Usage
 
