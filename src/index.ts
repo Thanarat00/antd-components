@@ -43,6 +43,11 @@ export { useTableSearch } from './hooks/useTableSearch';
 export { useLocalStorage } from './hooks/useLocalStorage';
 
 // ============================================
+// OTHER COMPONENTS
+// ============================================
+export * from './components/Other';
+
+// ============================================
 // UTILS
 // ============================================
 export { formatDate, formatThaiDate, getDatePresets, getDateRangePresets } from './utils/dateUtils';
