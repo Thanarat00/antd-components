@@ -48,7 +48,7 @@ function copyDir(src, dest) {
 
 function installDependencies(cwd) {
   const dependencies = ['antd', '@ant-design/icons', 'dayjs', 'clsx'];
-  const devDependencies = ['tailwindcss', 'postcss', 'autoprefixer'];
+  const devDependencies = ['tailwindcss', '@tailwindcss/postcss', 'postcss', 'autoprefixer'];
   
   log('\n📦 Installing dependencies...', 'yellow');
   
@@ -106,7 +106,7 @@ export default {
   // Create postcss.config.js
   const postcssConfig = `export default {
   plugins: {
-    tailwindcss: {},
+    '@tailwindcss/postcss': {},
     autoprefixer: {},
   },
 }
