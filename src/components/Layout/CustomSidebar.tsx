@@ -154,14 +154,14 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
       >
         {isCollapsed ? (
           collapsedLogo || (
-            <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+            <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
               S
             </div>
           )
         ) : (
           logo || (
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                 S
               </div>
               <span className="text-lg font-semibold">SGN Admin</span>
@@ -220,7 +220,7 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
               src={user.avatar}
               className={cn(
                 'flex-shrink-0',
-                !user.avatar && 'bg-primary-500'
+                !user.avatar && 'bg-blue-500'
               )}
             >
               {!user.avatar && user.name.charAt(0).toUpperCase()}
@@ -250,8 +250,8 @@ export const CustomSidebar: React.FC<CustomSidebarProps> = ({
                   className={cn(
                     'flex-shrink-0',
                     theme === 'dark'
-                      ? 'text-gray-400 hover:text-error-400'
-                      : 'text-gray-500 hover:text-error-500'
+                      ? 'text-gray-400 hover:text-red-400'
+                      : 'text-gray-500 hover:text-red-500'
                   )}
                 />
               </Tooltip>

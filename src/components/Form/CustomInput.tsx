@@ -58,11 +58,11 @@ export const CustomInput = forwardRef<InputRef, CustomInputProps>(
             className={cn(
               'block mb-1.5 text-sm font-medium text-gray-700',
               disabled && 'text-gray-400',
-              error && 'text-error-500'
+              error && 'text-red-500'
             )}
           >
             {label}
-            {required && <span className="text-error-500 ml-1">*</span>}
+            {required && <span className="text-red-500 ml-1">*</span>}
           </label>
         )}
 
@@ -74,8 +74,8 @@ export const CustomInput = forwardRef<InputRef, CustomInputProps>(
           disabled={disabled}
           className={cn(
             'sgn-input',
-            success && 'border-success-500 hover:border-success-400 focus:border-success-500',
-            error && 'border-error-500'
+            success && 'border-green-500 hover:border-green-400 focus:border-green-500',
+            error && 'border-red-500'
           )}
           {...props}
         />
@@ -84,7 +84,7 @@ export const CustomInput = forwardRef<InputRef, CustomInputProps>(
           <p
             className={cn(
               'mt-1.5 text-xs',
-              error ? 'text-error-500' : 'text-gray-500'
+              error ? 'text-red-500' : 'text-gray-500'
             )}
           >
             {error || helperText}
@@ -117,11 +117,11 @@ export const CustomPasswordInput = forwardRef<InputRef, Omit<CustomInputProps, '
             className={cn(
               'block mb-1.5 text-sm font-medium text-gray-700',
               disabled && 'text-gray-400',
-              error && 'text-error-500'
+              error && 'text-red-500'
             )}
           >
             {label}
-            {required && <span className="text-error-500 ml-1">*</span>}
+            {required && <span className="text-red-500 ml-1">*</span>}
           </label>
         )}
 
@@ -134,14 +134,14 @@ export const CustomPasswordInput = forwardRef<InputRef, Omit<CustomInputProps, '
           }
           className={cn(
             'sgn-input',
-            success && 'border-success-500',
-            error && 'border-error-500'
+            success && 'border-green-500',
+            error && 'border-red-500'
           )}
           {...inputProps}
         />
 
         {(helperText || error) && (
-          <p className={cn('mt-1.5 text-xs', error ? 'text-error-500' : 'text-gray-500')}>
+          <p className={cn('mt-1.5 text-xs', error ? 'text-red-500' : 'text-gray-500')}>
             {error || helperText}
           </p>
         )}
@@ -163,11 +163,11 @@ export const CustomTextArea = forwardRef<InputRef, CustomInputProps & { rows?: n
             className={cn(
               'block mb-1.5 text-sm font-medium text-gray-700',
               disabled && 'text-gray-400',
-              error && 'text-error-500'
+              error && 'text-red-500'
             )}
           >
             {label}
-            {required && <span className="text-error-500 ml-1">*</span>}
+            {required && <span className="text-red-500 ml-1">*</span>}
           </label>
         )}
 
@@ -180,14 +180,14 @@ export const CustomTextArea = forwardRef<InputRef, CustomInputProps & { rows?: n
           maxLength={maxLength}
           className={cn(
             'sgn-input',
-            success && 'border-success-500',
-            error && 'border-error-500'
+            success && 'border-green-500',
+            error && 'border-red-500'
           )}
           {...inputProps}
         />
 
         {(helperText || error) && (
-          <p className={cn('mt-1.5 text-xs', error ? 'text-error-500' : 'text-gray-500')}>
+          <p className={cn('mt-1.5 text-xs', error ? 'text-red-500' : 'text-gray-500')}>
             {error || helperText}
           </p>
         )}

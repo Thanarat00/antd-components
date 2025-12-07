@@ -98,7 +98,7 @@ export const WithExtra: Story = {
       <div className="flex gap-4 text-sm">
         <div>
           <span className="text-gray-500">ยอดขายวันนี้:</span>
-          <span className="ml-2 font-semibold text-success-500">฿125,000</span>
+          <span className="ml-2 font-semibold text-green-500">฿125,000</span>
         </div>
         <div>
           <span className="text-gray-500">คำสั่งซื้อ:</span>
@@ -106,7 +106,7 @@ export const WithExtra: Story = {
         </div>
         <div>
           <span className="text-gray-500">ผู้ใช้ออนไลน์:</span>
-          <span className="ml-2 font-semibold text-primary-500">234</span>
+          <span className="ml-2 font-semibold text-blue-500">234</span>
         </div>
       </div>
     ),

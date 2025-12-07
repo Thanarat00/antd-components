@@ -67,7 +67,7 @@ export const CustomUpload: React.FC<CustomUploadProps> = ({
   );
 
   const avatarButton = (
-    <div className="w-24 h-24 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-primary-400 transition-colors">
+    <div className="w-24 h-24 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center hover:border-blue-400 transition-colors">
       {uploading ? <LoadingOutlined /> : <PlusOutlined className="text-2xl text-gray-400" />}
     </div>
   );

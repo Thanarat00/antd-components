@@ -79,7 +79,7 @@ export const StatisticCard: React.FC<StatisticCardProps> = ({
           )}
         </div>
         {icon && (
-          <div className="p-3 bg-primary-50 rounded-lg text-primary-500 text-xl">
+          <div className="p-3 bg-blue-50 rounded-lg text-blue-500 text-xl">
             {icon}
           </div>
         )}

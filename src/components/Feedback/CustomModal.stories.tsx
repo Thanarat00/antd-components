@@ -64,7 +64,7 @@ export const DangerConfirm: StoryObj = {
       confirmDanger
       confirmText="ลบ"
     >
-      <p className="text-error-500">การกระทำนี้ไม่สามารถย้อนกลับได้!</p>
+      <p className="text-red-500">การกระทำนี้ไม่สามารถย้อนกลับได้!</p>
     </ModalDemo>
   ),
 };

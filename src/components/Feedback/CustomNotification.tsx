@@ -38,10 +38,10 @@ interface NotificationContextType {
 const NotificationContext = createContext<NotificationContextType | null>(null);
 
 const iconMap: Record<NotificationType, React.ReactNode> = {
-  success: <CheckCircleOutlined className="text-success-500" />,
-  error: <CloseCircleOutlined className="text-error-500" />,
-  info: <InfoCircleOutlined className="text-primary-500" />,
-  warning: <ExclamationCircleOutlined className="text-warning-500" />,
+  success: <CheckCircleOutlined className="text-green-500" />,
+  error: <CloseCircleOutlined className="text-red-500" />,
+  info: <InfoCircleOutlined className="text-blue-500" />,
+  warning: <ExclamationCircleOutlined className="text-yellow-500" />,
 };
 
 interface CustomNotificationProviderProps {

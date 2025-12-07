@@ -51,7 +51,7 @@ export const CustomBreadcrumb: React.FC<CustomBreadcrumbProps> = ({
         <span
           className={cn(
             'inline-flex items-center gap-1',
-            (item.href || item.onClick) && 'cursor-pointer hover:text-primary-500 transition-colors'
+            (item.href || item.onClick) && 'cursor-pointer hover:text-blue-500 transition-colors'
           )}
           onClick={item.onClick}
         >

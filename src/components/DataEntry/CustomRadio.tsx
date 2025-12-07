@@ -92,7 +92,7 @@ export const CustomRadioGroup: React.FC<CustomRadioGroupProps> = ({
           <div className={cn('grid gap-3', direction === 'vertical' ? 'grid-cols-1' : 'grid-cols-2 md:grid-cols-3')}>
             {options.map((opt) => (
               <Radio key={opt.value} value={opt.value} disabled={opt.disabled}
-                className="border rounded-lg p-3 w-full hover:border-primary-400 [&.ant-radio-wrapper-checked]:border-primary-500 [&.ant-radio-wrapper-checked]:bg-primary-50"
+                className="border rounded-lg p-3 w-full hover:border-blue-400 [&.ant-radio-wrapper-checked]:border-blue-500 [&.ant-radio-wrapper-checked]:bg-blue-50"
               >
                 <div className="ml-2">
                   <div className="font-medium">{opt.label}</div>

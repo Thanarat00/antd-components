@@ -86,7 +86,7 @@ export const CustomCard: React.FC<CustomCardProps> = ({
           size="small"
           icon={<ReloadOutlined spin={loading} />}
           onClick={onRefresh}
-          className="text-gray-500 hover:text-primary-500"
+          className="text-gray-500 hover:text-blue-500"
         />
       )}
       {menuItems && menuItems.length > 0 && (
@@ -99,7 +99,7 @@ export const CustomCard: React.FC<CustomCardProps> = ({
             type="text"
             size="small"
             icon={<MoreOutlined />}
-            className="text-gray-500 hover:text-primary-500"
+            className="text-gray-500 hover:text-blue-500"
           />
         </Dropdown>
       )}
@@ -176,7 +176,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
             <div
               className={cn(
                 'flex items-center gap-1 mt-2 text-sm',
-                trend.isPositive ? 'text-success-500' : 'text-error-500'
+                trend.isPositive ? 'text-green-500' : 'text-red-500'
               )}
             >
               <span>{trend.isPositive ? '↑' : '↓'}</span>
@@ -186,7 +186,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
           )}
         </div>
         {icon && (
-          <div className="p-3 bg-primary-50 rounded-lg text-primary-500 text-xl">
+          <div className="p-3 bg-blue-50 rounded-lg text-blue-500 text-xl">
             {icon}
           </div>
         )}

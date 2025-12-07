@@ -111,7 +111,7 @@ export const WithCustomLogo: Story = {
     <InteractiveSidebar
       logo={
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center text-white">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center text-white">
             <ShopOutlined className="text-xl" />
           </div>
           <div>
@@ -121,7 +121,7 @@ export const WithCustomLogo: Story = {
         </div>
       }
       collapsedLogo={
-        <div className="w-10 h-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center text-white">
+        <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center text-white">
           <ShopOutlined className="text-xl" />
         </div>
       }

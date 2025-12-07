@@ -142,11 +142,11 @@ export interface ConfirmModalProps {
 }
 
 const iconMap: Record<ConfirmType, React.ReactNode> = {
-  info: <InfoCircleOutlined className="text-primary-500 text-4xl" />,
-  success: <CheckCircleOutlined className="text-success-500 text-4xl" />,
-  warning: <ExclamationCircleOutlined className="text-warning-500 text-4xl" />,
-  error: <CloseCircleOutlined className="text-error-500 text-4xl" />,
-  confirm: <QuestionCircleOutlined className="text-warning-500 text-4xl" />,
+  info: <InfoCircleOutlined className="text-blue-500 text-4xl" />,
+  success: <CheckCircleOutlined className="text-green-500 text-4xl" />,
+  warning: <ExclamationCircleOutlined className="text-yellow-500 text-4xl" />,
+  error: <CloseCircleOutlined className="text-red-500 text-4xl" />,
+  confirm: <QuestionCircleOutlined className="text-yellow-500 text-4xl" />,
 };
 
 /**

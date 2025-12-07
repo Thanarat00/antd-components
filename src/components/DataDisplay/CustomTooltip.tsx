@@ -85,7 +85,7 @@ export const HelpPopover: React.FC<HelpPopoverProps> = ({
   return (
     <Popover title={title} content={content} trigger="click">
       {children || (
-        <QuestionCircleOutlined className={cn('text-gray-400 hover:text-primary-500 cursor-pointer', className)} />
+        <QuestionCircleOutlined className={cn('text-gray-400 hover:text-blue-500 cursor-pointer', className)} />
       )}
     </Popover>
   );

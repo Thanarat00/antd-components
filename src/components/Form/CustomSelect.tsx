@@ -98,11 +98,11 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
           className={cn(
             'block mb-1.5 text-sm font-medium text-gray-700',
             disabled && 'text-gray-400',
-            error && 'text-error-500'
+            error && 'text-red-500'
           )}
         >
           {label}
-          {required && <span className="text-error-500 ml-1">*</span>}
+          {required && <span className="text-red-500 ml-1">*</span>}
         </label>
       )}
 
@@ -127,7 +127,7 @@ export const CustomSelect: React.FC<CustomSelectProps> = ({
         <p
           className={cn(
             'mt-1.5 text-xs',
-            error ? 'text-error-500' : 'text-gray-500'
+            error ? 'text-red-500' : 'text-gray-500'
           )}
         >
           {error || helperText}

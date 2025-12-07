@@ -100,7 +100,7 @@ export const CustomPageHeader: React.FC<CustomPageHeaderProps> = ({
                 className={cn(
                   'flex items-center gap-1',
                   (item.href || item.onClick) &&
-                    'cursor-pointer hover:text-primary-500 transition-colors'
+                    'cursor-pointer hover:text-blue-500 transition-colors'
                 )}
                 onClick={item.onClick}
               >
@@ -122,7 +122,7 @@ export const CustomPageHeader: React.FC<CustomPageHeaderProps> = ({
               type="text"
               icon={<ArrowLeftOutlined />}
               onClick={onBack}
-              className="flex-shrink-0 mt-0.5 text-gray-500 hover:text-primary-500"
+              className="flex-shrink-0 mt-0.5 text-gray-500 hover:text-blue-500"
             />
           )}
 
