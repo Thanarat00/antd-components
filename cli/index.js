@@ -92,7 +92,7 @@ function copyDir(src, dest) {
 
 function installDependencies(cwd) {
   const dependencies = ['antd', '@ant-design/icons', 'dayjs', 'clsx'];
-  const devDependencies = ['tailwindcss', '@tailwindcss/postcss', 'postcss', 'autoprefixer'];
+  const devDependencies = ['tailwindcss', '@tailwindcss/postcss', 'postcss'];
   
   log('\n📦 Installing dependencies...', 'yellow');
   
@@ -120,54 +120,12 @@ function installDependencies(cwd) {
 }
 
 function setupTailwind(cwd, projectType, baseDir) {
-  log('\n⚙️  Setting up Tailwind CSS...', 'yellow');
-  
-  // Determine content paths based on project type
-  let contentPaths;
-  switch (projectType) {
-    case 'nextjs-app':
-    case 'nextjs-pages':
-      contentPaths = `[
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ]`;
-      break;
-    default:
-      contentPaths = `[
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ]`;
-  }
-  
-  // Create tailwind.config.js
-  const tailwindConfig = `/** @type {import('tailwindcss').Config} */
-export default {
-  content: ${contentPaths},
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-  corePlugins: {
-    preflight: false,
-  },
-}
-`;
+  log('\n⚙️  Setting up Tailwind CSS v4...', 'yellow');
 
-  const tailwindConfigPath = path.join(cwd, 'tailwind.config.js');
-  if (!fs.existsSync(tailwindConfigPath)) {
-    fs.writeFileSync(tailwindConfigPath, tailwindConfig);
-    log('  + tailwind.config.js', 'green');
-  } else {
-    log('  ~ tailwind.config.js (already exists)', 'yellow');
-  }
-
-  // Create postcss.config.js (use .mjs for Next.js compatibility)
+  // Create postcss.config.mjs
   const postcssConfigMjs = `export default {
   plugins: {
-    '@tailwindcss/postcss': {},
-    autoprefixer: {},
+    "@tailwindcss/postcss": {},
   },
 }
 `;
@@ -213,10 +171,8 @@ export default {
     const cssPath = path.join(cwd, cssFile);
     if (fs.existsSync(cssPath)) {
       let cssContent = fs.readFileSync(cssPath, 'utf-8');
-      if (!cssContent.includes('@tailwind')) {
-        const tailwindDirectives = `@tailwind base;
-@tailwind components;
-@tailwind utilities;
+      if (!cssContent.includes('@import "tailwindcss"') && !cssContent.includes('@tailwind')) {
+        const tailwindDirectives = `@import "tailwindcss";
 
 `;
         fs.writeFileSync(cssPath, tailwindDirectives + cssContent);
@@ -259,9 +215,7 @@ export default {
         newCssPath = path.join(srcStylesDir, 'index.css');
     }
     
-    const tailwindCss = `@tailwind base;
-@tailwind components;
-@tailwind utilities;
+    const tailwindCss = `@import "tailwindcss";
 `;
     fs.writeFileSync(newCssPath, tailwindCss);
     log(`  + ${path.relative(cwd, newCssPath)}`, 'green');
