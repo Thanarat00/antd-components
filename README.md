@@ -2,6 +2,8 @@
 
 Custom Ant Design Component Library สำหรับ React + TypeScript
 
+**รองรับ:** Vite, Next.js (App Router & Pages Router)
+
 ## Installation
 
 ```bash
@@ -9,30 +11,27 @@ npx github:Thanarat00/antd-components init
 ```
 
 **เพียงคำสั่งเดียว!** ระบบจะ:
+- ✅ ตรวจจับ project type อัตโนมัติ
 - ✅ สร้างไฟล์ components ทั้งหมด
-- ✅ ติดตั้ง dependencies อัตโนมัติ
+- ✅ ติดตั้ง dependencies
+- ✅ Setup Tailwind CSS
 
 ## Usage
 
-```tsx
-import { 
-  CustomInput, 
-  CustomButton,
-  CustomCard,
-  CustomTable,
-  ThaiLocaleProvider,
-} from './components';
+### Vite
 
-function App() {
-  return (
-    <ThaiLocaleProvider>
-      <CustomCard title="ฟอร์มทดสอบ">
-        <CustomInput label="ชื่อ" placeholder="กรอกชื่อ" required />
-        <CustomButton type="primary">บันทึก</CustomButton>
-      </CustomCard>
-    </ThaiLocaleProvider>
-  );
-}
+```tsx
+// main.tsx
+import './styles/index.css';
+import { CustomInput, CustomCard } from './components';
+```
+
+### Next.js
+
+```tsx
+// app/layout.tsx หรือ pages/_app.tsx
+import '@/styles/index.css';
+import { CustomInput, CustomCard } from '@/components';
 ```
 
 ## Components
