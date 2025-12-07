@@ -2,30 +2,27 @@
 
 Custom Ant Design Component Library ที่พัฒนาด้วย React + TypeScript + Tailwind CSS สำหรับใช้งานในโปรเจกต์ต่างๆ
 
-**Version:** 0.1.0
+**Version:** 0.3.0
 
 ## Features
 
-- 🎨 **Custom Components** - Form, Layout, Table, Feedback components ที่ customize แล้ว
+- 🎨 **Custom Components** - ครบทุก Component ตาม Ant Design
 - 🇹🇭 **Thai Support** - รองรับภาษาไทยและ Buddhist Era
 - 💅 **Tailwind CSS** - Styling ด้วย Tailwind CSS ที่ทำงานร่วมกับ Antd
 - 📦 **Tree-shakable** - Import เฉพาะ component ที่ใช้
-- 📚 **Storybook** - Documentation และ Playground
+- 🚀 **Easy Install** - ติดตั้งครั้งเดียว พร้อมใช้งาน
 
 ## Installation
 
 ```bash
 # From GitHub (แนะนำ)
-npm install github:Thanarat00/antd-components#v0.1.0
-
-# From local path
-npm install ../And-compents
+npm install github:Thanarat00/antd-components#v0.3.0
 ```
 
 **หมายเหตุ:** Library นี้จะติดตั้ง `antd` และ dependencies อื่นๆ ให้อัตโนมัติ  
 ต้องมี `react` และ `react-dom` ในโปรเจกต์อยู่แล้ว (ซึ่งโปรเจกต์ React ทุกตัวมีอยู่แล้ว)
 
-## Usage
+## Quick Start
 
 ```tsx
 import { 
@@ -34,35 +31,40 @@ import {
   CustomTable, 
   CustomCard,
   CustomModal,
-  CustomNotification 
+  ThaiLocaleProvider,
+  useNotification 
 } from 'antd-components';
-import 'antd-components/styles';
 
-// Wrap your app with CustomNotification provider
+// Wrap your app with ThaiLocaleProvider
 function App() {
   return (
-    <CustomNotification>
+    <ThaiLocaleProvider>
       <YourApp />
-    </CustomNotification>
+    </ThaiLocaleProvider>
   );
 }
 
 // Use components
 function YourApp() {
+  const { toast } = useNotification();
+
   return (
     <CustomCard title="My Card">
       <CustomInput 
-        label="Username" 
-        placeholder="Enter username"
+        label="ชื่อผู้ใช้" 
+        placeholder="กรอกชื่อผู้ใช้"
         required 
       />
       <CustomSelect
-        label="Category"
+        label="หมวดหมู่"
         options={[
-          { label: 'Option 1', value: '1' },
-          { label: 'Option 2', value: '2' },
+          { label: 'ตัวเลือก 1', value: '1' },
+          { label: 'ตัวเลือก 2', value: '2' },
         ]}
       />
+      <button onClick={() => toast.success('บันทึกสำเร็จ!')}>
+        บันทึก
+      </button>
     </CustomCard>
   );
 }
@@ -70,43 +72,140 @@ function YourApp() {
 
 ## Components
 
-### Form Components
-- `CustomInput` - Enhanced input with label, validation, icons
-- `CustomSearchInput` - Search input with icon
-- `CustomPasswordInput` - Password input with toggle
-- `CustomTextArea` - Textarea with character count
-- `CustomSelect` - Select with search, multi-select, custom render
-- `CustomStatusSelect` - Select with status indicators
-- `CustomDatePicker` - DatePicker with Thai locale and presets
-- `CustomRangePicker` - Date range picker
+### General
+| Component | Description |
+|-----------|-------------|
+| `CustomButton` | Button พร้อม variants และ loading state |
+| `CustomFloatButton` | Float Action Button |
+| `BackToTopButton` | ปุ่มกลับด้านบน |
+| `CustomTitle` | Typography Title |
+| `CustomText` | Typography Text |
+| `CustomParagraph` | Typography Paragraph |
 
-### Layout Components
-- `CustomCard` - Card with loading, actions, menu
-- `StatsCard` - Statistics card with trend
-- `CustomPageHeader` - Page header with breadcrumbs
-- `CompactPageHeader` - Compact header
-- `CustomSidebar` - Collapsible sidebar navigation
+### Layout
+| Component | Description |
+|-----------|-------------|
+| `CustomCard` | Card พร้อม loading, actions, menu |
+| `StatsCard` | Card แสดงสถิติพร้อม trend |
+| `CustomPageHeader` | Page header พร้อม breadcrumbs |
+| `CustomSidebar` | Collapsible sidebar navigation |
+| `CustomDivider` | Divider พร้อม variants |
+| `CustomFlex` / `Row` / `Column` | Flex layout |
+| `SimpleGrid` / `AutoGrid` | Grid layout |
+| `CustomSpace` | Space layout |
+| `CustomSplitter` | Resizable split panels |
 
-### Table Components
-- `CustomTable` - Table with pagination, sorting, filtering, search, export
+### Navigation
+| Component | Description |
+|-----------|-------------|
+| `CustomBreadcrumb` | Breadcrumb พร้อม home icon |
+| `CustomMenu` | Menu navigation |
+| `CustomDropdown` | Dropdown menu |
+| `ActionDropdown` | Dropdown 3 dots menu |
+| `CustomPagination` | Pagination พร้อมภาษาไทย |
+| `CustomSteps` | Steps/Wizard |
+| `CustomTabs` | Tabs พร้อม badges |
 
-### Feedback Components
-- `CustomModal` - Modal with simplified props
-- `ConfirmModal` - Confirmation dialog
-- `DeleteConfirmModal` - Delete confirmation
-- `ResultModal` - Result display
-- `CustomNotification` - Notification provider
-- `useNotification` - Hook for notifications
+### Data Entry
+| Component | Description |
+|-----------|-------------|
+| `CustomInput` | Input พร้อม label, validation |
+| `CustomPasswordInput` | Password input |
+| `CustomSearchInput` | Search input |
+| `CustomTextArea` | Textarea พร้อม character count |
+| `CustomSelect` | Select พร้อม search |
+| `CustomDatePicker` | DatePicker ภาษาไทย + presets |
+| `CustomRangePicker` | Date range picker |
+| `CustomCheckbox` | Checkbox |
+| `CustomRadio` | Radio พร้อม card variant |
+| `CustomSwitch` | Toggle switch |
+| `CustomSlider` | Slider พร้อม input |
+| `CustomRate` | Rating stars |
+| `CustomUpload` | File upload |
+| `CustomInputNumber` | Number input |
+| `CurrencyInput` | Currency input (฿) |
+| `CustomForm` | Form wrapper |
+
+### Data Display
+| Component | Description |
+|-----------|-------------|
+| `CustomAvatar` | Avatar พร้อม online status |
+| `UserAvatar` | Avatar พร้อมชื่อ |
+| `CustomBadge` | Badge |
+| `StatusBadge` | Status indicator |
+| `CustomTag` | Tag |
+| `StatusTag` | Status tag |
+| `CustomCollapse` | Accordion |
+| `FAQAccordion` | FAQ layout |
+| `CustomDescriptions` | Key-value display |
+| `CustomStatistic` | Statistic พร้อม trend |
+| `StatisticCard` | Statistic card |
+| `CustomEmpty` | Empty state |
+| `CustomTooltip` | Tooltip |
+| `InfoTooltip` | Info icon tooltip |
+
+### Table
+| Component | Description |
+|-----------|-------------|
+| `CustomTable` | Table พร้อม pagination, sorting, filtering, search, export |
+| `createActionColumn` | Helper สร้าง action column |
+| `createStatusColumn` | Helper สร้าง status column |
+
+### Feedback
+| Component | Description |
+|-----------|-------------|
+| `CustomModal` | Modal |
+| `ConfirmModal` | Confirmation dialog |
+| `DeleteConfirmModal` | Delete confirmation |
+| `ResultModal` | Result display |
+| `CustomNotification` | Notification provider |
+| `useNotification` | Notification hook |
+| `CustomAlert` | Alert message |
+| `CustomDrawer` | Drawer panel |
+| `FilterDrawer` | Filter drawer |
+| `CustomProgress` | Progress bar |
+| `CircleProgress` | Circle progress |
+| `CustomSkeleton` | Loading skeleton |
+| `CardSkeleton` / `ListSkeleton` / `TableSkeleton` | Preset skeletons |
+| `CustomSpin` | Loading spinner |
+| `PageLoading` | Full page loading |
+| `CustomPopconfirm` | Popconfirm |
+| `DeleteConfirmButton` | Delete button with confirm |
+
+### Other
+| Component | Description |
+|-----------|-------------|
+| `CustomAffix` | Sticky element |
+| `StickyHeader` / `StickyFooter` | Sticky layouts |
+| `CustomConfigProvider` | Config provider |
+| `ThaiLocaleProvider` | Thai locale wrapper |
+| `ThemeProvider` | Theme wrapper |
+| `createTheme` | Theme generator |
 
 ### Hooks
-- `useTableSearch` - Table search/filter hook
-- `useLocalStorage` - LocalStorage state hook
-- `useNotification` - Notification hook
+| Hook | Description |
+|------|-------------|
+| `useNotification` | Notification functions |
+| `useTableSearch` | Table search/filter |
+| `useLocalStorage` | LocalStorage state |
+| `useForm` | Form instance |
 
 ### Utilities
-- `formatDate` - Format date
-- `formatThaiDate` - Format Thai Buddhist Era date
-- `cn` - Classname utility
+| Utility | Description |
+|---------|-------------|
+| `formatDate` | Format date |
+| `formatThaiDate` | Format Thai Buddhist Era |
+| `cn` | Classname utility |
+| `presetThemes` | Preset color themes |
+
+## Versions
+
+| Version | Features |
+|---------|----------|
+| v0.1.0 | Initial - Form, Layout, Table, Feedback |
+| v0.1.1 | Easier installation |
+| v0.2.0 | All Ant Design components |
+| v0.3.0 | Complete - Layout & Other |
 
 ## Development
 
@@ -123,8 +222,6 @@ npm run build
 
 ## Build Output
 
-After running `npm run build`, the library will be built to `dist/` folder:
-
 ```
 dist/
 ├── antd-components.js       # ES Module
@@ -136,4 +233,3 @@ dist/
 ## License
 
 MIT
-
