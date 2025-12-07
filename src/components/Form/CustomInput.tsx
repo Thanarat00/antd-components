@@ -62,7 +62,7 @@ export const CustomInput = forwardRef<InputRef, CustomInputProps>(
             )}
           >
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span style={{ color: '#ef4444', marginLeft: '4px' }}>*</span>}
           </label>
         )}
 
@@ -121,7 +121,7 @@ export const CustomPasswordInput = forwardRef<InputRef, Omit<CustomInputProps, '
             )}
           >
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span style={{ color: '#ef4444', marginLeft: '4px' }}>*</span>}
           </label>
         )}
 
@@ -167,7 +167,7 @@ export const CustomTextArea = forwardRef<InputRef, CustomInputProps & { rows?: n
             )}
           >
             {label}
-            {required && <span className="text-red-500 ml-1">*</span>}
+            {required && <span style={{ color: '#ef4444', marginLeft: '4px' }}>*</span>}
           </label>
         )}
 
