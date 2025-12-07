@@ -1,13 +1,13 @@
 {
   "name": "antd-components",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Custom Ant Design Component Library with Tailwind CSS",
   "type": "module",
   "main": "./dist/antd-components.umd.cjs",
   "module": "./dist/antd-components.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "antd-components": "./cli/index.js"
+    "antd-components": "./cli/index.cjs"
   },
   "exports": {
     ".": {
