@@ -212,6 +212,73 @@ function installDependencies(cwd, options = {}) {
   }
 }
 
+function setupJSXConfig(cwd) {
+  // Check if tsconfig.json exists (TypeScript project)
+  const tsconfigPath = path.join(cwd, 'tsconfig.json');
+  if (fs.existsSync(tsconfigPath)) {
+    // TypeScript project already has JSX support
+    return;
+  }
+  
+  // Check if jsconfig.json already exists
+  const jsconfigPath = path.join(cwd, 'jsconfig.json');
+  if (fs.existsSync(jsconfigPath)) {
+    // Read existing jsconfig.json
+    try {
+      const existingConfig = JSON.parse(fs.readFileSync(jsconfigPath, 'utf-8'));
+      // Check if JSX is already enabled
+      if (existingConfig.compilerOptions && existingConfig.compilerOptions.jsx) {
+        log('  ~ jsconfig.json (JSX already configured)', 'yellow');
+        return;
+      }
+      // Add JSX configuration
+      if (!existingConfig.compilerOptions) {
+        existingConfig.compilerOptions = {};
+      }
+      existingConfig.compilerOptions.jsx = 'react-jsx';
+      fs.writeFileSync(jsconfigPath, JSON.stringify(existingConfig, null, 2));
+      log('  + Updated jsconfig.json (added JSX support)', 'green');
+      return;
+    } catch (e) {
+      log('  ⚠️  Could not parse existing jsconfig.json', 'yellow');
+    }
+  }
+  
+  // Create new jsconfig.json
+  const jsconfig = {
+    compilerOptions: {
+      jsx: 'react-jsx',
+      module: 'ESNext',
+      moduleResolution: 'bundler',
+      target: 'ES2020',
+      allowJs: true,
+      checkJs: false,
+      esModuleInterop: true,
+      allowSyntheticDefaultImports: true,
+      strict: false,
+      skipLibCheck: true,
+      resolveJsonModule: true,
+      isolatedModules: true,
+      baseUrl: '.',
+      paths: {
+        '@/*': ['./src/*']
+      }
+    },
+    include: [
+      'src/**/*',
+      'components/**/*'
+    ],
+    exclude: [
+      'node_modules',
+      'dist',
+      'build'
+    ]
+  };
+  
+  fs.writeFileSync(jsconfigPath, JSON.stringify(jsconfig, null, 2));
+  log('  + Created jsconfig.json (JSX enabled)', 'green');
+}
+
 function setupTailwind(cwd, projectType, baseDir, lang = 'ts') {
   log('\n⚙️  Setting up Tailwind CSS v4...', 'yellow');
 
@@ -856,6 +923,11 @@ export * from './Other';
   log(`  + index${indexExt} (components)`, 'green');
 
   log('\n✅ Files created!', 'green');
+  
+  // Setup JSX configuration for JavaScript projects
+  if (options.lang === 'js') {
+    setupJSXConfig(cwd);
+  }
   
   // Auto install dependencies
   installDependencies(cwd, options);
