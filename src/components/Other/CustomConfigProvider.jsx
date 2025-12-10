@@ -9,7 +9,9 @@ import enUS from 'antd/locale/en_US';
 
 
 const localeMap = {
-  th};
+  th: thTH,
+  en: enUS,
+};
 
 /**
  * CustomConfigProvider - Enhanced ConfigProvider with Thai locale
@@ -24,8 +26,9 @@ export const CustomConfigProvider = ({
 }) => {
   const algorithm = themeMode === 'dark'
     ? [theme.darkAlgorithm]
+    : compact
     ? [theme.compactAlgorithm]
-    ;
+    : undefined;
 
   return (
     <ConfigProvider
@@ -33,7 +36,9 @@ export const CustomConfigProvider = ({
       theme={{
         algorithm,
         token: {
-          colorPrimary},
+          colorPrimary: primaryColor,
+          borderRadius: borderRadius,
+        },
       }}
     >
       <App>
@@ -50,15 +55,16 @@ CustomConfigProvider.displayName = 'CustomConfigProvider';
 
 export const ThemeProvider = ({
   children,
-  theme= 'light',
+  theme = 'light',
   primaryColor = '#1677ff',
 }) => {
   return (
     <ConfigProvider
       theme={{
-        algorithm=== 'dark' ? theme.darkAlgorithm : undefined,
+        algorithm: theme === 'dark' ? theme.darkAlgorithm : undefined,
         token: {
-          colorPrimary},
+          colorPrimary: primaryColor,
+        },
       }}
     >
       {children}
@@ -100,22 +106,15 @@ export const presetThemes = {
 };
 
 // Custom theme generator
-export function createTheme(options: {
-  primaryColor?;
-  successColor?;
-  warningColor?;
-  errorColor?;
-  borderRadius?;
-  fontSize?;
-})'theme'] {
+export function createTheme(options = {}) {
   return {
     token: {
-      colorPrimary.primaryColor || presetThemes.blue,
-      colorSuccess.successColor || '#52c41a',
-      colorWarning.warningColor || '#faad14',
-      colorError.errorColor || '#ff4d4f',
-      borderRadius.borderRadius ?? 6,
-      fontSize.fontSize ?? 14,
+      colorPrimary: options.primaryColor || presetThemes.blue,
+      colorSuccess: options.successColor || '#52c41a',
+      colorWarning: options.warningColor || '#faad14',
+      colorError: options.errorColor || '#ff4d4f',
+      borderRadius: options.borderRadius ?? 6,
+      fontSize: options.fontSize ?? 14,
     },
   };
 }

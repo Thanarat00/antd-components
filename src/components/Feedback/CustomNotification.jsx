@@ -8,15 +8,9 @@ import {
 } from '@ant-design/icons';
 
 
-
-
-
-;
-}
-
 const NotificationContext = createContext(null);
 
-const iconMap.ReactNode> = {
+const iconMap = {
   success: <CheckCircleOutlined className="text-green-500" />,
   error: <CloseCircleOutlined className="text-red-500" />,
   info: <InfoCircleOutlined className="text-blue-500" />,
@@ -42,13 +36,14 @@ export const CustomNotification = ({
   const [messageApi, messageHolder] = message.useMessage();
 
   const notify = useCallback(
-    (type) => {
+    (type, config) => {
       notificationApi[type]({
-        message.message,
-        description.description,
-        duration.duration ?? 4.5,
-        placement.placement ?? 'topRight',
-        icon.onClick,
+        message: config.message,
+        description: config.description,
+        duration: config.duration ?? 4.5,
+        placement: config.placement ?? 'topRight',
+        icon: iconMap[type],
+        onClick: config.onClick,
         className: 'sgn-notification',
       });
     },
@@ -76,24 +71,24 @@ export const CustomNotification = ({
   );
 
   const toast = {
-    success: (content= 3) => {
+    success: (content, duration = 3) => {
       messageApi.success(content, duration);
     },
-    error: (content= 3) => {
+    error: (content, duration = 3) => {
       messageApi.error(content, duration);
     },
-    info: (content= 3) => {
+    info: (content, duration = 3) => {
       messageApi.info(content, duration);
     },
-    warning: (content= 3) => {
+    warning: (content, duration = 3) => {
       messageApi.warning(content, duration);
     },
-    loading: (content= 0) => {
+    loading: (content, duration = 0) => {
       messageApi.loading(content, duration);
     },
   };
 
-  const contextValue= {
+  const contextValue = {
     notify,
     success,
     error,
@@ -129,7 +124,7 @@ CustomNotification.displayName = 'CustomNotification';
  * toast.success('บันทึกสำเร็จ');
  * ```
  */
-export function useNotification(){
+export function useNotification() {
   const context = useContext(NotificationContext);
 
   if (!context) {
@@ -143,48 +138,48 @@ export function useNotification(){
 export const showNotification = {
   success: (config) => {
     notification.success({
-      message.message,
-      description.description,
-      duration.duration ?? 4.5,
-      placement.placement ?? 'topRight',
-      icon.success,
+      message: config.message,
+      description: config.description,
+      duration: config.duration ?? 4.5,
+      placement: config.placement ?? 'topRight',
+      icon: iconMap.success,
     });
   },
   error: (config) => {
     notification.error({
-      message.message,
-      description.description,
-      duration.duration ?? 4.5,
-      placement.placement ?? 'topRight',
-      icon.error,
+      message: config.message,
+      description: config.description,
+      duration: config.duration ?? 4.5,
+      placement: config.placement ?? 'topRight',
+      icon: iconMap.error,
     });
   },
   info: (config) => {
     notification.info({
-      message.message,
-      description.description,
-      duration.duration ?? 4.5,
-      placement.placement ?? 'topRight',
-      icon.info,
+      message: config.message,
+      description: config.description,
+      duration: config.duration ?? 4.5,
+      placement: config.placement ?? 'topRight',
+      icon: iconMap.info,
     });
   },
   warning: (config) => {
     notification.warning({
-      message.message,
-      description.description,
-      duration.duration ?? 4.5,
-      placement.placement ?? 'topRight',
-      icon.warning,
+      message: config.message,
+      description: config.description,
+      duration: config.duration ?? 4.5,
+      placement: config.placement ?? 'topRight',
+      icon: iconMap.warning,
     });
   },
 };
 
 // Static toast methods (for use outside React components)
 export const showToast = {
-  success: (content= 3) => message.success(content, duration),
-  error: (content= 3) => message.error(content, duration),
-  info: (content= 3) => message.info(content, duration),
-  warning: (content= 3) => message.warning(content, duration),
-  loading: (content= 0) => message.loading(content, duration),
+  success: (content, duration = 3) => message.success(content, duration),
+  error: (content, duration = 3) => message.error(content, duration),
+  info: (content, duration = 3) => message.info(content, duration),
+  warning: (content, duration = 3) => message.warning(content, duration),
+  loading: (content, duration = 0) => message.loading(content, duration),
 };
 

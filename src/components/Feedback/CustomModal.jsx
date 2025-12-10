@@ -70,14 +70,14 @@ export const CustomModal = ({
         </Button>
       )}
     </Space>
-  ) ;
+  ) : null;
 
   return (
     <Modal
       title={title}
       open={open}
       onCancel={onClose}
-      footer={footer !== undefined ? footer }
+      footer={footer !== undefined ? footer : defaultFooter}
       width={sizeMap[size]}
       centered={centered}
       maskClosable={maskClosable && !confirmLoading}
@@ -94,10 +94,7 @@ CustomModal.displayName = 'CustomModal';
 
 // Confirm Modal types
 
-
-
-
-const iconMap.ReactNode> = {
+const iconMap = {
   info: <InfoCircleOutlined className="text-blue-500 text-4xl" />,
   success: <CheckCircleOutlined className="text-green-500 text-4xl" />,
   warning: <ExclamationCircleOutlined className="text-yellow-500 text-4xl" />,

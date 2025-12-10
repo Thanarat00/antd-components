@@ -70,7 +70,12 @@ export const FormActions = ({
             {cancelText}
           </Button>
         )}
-        
+        <Button
+          type="primary"
+          htmlType="submit"
+          loading={loading}
+          disabled={disabled}
+        >
           {submitText}
         </Button>
       </div>

@@ -62,7 +62,7 @@ export const CustomCard = ({
       {menuItems && menuItems.length > 0 && (
         <Dropdown
           menu={{ items}}
-          trigger={}
+          trigger={['click']}
           placement="bottomRight"
         >
           <Button
@@ -84,7 +84,7 @@ export const CustomCard = ({
         <span className="text-xs font-normal text-gray-500 mt-0.5">{subtitle}</span>
       )}
     </div>
-  ) ;
+  ) : undefined;
 
   return (
     <Card
@@ -116,10 +116,7 @@ export const CustomCard = ({
 CustomCard.displayName = 'CustomCard';
 
 // Stats Card variant
-;
-  className?;
-  loading?;
-}
+
 
 export const StatsCard = ({
   title,

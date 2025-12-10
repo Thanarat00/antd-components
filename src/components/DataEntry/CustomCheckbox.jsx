@@ -32,14 +32,7 @@ export const CustomCheckbox = ({
 
 CustomCheckbox.displayName = 'CustomCheckbox';
 
-// Checkbox Group
->;
-  direction?: 'horizontal' | 'vertical';
-  label?;
-  error?;
-  required?;
-  className?;
-}
+
 
 export const CustomCheckboxGroup = ({
   options,
