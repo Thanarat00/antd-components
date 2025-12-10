@@ -30,7 +30,7 @@ export const InfoTooltip = ({
   iconType = 'info',
   placement = 'top',
   className }) => {
-  const Icon = iconType === 'info' ? InfoCircleOutlined ;
+  const Icon = iconType === 'info' ? InfoCircleOutlined : QuestionCircleOutlined;
 
   return (
     <Tooltip title={content} placement={placement}>

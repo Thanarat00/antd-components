@@ -7,11 +7,13 @@ import { cn } from '../../utils/cn';
 
 const variantConfig = {
   default: {
-    image.PRESENTED_IMAGE_DEFAULT,
-    description: 'ไม่มีข้อมูล' },
+    image: Empty.PRESENTED_IMAGE_DEFAULT,
+    description: 'ไม่มีข้อมูล',
+  },
   simple: {
-    image.PRESENTED_IMAGE_SIMPLE,
-    description: 'ไม่มีข้อมูล' },
+    image: Empty.PRESENTED_IMAGE_SIMPLE,
+    description: 'ไม่มีข้อมูล',
+  },
   search: {
     icon: <SearchOutlined className="text-4xl text-gray-300" />,
     description: 'ไม่พบผลการค้นหา' },
@@ -41,8 +43,8 @@ export const CustomEmpty = ({
 
   return (
     <Empty
-      image={hasIcon ? config.icon .image}
-      imageStyle={hasIcon ? { height: 60 } }
+      image={hasIcon ? config.icon : undefined}
+      imageStyle={hasIcon ? { height: 60 } : undefined}
       description={
         <div>
           {title && <p className="font-medium text-gray-700 mb-1">{title}</p>}

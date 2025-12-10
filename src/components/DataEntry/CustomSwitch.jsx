@@ -47,7 +47,7 @@ export const ConfirmSwitch = ({
 }) => {
   const [loading, setLoading] = React.useState(false);
 
-  const handleChange = async (checked.MouseEvent<HTMLButtonElement>) => {
+  const handleChange = async (checked, event) => {
     if (onConfirm) {
       setLoading(true);
       try {

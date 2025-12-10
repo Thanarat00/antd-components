@@ -7,20 +7,6 @@ import {
 import { cn } from '../../utils/cn';
 
 
-
-;
-  /** On logout click */
-  onLogout?: () => void;
-  /** Custom class name */
-  className?;
-  /** Sidebar width */
-  width?;
-  /** Collapsed width */
-  collapsedWidth?;
-  /** Theme */
-  theme?: 'dark' | 'light';
-}
-
 /**
  * CustomSidebar - Collapsible sidebar navigation
  *
@@ -40,13 +26,16 @@ export const CustomSidebar = ({
   logo,
   collapsedLogo,
   defaultCollapsed = false,
-  collapsed= true,
+  collapsed: controlledCollapsed = undefined,
+  showCollapseToggle = true,
+  onCollapse,
   user,
   onLogout,
   className,
   width = 256,
   collapsedWidth = 80,
-  theme = 'dark' }) => {
+  theme = 'dark',
+}) => {
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
   const isCollapsed = controlledCollapsed ?? internalCollapsed;
 
@@ -57,21 +46,22 @@ export const CustomSidebar = ({
   }, [isCollapsed, onCollapse]);
 
   // Transform items to Ant Design Menu format
-  const menuItems'items'] = items.map((item) => ({
-    key.key,
-    icon.icon,
-    label.label,
-    disabled.disabled,
-    danger.danger,
-    children.children?.map((child) => ({
-      key.key,
-      icon.icon,
-      label.label,
-      disabled.disabled,
-      danger.danger })),
+  const menuItems = items.map((item) => ({
+    key: item.key,
+    icon: item.icon,
+    label: item.label,
+    disabled: item.disabled,
+    danger: item.danger,
+    children: item.children?.map((child) => ({
+      key: child.key,
+      icon: child.icon,
+      label: child.label,
+      disabled: child.disabled,
+      danger: child.danger,
+    })),
   }));
 
-  const handleMenuClick'onClick'] = ({ key }) => {
+  const handleMenuClick = ({ key }) => {
     // Find the clicked item
     const findItem = (items)=> {
       for (const item of items) {
@@ -100,7 +90,7 @@ export const CustomSidebar = ({
         themeStyles[theme],
         className
       )}
-      style={{ width? collapsedWidth }}
+      style={{ width: isCollapsed ? collapsedWidth : width }}
     >
       {/* Logo */}
       <div
@@ -134,7 +124,7 @@ export const CustomSidebar = ({
           theme={theme}
           inlineCollapsed={isCollapsed}
           selectedKeys={selectedKey ? [selectedKey] : []}
-          openKeys={isCollapsed ? [] }
+          openKeys={isCollapsed ? [] : openKeys}
           onOpenChange={onOpenChange}
           onClick={handleMenuClick}
           items={menuItems}

@@ -20,13 +20,14 @@ export const CustomSteps = ({
   ...props
 }) => {
   const stepsItems = items.map((item, index) => ({
-    title.title,
-    description.description,
-    icon.icon,
-    status.status,
-    disabled.disabled }));
+    title: item.title,
+    description: item.description,
+    icon: item.icon,
+    status: item.status,
+    disabled: item.disabled,
+  }));
 
-  const handleChange = clickable ? onChange ;
+  const handleChange = clickable ? onChange : undefined;
 
   if (variant === 'navigation') {
     return (
@@ -97,7 +98,7 @@ ProgressSteps.displayName = 'ProgressSteps';
 export const StatusSteps = ({
   steps,
   className }) => {
-  const getStatus = (status'status'])'items'][0] => {
+  const getStatus = (status) => {
     switch (status) {
       case 'completed':
         return 'finish';
@@ -110,7 +111,7 @@ export const StatusSteps = ({
     }
   };
 
-  const getIcon = (status'status']) => {
+  const getIcon = (status) => {
     switch (status) {
       case 'completed':
         return <CheckCircleOutlined />;
@@ -128,17 +129,17 @@ export const StatusSteps = ({
   return (
     <Steps
       direction="vertical"
-      current={currentIndex >= 0 ? currentIndex .length}
+      current={currentIndex >= 0 ? currentIndex : undefined}
       items={steps.map((step) => ({
-        title.title,
+        title: step.title,
         description: (
           <div>
             {step.description && <div>{step.description}</div>}
             {step.time && <div className="text-xs text-gray-400 mt-1">{step.time}</div>}
           </div>
         ),
-        status(step.status),
-        icon(step.status),
+        status: getStatus(step.status),
+        icon: getIcon(step.status),
       }))}
       className={className}
     />

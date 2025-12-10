@@ -20,13 +20,14 @@ export const CustomBreadcrumb = ({
   ...props
 }) => {
   const breadcrumbItems = React.useMemo(() => {
-    const result= [];
+    const result = [];
 
     if (showHome) {
       result.push({
         title: 'หน้าแรก',
         icon: <HomeOutlined />,
-        href? undefined });
+        href: undefined,
+      });
     }
 
     result.push(...items);
@@ -44,7 +45,7 @@ export const CustomBreadcrumb = ({
           <span>{item.title}</span>
         </span>
       ),
-      href.href,
+      href: item.href,
     }));
   }, [items, showHome, homeHref, onHomeClick]);
 

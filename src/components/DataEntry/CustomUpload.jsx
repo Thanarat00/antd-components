@@ -38,7 +38,7 @@ export const CustomUpload = ({
     return true;
   };
 
-  const handleChange'onChange'] = (info) => {
+  const handleChange = (info) => {
     setUploading(info.file.status === 'uploading');
     onChange?.(info.fileList);
   };
@@ -86,7 +86,14 @@ export const CustomUpload = ({
 
     if (variant === 'picture') {
       return (
-        
+        <Upload
+          accept={accept}
+          maxCount={maxCount}
+          fileList={fileList}
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          {...props}
+        >
           {(!maxCount || (fileList?.length ?? 0) < maxCount) && pictureButton}
         </Upload>
       );
@@ -94,7 +101,14 @@ export const CustomUpload = ({
 
     if (variant === 'avatar') {
       return (
-        
+        <Upload
+          accept={accept}
+          maxCount={maxCount}
+          fileList={fileList}
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          {...props}
+        >
           {fileList && fileList.length > 0 ? (
             <img
               src={fileList[0].url || fileList[0].thumbUrl}

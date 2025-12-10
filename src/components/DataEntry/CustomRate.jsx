@@ -41,7 +41,7 @@ export const CustomRate = ({
       )}
       <div className="flex items-center gap-2">
         <Rate
-          character={variant !== 'star' ? iconMap[variant] }
+          character={variant !== 'star' ? iconMap[variant] : undefined}
           value={value}
           className={sizeClass}
           {...props}
@@ -72,7 +72,7 @@ export const RatingDisplay = ({
         allowHalf
         value={value}
         count={total}
-        className={size === 'small' ? 'text-sm' === 'large' ? 'text-xl' : 'text-base'}
+        className={size === 'small' ? 'text-sm' : size === 'large' ? 'text-xl' : 'text-base'}
       />
       <span className="text-sm text-gray-600">
         {value.toFixed(1)}

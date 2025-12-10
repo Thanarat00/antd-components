@@ -1,6 +1,6 @@
 import React from 'react';
 import { DatePicker } from 'antd';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import 'dayjs/locale/th';
 import buddhistEra from 'dayjs/plugin/buddhistEra';
 import { cn } from '../../utils/cn';
@@ -20,7 +20,7 @@ const thaiLocale = {
   lang: {
     locale: 'th_TH',
     placeholder: 'เลือกวันที่',
-    rangePlaceholder: ['วันเริ่มต้น', 'วันสิ้นสุด'] as [string, string],
+    rangePlaceholder: ['วันเริ่มต้น', 'วันสิ้นสุด'],
     today: 'วันนี้',
     now: 'ตอนนี้',
     backToToday: 'กลับไปวันนี้',
@@ -87,7 +87,7 @@ export const CustomDatePicker = ({
   ...props
 }) => {
   const dateFormat = format || (useBuddhistEra ? 'DD/MM/BBBB' : 'DD/MM/YYYY');
-  const presets = showPresets ? getDatePresets() ;
+  const presets = showPresets ? getDatePresets() : undefined;
 
   return (
     <div className={cn('sgn-datepicker-wrapper', className)}>
@@ -107,7 +107,7 @@ export const CustomDatePicker = ({
       <DatePicker
         locale={thaiLocale}
         format={dateFormat}
-        status={error ? 'error' }
+        status={error ? 'error' : undefined}
         disabled={disabled}
         presets={presets}
         className="w-full"
@@ -146,7 +146,7 @@ export const CustomRangePicker = ({
   ...props
 }) => {
   const dateFormat = format || (useBuddhistEra ? 'DD/MM/BBBB' : 'DD/MM/YYYY');
-  const presets = showPresets ? getDateRangePresets() ;
+  const presets = showPresets ? getDateRangePresets() : undefined;
 
   return (
     <div className={cn('sgn-rangepicker-wrapper', className)}>
@@ -166,7 +166,7 @@ export const CustomRangePicker = ({
       <RangePicker
         locale={thaiLocale}
         format={dateFormat}
-        status={error ? 'error' }
+        status={error ? 'error' : undefined}
         disabled={disabled}
         presets={presets}
         className="w-full"
@@ -190,11 +190,11 @@ export const CustomRangePicker = ({
 CustomRangePicker.displayName = 'CustomRangePicker';
 
 // Utility function to disable dates
-export const disableFutureDates = (current)=> {
+export const disableFutureDates = (current) => {
   return current && current > dayjs().endOf('day');
 };
 
-export const disablePastDates = (current)=> {
+export const disablePastDates = (current) => {
   return current && current < dayjs().startOf('day');
 };
 

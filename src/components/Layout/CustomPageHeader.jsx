@@ -32,13 +32,15 @@ export const CustomPageHeader = ({
   sticky = false }) => {
   // Build breadcrumb items
   const breadcrumbItems = React.useMemo(() => {
-    const items= [];
+    const items = [];
 
     if (showHomeInBreadcrumb) {
       items.push({
         title: 'หน้าแรก',
         icon: <HomeOutlined />,
-        onClick? undefined : '/' });
+        href: onHomeClick ? undefined : '/',
+        onClick: onHomeClick,
+      });
     }
 
     if (breadcrumbs) {
@@ -74,7 +76,7 @@ export const CustomPageHeader = ({
                 {item.title}
               </span>
             ),
-            href.href,
+            href: item.href,
           }))}
         />
       )}

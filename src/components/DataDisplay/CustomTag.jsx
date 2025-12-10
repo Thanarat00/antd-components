@@ -45,7 +45,7 @@ const statusConfig = {
   processing: { color: 'processing', icon: <ClockCircleOutlined /> },
   warning: { color: 'warning', icon: <ExclamationCircleOutlined /> },
   error: { color: 'error', icon: <CloseCircleOutlined /> },
-  default: { color: 'default', icon},
+  default: { color: 'default', icon: undefined },
 };
 
 export const StatusTag = ({
@@ -56,7 +56,7 @@ export const StatusTag = ({
   const config = statusConfig[status];
 
   return (
-    <Tag color={config.color} icon={showIcon ? config.icon } className={className}>
+    <Tag color={config.color} icon={showIcon ? config.icon : undefined} className={className}>
       {text}
     </Tag>
   );
@@ -65,11 +65,6 @@ export const StatusTag = ({
 StatusTag.displayName = 'StatusTag';
 
 // Tag Group
->;
-  onRemove?: (key) => void;
-  className?;
-}
-
 export const TagGroup = ({
   tags,
   onRemove,

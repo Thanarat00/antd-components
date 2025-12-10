@@ -17,7 +17,7 @@ export const CustomPagination = ({
   className,
   ...props
 }) => {
-  const showTotal = (total: [number, number]) => {
+  const showTotal = (total, range) => {
     if (!showInfo) return null;
     return `${range[0]}-${range[1]} จาก ${total} รายการ`;
   };

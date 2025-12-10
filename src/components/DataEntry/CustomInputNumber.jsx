@@ -32,7 +32,7 @@ export const CustomInputNumber = ({
         </label>
       )}
       <InputNumber
-        status={error ? 'error' }
+        status={error ? 'error' : undefined}
         disabled={disabled}
         prefix={prefix}
         suffix={suffix}

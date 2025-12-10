@@ -13,21 +13,22 @@ import { cn } from '../../utils/cn';
 export const CustomDropdown = ({
   items,
   children,
-  trigger = ,
+  trigger = ['click'],
   placement = 'bottomLeft',
   disabled = false,
   className }) => {
-  const menuItems'items'] = items.map((item) => ({
-    key.key,
-    label.label,
-    icon.icon,
-    disabled.disabled,
-    danger.danger,
-    onClick.onClick }));
+  const menuItems = items.map((item) => ({
+    key: item.key,
+    label: item.label,
+    icon: item.icon,
+    disabled: item.disabled,
+    danger: item.danger,
+    onClick: item.onClick,
+  }));
 
   return (
     <Dropdown
-      menu={{ items}}
+      menu={{ items: menuItems }}
       trigger={trigger}
       placement={placement}
       disabled={disabled}
@@ -52,20 +53,23 @@ CustomDropdown.displayName = 'CustomDropdown';
 
 export const ActionDropdown = ({
   items,
-  trigger = ,
+  trigger = ['click'],
   placement = 'bottomRight',
   iconType = 'vertical' }) => {
-  const menuItems'items'] = items.map((item) => ({
-    key.key,
-    label.label,
-    icon.icon,
-    disabled.disabled,
-    danger.danger,
-    onClick.onClick }));
+  const menuItems = items.map((item) => ({
+    key: item.key,
+    label: item.label,
+    icon: item.icon,
+    disabled: item.disabled,
+    danger: item.danger,
+    onClick: item.onClick,
+  }));
 
   return (
-    <Dropdown menu={{ items}} trigger={trigger} placement={placement}>
-       : <EllipsisOutlined />}
+    <Dropdown menu={{ items: menuItems }} trigger={trigger} placement={placement}>
+      <Button
+        type="text"
+        icon={iconType === 'horizontal' ? <MoreOutlined /> : <EllipsisOutlined />}
         className="text-gray-500 hover:text-gray-700"
       />
     </Dropdown>
@@ -82,20 +86,21 @@ export const ButtonDropdown = ({
   buttonText,
   buttonType = 'default',
   loading = false,
-  trigger = ,
+  trigger = ['click'],
   placement = 'bottomLeft',
   disabled = false }) => {
-  const menuItems'items'] = items.map((item) => ({
-    key.key,
-    label.label,
-    icon.icon,
-    disabled.disabled,
-    danger.danger,
-    onClick.onClick }));
+  const menuItems = items.map((item) => ({
+    key: item.key,
+    label: item.label,
+    icon: item.icon,
+    disabled: item.disabled,
+    danger: item.danger,
+    onClick: item.onClick,
+  }));
 
   return (
-    <Dropdown menu={{ items}} trigger={trigger} placement={placement} disabled={disabled}>
-      
+    <Dropdown menu={{ items: menuItems }} trigger={trigger} placement={placement} disabled={disabled}>
+      <Button type={buttonType} loading={loading}>
         <Space>
           {buttonText}
           <DownOutlined />

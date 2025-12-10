@@ -28,6 +28,7 @@ export const CustomSelect = ({
   maxTagCount = 'responsive',
   disabled,
   placeholder = 'กรุณาเลือก',
+  tagRender,
   ...props
 }) => {
   // Transform options for Ant Design Select
@@ -43,14 +44,14 @@ export const CustomSelect = ({
         </div>
       </div>
     ),
-    value.value,
-    disabled.disabled,
+    value: opt.value,
+    disabled: opt.disabled,
     // Keep original label for search
-    searchLabel.label,
+    searchLabel: opt.label,
   }));
 
   // Custom tag render for multiple mode
-  const defaultTagRender'tagRender'] = (tagProps) => {
+  const defaultTagRender = (tagProps) => {
     const { label, closable, onClose } = tagProps;
     return (
       <Tag
@@ -81,13 +82,13 @@ export const CustomSelect = ({
 
       <Select
         options={selectOptions}
-        status={error ? 'error' }
+        status={error ? 'error' : undefined}
         disabled={disabled}
         placeholder={placeholder}
         showSearch={showSearch}
-        mode={multiple ? 'multiple' }
-        maxTagCount={multiple ? maxTagCount }
-        tagRender={multiple ? (props.tagRender || defaultTagRender) }
+        mode={multiple ? 'multiple' : undefined}
+        maxTagCount={multiple ? maxTagCount : undefined}
+        tagRender={multiple ? (tagRender || defaultTagRender) : undefined}
         filterOption={(input, option) => {
           const searchLabel = option?.searchLabel;
           return searchLabel?.toLowerCase().includes(input.toLowerCase()) ?? false;
@@ -126,7 +127,7 @@ export const CustomStatusSelect = ({
     icon: (
       <span
         className="w-2 h-2 rounded-full inline-block"
-        style={{ backgroundColor.color || '#1677ff' }}
+        style={{ backgroundColor: opt.color || '#1677ff' }}
       />
     ),
   }));

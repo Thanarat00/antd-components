@@ -96,7 +96,7 @@ export const CustomRangeSlider = ({
         min={min}
         max={max}
         value={value}
-        onChange={(val) => onChange?.(val as [number, number])}
+        onChange={(val) => onChange?.(val)}
       />
     </div>
   );

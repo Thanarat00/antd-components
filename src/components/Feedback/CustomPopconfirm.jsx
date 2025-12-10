@@ -20,7 +20,7 @@ export const CustomPopconfirm = ({
     <Popconfirm
       okText={okText}
       cancelText={cancelText}
-      okButtonProps={{ danger=== 'danger' }}
+      okButtonProps={{ danger: variant === 'danger' }}
       icon={<ExclamationCircleOutlined className={variant === 'danger' ? 'text-red-500' : 'text-yellow-500'} />}
       className={className}
       {...props}

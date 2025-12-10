@@ -18,10 +18,11 @@ export const CustomDescriptions = ({
   ...props
 }) => {
   const descItems = items.map((item) => ({
-    key.key,
-    label.label,
-    children.children,
-    span.span }));
+    key: item.key,
+    label: item.label,
+    children: item.children,
+    span: item.span,
+  }));
 
   return (
     <Descriptions
@@ -38,11 +39,6 @@ export const CustomDescriptions = ({
 CustomDescriptions.displayName = 'CustomDescriptions';
 
 // Simple Key-Value List
->;
-  direction?: 'horizontal' | 'vertical';
-  className?;
-}
-
 export const KeyValueList = ({
   items,
   direction = 'vertical',

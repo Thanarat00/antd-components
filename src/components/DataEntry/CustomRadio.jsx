@@ -29,15 +29,6 @@ export const CustomRadio = ({
 CustomRadio.displayName = 'CustomRadio';
 
 // Radio Group
->;
-  direction?: 'horizontal' | 'vertical';
-  label?;
-  error?;
-  required?;
-  variant?: 'default' | 'button' | 'card';
-  className?;
-}
-
 export const CustomRadioGroup = ({
   options,
   direction = 'vertical',

@@ -13,11 +13,12 @@ export const CustomBadge = ({
   className,
   ...props
 }) => {
-  const statusMap'status']> = {
+  const statusMap = {
     processing: 'processing',
     success: 'success',
     warning: 'warning',
-    error: 'error' };
+    error: 'error',
+  };
 
   if (variant === 'dot') {
     return (

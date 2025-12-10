@@ -17,7 +17,7 @@ export const CustomAvatar = ({
   className,
   ...props
 }) => {
-  const getInitials = (name?) => {
+  const getInitials = (name) => {
     if (!name) return '';
     return name
       .split(' ')
@@ -32,7 +32,7 @@ export const CustomAvatar = ({
       <Avatar
         src={src}
         size={size}
-        icon={!src && !name ? <UserOutlined /> }
+        icon={!src && !name ? <UserOutlined /> : undefined}
         {...props}
       >
         {!src && name && getInitials(name)}
@@ -74,7 +74,7 @@ export const CustomAvatarGroup = ({
           key={index}
           name={item.name}
           src={item.src}
-          style={{ backgroundColor.color }}
+          style={{ backgroundColor: item.color }}
           showTooltip
         />
       ))}

@@ -22,7 +22,7 @@ export const CustomTabs = ({
   ...props
 }) => {
   const tabItems = items.map((item) => ({
-    key.key,
+    key: item.key,
     label: (
       <span className="inline-flex items-center gap-2">
         {item.icon}
@@ -36,15 +36,12 @@ export const CustomTabs = ({
         )}
       </span>
     ),
-    disabled.disabled,
-    children.children,
-    closable.closable,
+    disabled: item.disabled,
+    children: item.children,
+    closable: item.closable,
   }));
 
-  const handleEdit = (
-    targetKey.MouseEvent | React.KeyboardEvent | string,
-    action: 'add' | 'remove'
-  ) => {
+  const handleEdit = (targetKey, action) => {
     if (action === 'add') {
       onAdd?.();
     } else if (typeof targetKey === 'string') {
@@ -54,13 +51,13 @@ export const CustomTabs = ({
 
   return (
     <Tabs
-      type={variant === 'default' ? 'line' }
+      type={variant === 'default' ? 'line' : undefined}
       tabPosition={position}
       centered={centered}
       activeKey={activeKey}
       onChange={onChange}
       items={tabItems}
-      onEdit={variant === 'editable-card' ? handleEdit }
+      onEdit={variant === 'editable-card' ? handleEdit : undefined}
       className={className}
       {...props}
     />
@@ -85,12 +82,6 @@ export const TabPanel = ({
 TabPanel.displayName = 'TabPanel';
 
 // Simple Tab Bar (without content)
->;
-  activeKey;
-  onChange: (key) => void;
-  className?;
-}
-
 export const TabBar = ({
   items,
   activeKey,

@@ -62,7 +62,7 @@ export const ListSkeleton = ({
   className }) => {
   return (
     <div className={cn('space-y-4', className)}>
-      {Array.from({ length}).map((_, index) => (
+      {Array.from({ length: count }).map((_, index) => (
         <Skeleton
           key={index}
           active
@@ -87,14 +87,14 @@ export const TableSkeleton = ({
     <div className={cn('space-y-3', className)}>
       {/* Header */}
       <div className="flex gap-4">
-        {Array.from({ length}).map((_, i) => (
+        {Array.from({ length: columns }).map((_, i) => (
           <Skeleton.Input key={i} active size="small" className="flex-1" />
         ))}
       </div>
       {/* Rows */}
-      {Array.from({ length}).map((_, rowIndex) => (
+      {Array.from({ length: rows }).map((_, rowIndex) => (
         <div key={rowIndex} className="flex gap-4">
-          {Array.from({ length}).map((_, colIndex) => (
+          {Array.from({ length: columns }).map((_, colIndex) => (
             <Skeleton.Input key={colIndex} active size="small" className="flex-1" />
           ))}
         </div>
@@ -113,7 +113,7 @@ export const FormSkeleton = ({
   className }) => {
   return (
     <div className={cn('space-y-4', className)}>
-      {Array.from({ length}).map((_, index) => (
+      {Array.from({ length: fields }).map((_, index) => (
         <div key={index}>
           <Skeleton.Input active size="small" className="w-24 mb-2" />
           <Skeleton.Input active className="w-full" />

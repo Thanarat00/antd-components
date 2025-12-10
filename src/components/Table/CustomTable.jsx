@@ -57,7 +57,7 @@ export function CustomTable({
   ...props
 }) {
   const [searchText, setSearchText] = useState('');
-  const [internalSelectedKeys, setInternalSelectedKeys] = useState<React.Key[]>([]);
+  const [internalSelectedKeys, setInternalSelectedKeys] = useState([]);
 
   // Use controlled or internal selected keys
   const currentSelectedKeys = selectedRowKeys ?? internalSelectedKeys;
@@ -89,7 +89,7 @@ export function CustomTable({
 
   // Handle selection change
   const handleSelectionChange = useCallback(
-    (keys.Key[], rows) => {
+    (keys, rows) => {
       setInternalSelectedKeys(keys);
       onSelectionChange?.(keys, rows);
     },
@@ -106,26 +106,32 @@ export function CustomTable({
     return columns
       .filter((col) => !col.hidden)
       .map((col) => {
-        const column= {
+        const column = {
           ...col,
-          sorter.sortable
-            ? (a) => {
-                const aVal = getNestedValue(a, col.dataIndex);
-                const bVal = getNestedValue(b, col.dataIndex);
-                if (typeof aVal === 'string' && typeof bVal === 'string') {
-                  return aVal.localeCompare(bVal);
-                }
-                if (typeof aVal === 'number' && typeof bVal === 'number') {
-                  return aVal - bVal;
-                }
-                return 0;
-              }
-            .filterable ? col.filters .filterable
-            ? (value.Key | boolean, record) => {
-                const recordValue = getNestedValue(record, col.dataIndex);
-                return recordValue === value;
-              }
-            };
+        };
+        
+        if (col.sortable) {
+          column.sorter = (a, b) => {
+            const aVal = getNestedValue(a, col.dataIndex);
+            const bVal = getNestedValue(b, col.dataIndex);
+            if (typeof aVal === 'string' && typeof bVal === 'string') {
+              return aVal.localeCompare(bVal);
+            }
+            if (typeof aVal === 'number' && typeof bVal === 'number') {
+              return aVal - bVal;
+            }
+            return 0;
+          };
+        }
+        
+        if (col.filterable && col.filters) {
+          column.filters = col.filters;
+          column.onFilter = (value, record) => {
+            const recordValue = getNestedValue(record, col.dataIndex);
+            return recordValue === value;
+          };
+        }
+        
         return column;
       });
   }, [columns]);
@@ -133,17 +139,18 @@ export function CustomTable({
   // Row selection config
   const rowSelection = selectable
     ? {
-        selectedRowKeys}
-    ;
+        selectedRowKeys: currentSelectedKeys,
+        onChange: handleSelectionChange,
+      }
+    : undefined;
 
   // Pagination config
-  const paginationConfig=
+  const paginationConfig =
     pagination === false
       ? false
       : {
           showSizeChanger: true,
-          showQuickJumper: (total: [number, number]) =>
-            `${range[0]}-${range[1]} จาก ${total} รายการ`,
+          showQuickJumper: true,
           pageSizeOptions: ['10', '20', '50', '100'],
           ...pagination,
         };
@@ -205,7 +212,7 @@ export function CustomTable({
                 </Tooltip>
               )}
               {showExport && (
-                <Dropdown menu={exportMenu} trigger={}>
+                <Dropdown menu={exportMenu} trigger={['click']}>
                   <Button icon={<DownloadOutlined />}>Export</Button>
                 </Dropdown>
               )}
@@ -237,10 +244,9 @@ export function CustomTable({
 CustomTable.displayName = 'CustomTable';
 
 // Utility function to get nested value
-function getNestedValue<T>(obj){
+function getNestedValue(obj, path) {
   const keys = Array.isArray(path) ? path : [path];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let result= obj;
+  let result = obj;
   for (const key of keys) {
     if (result === null || result === undefined) return undefined;
     result = result[key];
@@ -249,11 +255,10 @@ function getNestedValue<T>(obj){
 }
 
 // Action Column helper
-
-
-export function createActionColumn<T>(
-  actions= 'จัดการ'
-){
+export function createActionColumn(
+  actions,
+  title = 'จัดการ'
+) {
   return {
     key: 'actions',
     title,
@@ -261,20 +266,21 @@ export function createActionColumn<T>(
     width: 120,
     fixed: 'right',
     align: 'center',
-    render: (_) => {
-      const menuItems'items'] = actions.map((action) => ({
-        key.key,
-        label.label,
-        icon.icon,
-        danger.danger,
+    render: (_, record) => {
+      const menuItems = actions.map((action) => ({
+        key: action.key,
+        label: action.label,
+        icon: action.icon,
+        danger: action.danger,
         disabled:
           typeof action.disabled === 'function'
             ? action.disabled(record)
-            .disabled,
-        onClick: () => action.onClick(record) }));
+            : action.disabled,
+        onClick: () => action.onClick(record),
+      }));
 
       return (
-        <Dropdown menu={{ items}} trigger={}>
+        <Dropdown menu={{ items: menuItems }} trigger={['click']}>
           <Button type="text" icon={<SettingOutlined />} />
         </Dropdown>
       );
@@ -283,12 +289,16 @@ export function createActionColumn<T>(
 }
 
 // Status Column helper
-
-
-export function createStatusColumn<T>(
-  dataIndex){
+export function createStatusColumn(
+  dataIndex,
+  statuses,
+  key = 'status'
+) {
   return {
-    key.map((s) => ({ text.label, value.value })),
+    key,
+    title: 'สถานะ',
+    dataIndex,
+    filters: statuses.map((s) => ({ text: s.label, value: s.value })),
     render: (value) => {
       const status = statuses.find((s) => s.value === value);
       return status ? (

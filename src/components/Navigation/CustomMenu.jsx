@@ -21,32 +21,34 @@ export const CustomMenu = ({
   ...props
 }) => {
   // Transform items
-  const menuItems= React.useMemo(() => {
-    const transform = (items)=> {
+  const menuItems = React.useMemo(() => {
+    const transform = (items) => {
       return items.map((item) => {
         if (item.type === 'divider') {
-          return { type: 'divider', key.key };
+          return { type: 'divider', key: item.key };
         }
         if (item.type === 'group') {
           return {
             type: 'group',
-            key.key,
-            label.label,
-            children.children ? transform(item.children) };
+            key: item.key,
+            label: item.label,
+            children: item.children ? transform(item.children) : undefined,
+          };
         }
         return {
-          key.key,
-          icon.icon,
-          label.label,
-          disabled.disabled,
-          danger.danger,
-          children.children ? transform(item.children) };
+          key: item.key,
+          icon: item.icon,
+          label: item.label,
+          disabled: item.disabled,
+          danger: item.danger,
+          children: item.children ? transform(item.children) : undefined,
+        };
       });
     };
     return transform(items);
   }, [items]);
 
-  const handleClick'onClick'] = ({ key }) => {
+  const handleClick = ({ key }) => {
     // Find item and call its onClick
     const findItem = (items)=> {
       for (const item of items) {
@@ -66,11 +68,11 @@ export const CustomMenu = ({
 
   return (
     <Menu
-      mode={variant === 'horizontal' ? 'horizontal' ? 'vertical' : 'inline'}
+      mode={variant === 'horizontal' ? 'horizontal' : variant === 'vertical' ? 'vertical' : 'inline'}
       inlineCollapsed={collapsed}
       items={menuItems}
       selectedKeys={selectedKey ? [selectedKey] : []}
-      openKeys={collapsed ? [] }
+      openKeys={collapsed ? [] : openKeys}
       onClick={handleClick}
       onOpenChange={onOpenChange}
       className={cn(className)}

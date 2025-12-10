@@ -1,6 +1,9 @@
 import React from 'react';
-import { Row} from 'antd';
+import { Row, Col } from 'antd';
 import { cn } from '../../utils/cn';
+
+const AntRow = Row;
+const AntCol = Col;
 
 // Grid Row
 
@@ -83,7 +86,8 @@ export const AutoGrid = ({
       style={{
         display: 'grid',
         gridTemplateColumns: `repeat(auto-fit, minmax(${minWidth}px, 1fr))`,
-        gap}}
+        gap: gapSize,
+      }}
     >
       {children}
     </div>

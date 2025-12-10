@@ -23,7 +23,7 @@ export const CustomDivider = ({
     <Divider
       dashed={variant === 'dashed'}
       className={cn(spacingClass, className)}
-      style={variant === 'dotted' ? { borderStyle: 'dotted' } }
+      style={variant === 'dotted' ? { borderStyle: 'dotted' } : undefined}
       {...props}
     >
       {children}

@@ -101,7 +101,7 @@ export const Center = ({
 Center.displayName = 'Center';
 
 // Spacer (flexible space)
-export const Spacer.FC = () => {
+export const Spacer = () => {
   return <div className="flex-1" />;
 };
 

@@ -17,11 +17,12 @@ export const CustomCollapse = ({
   ...props
 }) => {
   const collapseItems = items.map((item) => ({
-    key.key,
-    label.label,
-    children.children,
-    extra.extra,
-    collapsible.disabled ? ('disabled') }));
+    key: item.key,
+    label: item.label,
+    children: item.children,
+    extra: item.extra,
+    collapsible: item.disabled ? 'disabled' : undefined,
+  }));
 
   return (
     <Collapse
@@ -50,12 +51,15 @@ export const CollapsiblePanel = ({
   className }) => {
   return (
     <Collapse
-      defaultActiveKey={defaultOpen ?  : []}
+      defaultActiveKey={defaultOpen ? ['1'] : []}
       ghost
       items={[
         {
           key: '1',
-          label},
+          label: title,
+          children: children,
+          extra: extra,
+        },
       ]}
       className={className}
     />
@@ -73,7 +77,7 @@ export const FAQAccordion = ({
   items,
   className }) => {
   const collapseItems = items.map((item, index) => ({
-    key(index),
+    key: `faq-${index}`,
     label: <span className="font-medium">{item.question}</span>,
     children: <div className="text-gray-600">{item.answer}</div>,
   }));

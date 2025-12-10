@@ -59,7 +59,7 @@ export const CustomCard = ({
       )}
       {menuItems && menuItems.length > 0 && (
         <Dropdown
-          menu={{ items}}
+          menu={{ items: menuItems }}
           trigger={['click']}
           placement="bottomRight"
         >

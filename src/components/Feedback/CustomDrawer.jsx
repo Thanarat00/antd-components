@@ -30,12 +30,12 @@ export const CustomDrawer = ({
         </Button>
       )}
     </Space>
-  ) ;
+  ) : null;
 
   return (
     <Drawer
       onClose={onClose}
-      footer={footer !== undefined ? footer }
+      footer={footer !== undefined ? footer : defaultFooter}
       className={className}
       {...props}
     >
