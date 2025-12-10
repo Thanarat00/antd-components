@@ -292,11 +292,15 @@ function question(rl, query) {
   });
 }
 
-async function promptUser() {
-  const rl = readline.createInterface({
+function createReadline() {
+  return readline.createInterface({
     input: process.stdin,
     output: process.stdout,
   });
+}
+
+async function promptUser() {
+  const rl = createReadline();
 
   const options = {};
 
@@ -351,16 +355,47 @@ async function init() {
   // Prompt user for options
   const options = await promptUser();
   
-  log('\n📋 Selected options:', 'cyan');
-  log(`  Language: ${options.lang}`, 'blue');
-  log(`  Routing: ${options.routing}`, 'blue');
-  log(`  State Management: ${options.stateManagement}`, 'blue');
-  log(`  Form Library: ${options.formLibrary}`, 'blue');
+  // Show summary
+  log('\n📋 Configuration Summary:', 'cyan');
+  log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'blue');
+  log(`  Language: ${options.lang === 'ts' ? 'TypeScript' : 'JavaScript'}`, 'blue');
+  log(`  Routing: ${options.routing === 'none' ? 'None' : options.routing === 'tanstack-router' ? 'Tanstack Router' : 'React Router DOM'}`, 'blue');
+  log(`  State Management: ${options.stateManagement === 'none' ? 'None' : options.stateManagement === 'zustand' ? 'Zustand' : 'Redux'}`, 'blue');
+  log(`  Form Library: ${options.formLibrary === 'none' ? 'None' : options.formLibrary === 'react-hook-form' ? 'React Hook Form' : 'Olapat'}`, 'blue');
   log(`  Tanstack Query: ${options.tanstackQuery ? 'Yes' : 'No'}`, 'blue');
+  log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'blue');
   
   // Detect project type
   const projectType = detectProjectType(cwd);
   log(`\n📋 Detected project: ${projectType}`, 'blue');
+  
+  // Show what will be created
+  log('\n📁 Files that will be created:', 'cyan');
+  log('  ✓ Components (all categories)', 'green');
+  log('  ✓ Utils (cn, dateUtils)', 'green');
+  log('  ✓ Hooks (useLocalStorage, useTableSearch, useForm)', 'green');
+  log('  ✓ Services (axiosInstant)', 'green');
+  if (options.tanstackQuery) {
+    log('  ✓ Tanstack Query setup', 'green');
+  }
+  if (options.routing !== 'none') {
+    log(`  ✓ Routing (${options.routing === 'tanstack-router' ? 'Tanstack Router' : 'React Router DOM'})`, 'green');
+  }
+  if (options.stateManagement !== 'none') {
+    log(`  ✓ State Management (${options.stateManagement === 'zustand' ? 'Zustand' : 'Redux'})`, 'green');
+  }
+  
+  // Ask for confirmation
+  const confirmRl = createReadline();
+  const confirm = await question(confirmRl, '\n❓ Proceed with setup? (y/n, default: y): ');
+  confirmRl.close();
+  
+  if (confirm.trim().toLowerCase() === 'n') {
+    log('\n❌ Setup cancelled.', 'yellow');
+    return;
+  }
+  
+  log('\n🚀 Starting setup...\n', 'cyan');
   
   // Get base directory
   const baseDir = getBaseDir(cwd, projectType);
