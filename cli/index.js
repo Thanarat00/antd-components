@@ -212,13 +212,14 @@ function installDependencies(cwd, options = {}) {
   }
 }
 
-function setupTailwind(cwd, projectType, baseDir) {
+function setupTailwind(cwd, projectType, baseDir, lang = 'ts') {
   log('\n⚙️  Setting up Tailwind CSS v4...', 'yellow');
 
-  // Copy tailwind.config.js from package
+  // Copy tailwind.config from package (support both .js and .ts)
   const packageDir = path.dirname(__dirname);
   const sourceTailwindConfig = path.join(packageDir, 'tailwind.config.js');
-  const targetTailwindConfig = path.join(cwd, 'tailwind.config.js');
+  const configExt = lang === 'ts' ? '.ts' : '.js';
+  const targetTailwindConfig = path.join(cwd, `tailwind.config${configExt}`);
   
   if (fs.existsSync(sourceTailwindConfig)) {
     if (!fs.existsSync(targetTailwindConfig)) {
@@ -252,6 +253,9 @@ function setupTailwind(cwd, projectType, baseDir) {
           ];
       }
       
+      // Always include both .js and .jsx even if only TypeScript is selected
+      // This ensures Tailwind works with both JS and TS files
+      
       // Replace content array
       const contentArray = contentPaths.map(p => `    '${p}'`).join(',\n');
       tailwindConfig = tailwindConfig.replace(
@@ -259,14 +263,122 @@ function setupTailwind(cwd, projectType, baseDir) {
         `content: [\n${contentArray},\n  ]`
       );
       
+      // Convert to TypeScript if needed
+      if (lang === 'ts' && configExt === '.ts') {
+        // Convert JSDoc type to TypeScript import
+        tailwindConfig = tailwindConfig.replace(
+          /\/\*\* @type \{import\('tailwindcss'\)\.Config\} \*\//,
+          "import type { Config } from 'tailwindcss';"
+        );
+        tailwindConfig = tailwindConfig.replace(
+          /export default/,
+          'const config: Config ='
+        );
+        tailwindConfig = tailwindConfig + '\n\nexport default config;';
+      }
+      
       fs.writeFileSync(targetTailwindConfig, tailwindConfig);
-      log('  + tailwind.config.js', 'green');
+      log(`  + tailwind.config${configExt}`, 'green');
+    } else {
+      log(`  ~ tailwind.config${configExt} (already exists)`, 'yellow');
+    }
+  }
+  
+  // Also check if opposite extension exists and warn
+  const oppositeExt = lang === 'ts' ? '.js' : '.ts';
+  const oppositeConfig = path.join(cwd, `tailwind.config${oppositeExt}`);
+  if (fs.existsSync(oppositeConfig)) {
+    log(`  ⚠️  tailwind.config${oppositeExt} also exists (consider removing it)`, 'yellow');
+  } else {
+    // If source doesn't exist, create a basic tailwind config anyway
+    if (!fs.existsSync(targetTailwindConfig)) {
+      const configHeader = lang === 'ts' 
+        ? `import type { Config } from 'tailwindcss';
+
+const config: Config = {`
+        : `/** @type {import('tailwindcss').Config} */
+export default {`;
+      
+      const configFooter = lang === 'ts'
+        ? `};
+
+export default config;`
+        : `};`;
+      
+      const basicTailwindConfig = `${configHeader}
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#e6f4ff',
+          100: '#bae0ff',
+          200: '#91caff',
+          300: '#69b1ff',
+          400: '#4096ff',
+          500: '#1677ff',
+          600: '#0958d9',
+          700: '#003eb3',
+          800: '#002c8c',
+          900: '#001d66',
+        },
+        success: {
+          50: '#f6ffed',
+          100: '#d9f7be',
+          200: '#b7eb8f',
+          300: '#95de64',
+          400: '#73d13d',
+          500: '#52c41a',
+          600: '#389e0d',
+          700: '#237804',
+          800: '#135200',
+          900: '#092b00',
+        },
+        warning: {
+          50: '#fffbe6',
+          100: '#fff1b8',
+          200: '#ffe58f',
+          300: '#ffd666',
+          400: '#ffc53d',
+          500: '#faad14',
+          600: '#d48806',
+          700: '#ad6800',
+          800: '#874d00',
+          900: '#613400',
+        },
+        error: {
+          50: '#fff2f0',
+          100: '#ffccc7',
+          200: '#ffa39e',
+          300: '#ff7875',
+          400: '#ff4d4f',
+          500: '#f5222d',
+          600: '#cf1322',
+          700: '#a8071a',
+          800: '#820014',
+          900: '#5c0011',
+        },
+      },
+    },
+  },
+  plugins: [],
+  corePlugins: {
+    preflight: false,
+  },
+${configFooter}`;
+      fs.writeFileSync(targetTailwindConfig, basicTailwindConfig);
+      log(`  + tailwind.config${configExt} (created basic config)`, 'green');
     } else {
       log('  ~ tailwind.config.js (already exists)', 'yellow');
     }
   }
 
-  // Create postcss.config.mjs
+  // Create postcss.config.mjs (always create, regardless of file types)
   const postcssConfigMjs = `export default {
   plugins: {
     "@tailwindcss/postcss": {},
@@ -277,11 +389,86 @@ function setupTailwind(cwd, projectType, baseDir) {
   const postcssConfigPath = path.join(cwd, 'postcss.config.mjs');
   const postcssConfigJsPath = path.join(cwd, 'postcss.config.js');
   
+  // Always create postcss config if it doesn't exist
   if (!fs.existsSync(postcssConfigPath) && !fs.existsSync(postcssConfigJsPath)) {
     fs.writeFileSync(postcssConfigPath, postcssConfigMjs);
     log('  + postcss.config.mjs', 'green');
   } else {
     log('  ~ postcss.config (already exists)', 'yellow');
+  }
+  
+  // If tailwind.config.js doesn't exist and source doesn't exist either, create a basic one
+  if (!fs.existsSync(targetTailwindConfig) && !fs.existsSync(sourceTailwindConfig)) {
+    const basicTailwindConfig = `/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#e6f4ff',
+          100: '#bae0ff',
+          200: '#91caff',
+          300: '#69b1ff',
+          400: '#4096ff',
+          500: '#1677ff',
+          600: '#0958d9',
+          700: '#003eb3',
+          800: '#002c8c',
+          900: '#001d66',
+        },
+        success: {
+          50: '#f6ffed',
+          100: '#d9f7be',
+          200: '#b7eb8f',
+          300: '#95de64',
+          400: '#73d13d',
+          500: '#52c41a',
+          600: '#389e0d',
+          700: '#237804',
+          800: '#135200',
+          900: '#092b00',
+        },
+        warning: {
+          50: '#fffbe6',
+          100: '#fff1b8',
+          200: '#ffe58f',
+          300: '#ffd666',
+          400: '#ffc53d',
+          500: '#faad14',
+          600: '#d48806',
+          700: '#ad6800',
+          800: '#874d00',
+          900: '#613400',
+        },
+        error: {
+          50: '#fff2f0',
+          100: '#ffccc7',
+          200: '#ffa39e',
+          300: '#ff7875',
+          400: '#ff4d4f',
+          500: '#f5222d',
+          600: '#cf1322',
+          700: '#a8071a',
+          800: '#820014',
+          900: '#5c0011',
+        },
+      },
+    },
+  },
+  plugins: [],
+  corePlugins: {
+    preflight: false,
+  },
+};
+`;
+    fs.writeFileSync(targetTailwindConfig, basicTailwindConfig);
+    log('  + tailwind.config.js (created basic config)', 'green');
   }
 
   // Check and update CSS file based on project type
@@ -426,7 +613,7 @@ async function init() {
   log('  ✓ Utils (cn, dateUtils)', 'green');
   log('  ✓ Hooks (useLocalStorage, useTableSearch, useForm)', 'green');
   log('  ✓ Services (axiosInstant)', 'green');
-  log('  ✓ Tailwind CSS config (tailwind.config.js)', 'green');
+  log(`  ✓ Tailwind CSS config (tailwind.config.${options.lang === 'ts' ? 'ts' : 'js'})`, 'green');
   log('  ✓ PostCSS config (postcss.config.mjs)', 'green');
   if (options.tanstackQuery) {
     log('  ✓ Tanstack Query setup', 'green');
@@ -488,9 +675,36 @@ async function init() {
   const hooksDir = path.join(srcDir, 'hooks');
   const targetHooksDir = path.join(baseDir, 'hooks');
   if (fs.existsSync(hooksDir)) {
-    copyDir(hooksDir, targetHooksDir, { 
-      allowedExtensions: options.lang === 'ts' ? ['.ts'] : ['.js'] 
-    });
+    // Copy all hooks except useForm (we'll handle it separately)
+    const entries = fs.readdirSync(hooksDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.isFile() && entry.name !== 'useForm.ts' && entry.name !== 'useForm.js') {
+        const srcPath = path.join(hooksDir, entry.name);
+        const ext = path.extname(entry.name);
+        const allowedExt = options.lang === 'ts' ? ['.ts'] : ['.js'];
+        if (allowedExt.includes(ext)) {
+          const destPath = path.join(targetHooksDir, entry.name);
+          if (!fs.existsSync(targetHooksDir)) {
+            fs.mkdirSync(targetHooksDir, { recursive: true });
+          }
+          fs.copyFileSync(srcPath, destPath);
+          log(`  + ${entry.name}`, 'green');
+        }
+      }
+    }
+    
+    // Copy useForm only if form library is selected
+    if (options.formLibrary !== 'none') {
+      const useFormFile = path.join(hooksDir, `useForm.${options.lang === 'ts' ? 'ts' : 'js'}`);
+      if (fs.existsSync(useFormFile)) {
+        const targetUseFormFile = path.join(targetHooksDir, `useForm.${options.lang === 'ts' ? 'ts' : 'js'}`);
+        if (!fs.existsSync(targetHooksDir)) {
+          fs.mkdirSync(targetHooksDir, { recursive: true });
+        }
+        fs.copyFileSync(useFormFile, targetUseFormFile);
+        log(`  + useForm.${options.lang === 'ts' ? 'ts' : 'js'}`, 'green');
+      }
+    }
   }
 
   // Copy services (axiosInstant)
@@ -535,13 +749,38 @@ async function init() {
         }
         const routingFileExt = options.lang === 'ts' ? 'tsx' : 'jsx';
         const routingFile = path.join(routingDir, `${options.routing === 'tanstack-router' ? 'tanstack-router' : 'react-router'}.${routingFileExt}`);
-        const routingIndexFile = path.join(routingDir, `index.${options.lang === 'ts' ? 'ts' : 'js'}`);
         if (fs.existsSync(routingFile)) {
           copyFile(routingFile, targetRoutingDir, options.lang);
         }
-        if (fs.existsSync(routingIndexFile)) {
-          copyFile(routingIndexFile, targetRoutingDir, options.lang);
+        
+        // Create custom index file that only exports selected routing
+        const routingIndexExt = options.lang === 'ts' ? '.ts' : '.js';
+        const routingIndexPath = path.join(targetRoutingDir, `index${routingIndexExt}`);
+        let routingIndexContent = '';
+        
+        if (options.routing === 'tanstack-router') {
+          const fileExt = options.lang === 'ts' ? 'tsx' : 'jsx';
+          routingIndexContent = `// Tanstack Router
+export { TanstackRouterProvider, createAppRoute, router } from './tanstack-router${options.lang === 'ts' ? '' : '.jsx'}';
+`;
+        } else if (options.routing === 'react-router-dom') {
+          const fileExt = options.lang === 'ts' ? 'tsx' : 'jsx';
+          if (options.lang === 'ts') {
+            routingIndexContent = `// React Router DOM
+export { ReactRouterProvider } from './react-router';
+export type { RouteConfig, ReactRouterProviderProps } from './react-router';
+export { Link, NavLink, useNavigate, useParams, useLocation } from './react-router';
+`;
+          } else {
+            routingIndexContent = `// React Router DOM
+export { ReactRouterProvider } from './react-router.jsx';
+export { Link, NavLink, useNavigate, useParams, useLocation } from './react-router.jsx';
+`;
+          }
         }
+        
+        fs.writeFileSync(routingIndexPath, routingIndexContent);
+        log(`  + index${routingIndexExt}`, 'green');
       }
     }
 
@@ -555,20 +794,235 @@ async function init() {
         }
         const storeFileExt = options.lang === 'ts' ? 'ts' : 'js';
         const storeFile = path.join(storeDir, `${options.stateManagement}-store.${storeFileExt}`);
-        const storeIndexFile = path.join(storeDir, `index.${storeFileExt}`);
         if (fs.existsSync(storeFile)) {
           copyFile(storeFile, targetStoreDir, options.lang);
         }
-        if (fs.existsSync(storeIndexFile)) {
-          copyFile(storeIndexFile, targetStoreDir, options.lang);
+        
+        // Create custom index file that only exports selected state management
+        const storeIndexExt = options.lang === 'ts' ? '.ts' : '.js';
+        const storeIndexPath = path.join(targetStoreDir, `index${storeIndexExt}`);
+        let storeIndexContent = '';
+        
+        if (options.stateManagement === 'zustand') {
+          if (options.lang === 'ts') {
+            storeIndexContent = `// Zustand
+export { createZustandStore, create, persist, createJSONStorage } from './zustand-store';
+export type { ZustandStoreConfig } from './zustand-store';
+`;
+          } else {
+            storeIndexContent = `// Zustand
+export { createZustandStore, create, persist, createJSONStorage } from './zustand-store.js';
+`;
+          }
+        } else if (options.stateManagement === 'redux') {
+          if (options.lang === 'ts') {
+            storeIndexContent = `// Redux
+export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './redux-store';
+export type { ReduxSliceConfig } from './redux-store';
+export { configureStore, createSlice, Provider } from './redux-store';
+`;
+          } else {
+            storeIndexContent = `// Redux
+export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './redux-store.js';
+export { configureStore, createSlice, Provider } from './redux-store.js';
+`;
+          }
         }
+        
+        fs.writeFileSync(storeIndexPath, storeIndexContent);
+        log(`  + index${storeIndexExt}`, 'green');
       }
     }
   }
 
-  // Create index file
+  // Create main index file in baseDir (not components dir)
   const indexExt = options.lang === 'ts' ? '.ts' : '.js';
-  const indexContent = `// Antd Custom Components
+  const mainIndexPath = path.join(baseDir, `index${indexExt}`);
+  
+  let indexContent = `// Styles
+import './styles/index.css';
+
+// ============================================
+// GENERAL COMPONENTS
+// ============================================
+export * from './components/General';
+
+// ============================================
+// LAYOUT COMPONENTS
+// ============================================
+export * from './components/Layout';
+
+// ============================================
+// NAVIGATION COMPONENTS
+// ============================================
+export * from './components/Navigation';
+
+// ============================================
+// DATA ENTRY COMPONENTS
+// ============================================
+export * from './components/DataEntry';
+
+// ============================================
+// DATA DISPLAY COMPONENTS
+// ============================================
+export * from './components/DataDisplay';
+
+// ============================================
+// TABLE COMPONENTS
+// ============================================
+export * from './components/Table';
+
+// ============================================
+// FEEDBACK COMPONENTS
+// ============================================
+export * from './components/Feedback';
+
+// ============================================
+// HOOKS
+// ============================================
+export { useTableSearch } from './hooks/useTableSearch';
+export { useLocalStorage } from './hooks/useLocalStorage';
+`;
+
+  // Add useForm only if form library is selected
+  if (options.formLibrary !== 'none') {
+    if (options.lang === 'ts') {
+      indexContent += `
+// ============================================
+// FORMS
+// ============================================
+export { useForm } from './hooks/useForm';
+export type { FormLibrary, UseFormConfig } from './hooks/useForm';
+export { Controller, FormProvider, useFormContext, useController, useWatch, useFieldArray } from './hooks/useForm';
+`;
+    } else {
+      indexContent += `
+// ============================================
+// FORMS
+// ============================================
+export { useForm } from './hooks/useForm';
+export { Controller, FormProvider, useFormContext, useController, useWatch, useFieldArray } from './hooks/useForm';
+`;
+    }
+  }
+
+  indexContent += `
+// ============================================
+// OTHER COMPONENTS
+// ============================================
+export * from './components/Other';
+
+// ============================================
+// UTILS
+// ============================================
+export { formatDate, formatThaiDate, getDatePresets, getDateRangePresets } from './utils/dateUtils';
+export { cn } from './utils/cn';
+
+// ============================================
+// SERVICES
+// ============================================
+export { axiosInstant, AxiosInstant } from './services';
+`;
+
+  // Add type exports for TypeScript
+  if (options.lang === 'ts') {
+    indexContent += `export type { AxiosInstantConfig, ApiResponse } from './services';
+`;
+  }
+
+  // Add Tanstack Query only if selected
+  if (options.tanstackQuery) {
+    const ext = options.lang === 'ts' ? '' : '.js';
+    indexContent += `
+// ============================================
+// TANSTACK QUERY
+// ============================================
+export { QueryProvider, queryClient } from './lib/tanstack-query${ext}';
+export { useApiQuery, useApiMutation, useApiPut, useApiDelete } from './lib/tanstack-query-hooks${ext}';
+export { useQuery, useMutation, useQueryClient, useInfiniteQuery } from './lib/tanstack-query${ext}';
+`;
+  }
+
+  // Add routing only if selected
+  if (options.routing !== 'none') {
+    const ext = options.lang === 'ts' ? '' : '.js';
+    if (options.routing === 'tanstack-router') {
+      indexContent += `
+// ============================================
+// ROUTING - Tanstack Router
+// ============================================
+export { TanstackRouterProvider, createAppRoute, router } from './lib/routing/tanstack-router${options.lang === 'ts' ? '' : '.jsx'}';
+`;
+    } else if (options.routing === 'react-router-dom') {
+      if (options.lang === 'ts') {
+        indexContent += `
+// ============================================
+// ROUTING - React Router DOM
+// ============================================
+export { ReactRouterProvider } from './lib/routing/react-router';
+export type { RouteConfig, ReactRouterProviderProps } from './lib/routing/react-router';
+export { Link, NavLink, useNavigate, useParams, useLocation } from './lib/routing/react-router';
+`;
+      } else {
+        indexContent += `
+// ============================================
+// ROUTING - React Router DOM
+// ============================================
+export { ReactRouterProvider } from './lib/routing/react-router.jsx';
+export { Link, NavLink, useNavigate, useParams, useLocation } from './lib/routing/react-router.jsx';
+`;
+      }
+    }
+  }
+
+  // Add state management only if selected
+  if (options.stateManagement !== 'none') {
+    const ext = options.lang === 'ts' ? '' : '.js';
+    if (options.stateManagement === 'zustand') {
+      if (options.lang === 'ts') {
+        indexContent += `
+// ============================================
+// STATE MANAGEMENT - Zustand
+// ============================================
+export { createZustandStore, create, persist, createJSONStorage } from './lib/store/zustand-store${ext}';
+export type { ZustandStoreConfig } from './lib/store/zustand-store${ext}';
+`;
+      } else {
+        indexContent += `
+// ============================================
+// STATE MANAGEMENT - Zustand
+// ============================================
+export { createZustandStore, create, persist, createJSONStorage } from './lib/store/zustand-store${ext}';
+`;
+      }
+    } else if (options.stateManagement === 'redux') {
+      if (options.lang === 'ts') {
+        indexContent += `
+// ============================================
+// STATE MANAGEMENT - Redux
+// ============================================
+export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './lib/store/redux-store${ext}';
+export type { ReduxSliceConfig } from './lib/store/redux-store${ext}';
+export { configureStore, createSlice, Provider } from './lib/store/redux-store${ext}';
+`;
+      } else {
+        indexContent += `
+// ============================================
+// STATE MANAGEMENT - Redux
+// ============================================
+export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './lib/store/redux-store${ext}';
+export { configureStore, createSlice, Provider } from './lib/store/redux-store${ext}';
+`;
+      }
+    }
+  }
+
+  fs.writeFileSync(mainIndexPath, indexContent);
+  log(`\n  + index${indexExt} (main)`, 'green');
+
+  // Also create components index file
+  const componentsIndexPath = path.join(targetDir, `index${indexExt}`);
+  const componentsIndexContent = `// Antd Custom Components
 // Generated by antd-components CLI
 
 export * from './Form';
@@ -582,9 +1036,8 @@ export * from './DataDisplay';
 export * from './Other';
 `;
 
-  const indexPath = path.join(targetDir, `index${indexExt}`);
-  fs.writeFileSync(indexPath, indexContent);
-  log(`\n  + index${indexExt}`, 'green');
+  fs.writeFileSync(componentsIndexPath, componentsIndexContent);
+  log(`  + index${indexExt} (components)`, 'green');
 
   log('\n✅ Files created!', 'green');
   
@@ -592,7 +1045,7 @@ export * from './Other';
   installDependencies(cwd, options);
   
   // Setup Tailwind CSS
-  setupTailwind(cwd, projectType, baseDir);
+  setupTailwind(cwd, projectType, baseDir, options.lang);
   
   log('\n✅ Setup complete!', 'green');
   
