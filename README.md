@@ -40,6 +40,7 @@ npx github:Thanarat00/antd-components init
 - ✅ สร้างไฟล์ services, lib, hooks ตามที่เลือก
 - ✅ ติดตั้ง dependencies อัตโนมัติ
 - ✅ Setup Tailwind CSS
+- ✅ สร้าง/อัพเดท `jsconfig.json` สำหรับโปรเจค JavaScript (รองรับ JSX syntax)
 
 ## 📖 Usage
 
@@ -171,6 +172,34 @@ src/
 ├── hooks/
 │   └── useForm.ts/js # Custom form hook
 └── utils/            # Utility functions
+```
+
+## 🔧 Troubleshooting
+
+### JSX Syntax Error
+
+หากพบ error **"The JSX syntax extension is not currently enabled"** เมื่อใช้โปรเจค JavaScript:
+
+**วิธีแก้:**
+1. CLI จะสร้าง `jsconfig.json` อัตโนมัติเมื่อเลือก JavaScript
+2. หากยังมี error ให้ตรวจสอบว่า `jsconfig.json` มีการตั้งค่า JSX:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
+}
+```
+
+3. สำหรับ Vite projects: ตรวจสอบว่า `vite.config.js` มี `@vitejs/plugin-react`:
+
+```js
+import react from '@vitejs/plugin-react';
+
+export default {
+  plugins: [react()],
+};
 ```
 
 ## 📚 Documentation
