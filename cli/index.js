@@ -30,10 +30,40 @@ function detectProjectType(cwd) {
   const nextConfigJs = path.join(cwd, 'next.config.js');
   const nextConfigMjs = path.join(cwd, 'next.config.mjs');
   const nextConfigTs = path.join(cwd, 'next.config.ts');
+  const packageJsonPath = path.join(cwd, 'package.json');
   
-  if (fs.existsSync(nextConfigJs) || fs.existsSync(nextConfigMjs) || fs.existsSync(nextConfigTs)) {
+  // Check package.json for Next.js
+  let isNextJs = false;
+  let nextVersion = null;
+  if (fs.existsSync(packageJsonPath)) {
+    try {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+      const deps = { ...packageJson.dependencies, ...packageJson.devDependencies };
+      if (deps.next) {
+        isNextJs = true;
+        nextVersion = deps.next;
+      }
+    } catch (e) {
+      // Ignore parse errors
+    }
+  }
+  
+  if (isNextJs || fs.existsSync(nextConfigJs) || fs.existsSync(nextConfigMjs) || fs.existsSync(nextConfigTs)) {
     // Check for App Router vs Pages Router
-    if (fs.existsSync(path.join(cwd, 'app')) || fs.existsSync(path.join(cwd, 'src', 'app'))) {
+    // App Router: has app directory (or src/app)
+    const appDir = path.join(cwd, 'app');
+    const srcAppDir = path.join(cwd, 'src', 'app');
+    const pagesDir = path.join(cwd, 'pages');
+    const srcPagesDir = path.join(cwd, 'src', 'pages');
+    
+    if (fs.existsSync(appDir) || fs.existsSync(srcAppDir)) {
+      return 'nextjs-app';
+    }
+    if (fs.existsSync(pagesDir) || fs.existsSync(srcPagesDir)) {
+      return 'nextjs-pages';
+    }
+    // If neither exists but has next.config, default to App Router (Next.js 13+)
+    if (isNextJs) {
       return 'nextjs-app';
     }
     return 'nextjs-pages';
@@ -53,20 +83,46 @@ function detectProjectType(cwd) {
 function getBaseDir(cwd, projectType) {
   switch (projectType) {
     case 'nextjs-app':
-      // Check if using src/app or app
-      if (fs.existsSync(path.join(cwd, 'src', 'app'))) {
-        return path.join(cwd, 'src');
-      }
-      // Create in src if doesn't exist
-      return path.join(cwd, 'src');
-    case 'nextjs-pages':
+      // Next.js App Router: prefer src directory if exists, otherwise root
+      // Components can be in src/components or components (root level)
       if (fs.existsSync(path.join(cwd, 'src'))) {
         return path.join(cwd, 'src');
       }
+      // If no src directory, create components at root level
+      return cwd;
+    case 'nextjs-pages':
+      // Next.js Pages Router: prefer src directory if exists
+      if (fs.existsSync(path.join(cwd, 'src'))) {
+        return path.join(cwd, 'src');
+      }
+      // If no src directory, use root
       return cwd;
     default:
       return path.join(cwd, 'src');
   }
+}
+
+function getComponentsDir(cwd, projectType, baseDir) {
+  // For Next.js, components can be at root level or in src
+  const rootComponents = path.join(cwd, 'components');
+  const srcComponents = path.join(baseDir, 'components');
+  
+  // Prefer root level components for Next.js (common pattern)
+  if (projectType === 'nextjs-app' || projectType === 'nextjs-pages') {
+    // Check if root components already exists
+    if (fs.existsSync(rootComponents)) {
+      return rootComponents;
+    }
+    // Check if src/components exists
+    if (fs.existsSync(srcComponents)) {
+      return srcComponents;
+    }
+    // Default to root level for Next.js (better for App Router)
+    return rootComponents;
+  }
+  
+  // For other projects, use src/components
+  return srcComponents;
 }
 
 function copyDir(src, dest, options = {}) {
@@ -212,12 +268,28 @@ function installDependencies(cwd, options = {}) {
   }
 }
 
-function setupJSXConfig(cwd) {
+function setupJSXConfig(cwd, projectType) {
   // Check if tsconfig.json exists (TypeScript project)
   const tsconfigPath = path.join(cwd, 'tsconfig.json');
   if (fs.existsSync(tsconfigPath)) {
-    // TypeScript project already has JSX support
-    return;
+    // TypeScript project - check if JSX is configured
+    try {
+      const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
+      if (tsconfig.compilerOptions && tsconfig.compilerOptions.jsx) {
+        // JSX already configured
+        return;
+      }
+      // Add JSX if missing
+      if (!tsconfig.compilerOptions) {
+        tsconfig.compilerOptions = {};
+      }
+      tsconfig.compilerOptions.jsx = 'react-jsx';
+      fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
+      log('  + Updated tsconfig.json (added JSX support)', 'green');
+      return;
+    } catch (e) {
+      // Ignore parse errors
+    }
   }
   
   // Check if jsconfig.json already exists
@@ -277,6 +349,116 @@ function setupJSXConfig(cwd) {
   
   fs.writeFileSync(jsconfigPath, JSON.stringify(jsconfig, null, 2));
   log('  + Created jsconfig.json (JSX enabled)', 'green');
+}
+
+function setupNextJSConfig(cwd, projectType, lang = 'ts') {
+  log('\n⚙️  Setting up Next.js configuration...', 'yellow');
+  
+  // For Next.js App Router, ensure app directory exists
+  if (projectType === 'nextjs-app') {
+    const appDir = path.join(cwd, 'app');
+    const srcAppDir = path.join(cwd, 'src', 'app');
+    
+    if (!fs.existsSync(appDir) && !fs.existsSync(srcAppDir)) {
+      // Create app directory
+      const targetAppDir = fs.existsSync(path.join(cwd, 'src')) ? srcAppDir : appDir;
+      if (!fs.existsSync(targetAppDir)) {
+        fs.mkdirSync(targetAppDir, { recursive: true });
+        log('  + Created app directory', 'green');
+      }
+    }
+  }
+  
+  // For Next.js Pages Router, ensure pages directory exists
+  if (projectType === 'nextjs-pages') {
+    const pagesDir = path.join(cwd, 'pages');
+    const srcPagesDir = path.join(cwd, 'src', 'pages');
+    
+    if (!fs.existsSync(pagesDir) && !fs.existsSync(srcPagesDir)) {
+      // Create pages directory
+      const targetPagesDir = fs.existsSync(path.join(cwd, 'src')) ? srcPagesDir : pagesDir;
+      if (!fs.existsSync(targetPagesDir)) {
+        fs.mkdirSync(targetPagesDir, { recursive: true });
+        log('  + Created pages directory', 'green');
+      }
+    }
+  }
+  
+  // Update or create tsconfig.json for Next.js
+  const tsconfigPath = path.join(cwd, 'tsconfig.json');
+  if (lang === 'ts' && fs.existsSync(tsconfigPath)) {
+    try {
+      const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
+      
+      // Ensure Next.js specific settings
+      if (!tsconfig.compilerOptions) {
+        tsconfig.compilerOptions = {};
+      }
+      
+      // Add Next.js recommended settings
+      if (!tsconfig.compilerOptions.jsx) {
+        tsconfig.compilerOptions.jsx = 'preserve'; // Next.js uses 'preserve'
+      }
+      
+      // Ensure paths are set for @ imports
+      if (!tsconfig.compilerOptions.paths) {
+        tsconfig.compilerOptions.paths = {};
+      }
+      if (!tsconfig.compilerOptions.paths['@/*']) {
+        if (fs.existsSync(path.join(cwd, 'src'))) {
+          tsconfig.compilerOptions.paths['@/*'] = ['./src/*'];
+        } else {
+          tsconfig.compilerOptions.paths['@/*'] = ['./*'];
+        }
+      }
+      
+      // Update include paths for Next.js
+      if (!tsconfig.include) {
+        tsconfig.include = [];
+      }
+      
+      // Add Next.js specific paths
+      const includesToAdd = [];
+      if (projectType === 'nextjs-app') {
+        if (!tsconfig.include.some(inc => inc.includes('app'))) {
+          includesToAdd.push('./app/**/*', './src/app/**/*');
+        }
+      } else {
+        if (!tsconfig.include.some(inc => inc.includes('pages'))) {
+          includesToAdd.push('./pages/**/*', './src/pages/**/*');
+        }
+      }
+      
+      // Add components to include
+      if (!tsconfig.include.some(inc => inc.includes('components'))) {
+        includesToAdd.push('./components/**/*', './src/components/**/*');
+      }
+      
+      // Add new includes
+      includesToAdd.forEach(inc => {
+        if (!tsconfig.include.includes(inc)) {
+          tsconfig.include.push(inc);
+        }
+      });
+      
+      fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
+      log('  + Updated tsconfig.json (Next.js optimized)', 'green');
+    } catch (e) {
+      log('  ⚠️  Could not update tsconfig.json', 'yellow');
+    }
+  }
+  
+  // Check next.config.js/ts/mjs
+  const nextConfigFiles = [
+    path.join(cwd, 'next.config.js'),
+    path.join(cwd, 'next.config.mjs'),
+    path.join(cwd, 'next.config.ts'),
+  ];
+  
+  const hasNextConfig = nextConfigFiles.some(file => fs.existsSync(file));
+  if (!hasNextConfig) {
+    log('  ℹ️  No next.config found (optional)', 'blue');
+  }
 }
 
 function setupTailwind(cwd, projectType, baseDir, lang = 'ts') {
@@ -706,7 +888,7 @@ async function init() {
   
   // Get base directory
   const baseDir = getBaseDir(cwd, projectType);
-  const targetDir = path.join(baseDir, 'components');
+  const targetDir = getComponentsDir(cwd, projectType, baseDir);
   
   // Find the package directory
   const packageDir = path.dirname(__dirname);
@@ -926,7 +1108,12 @@ export * from './Other';
   
   // Setup JSX configuration for JavaScript projects
   if (options.lang === 'js') {
-    setupJSXConfig(cwd);
+    setupJSXConfig(cwd, projectType);
+  }
+  
+  // Setup Next.js specific configurations
+  if (projectType === 'nextjs-app' || projectType === 'nextjs-pages') {
+    setupNextJSConfig(cwd, projectType, options.lang);
   }
   
   // Auto install dependencies
