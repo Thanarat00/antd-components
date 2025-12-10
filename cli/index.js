@@ -178,23 +178,23 @@ function installDependencies(cwd, options = {}) {
       devDependencies.push('@types/react-router-dom');
     }
   }
-
+  
   log('\n📦 Installing dependencies...', 'yellow');
   
   try {
     if (dependencies.length > 0) {
-      execSync(`npm install ${dependencies.join(' ')}`, {
-        cwd: cwd,
-        stdio: 'inherit'
-      });
+    execSync(`npm install ${dependencies.join(' ')}`, {
+      cwd: cwd,
+      stdio: 'inherit'
+    });
     }
     
     if (devDependencies.length > 0) {
       log('\n📦 Installing dev dependencies...', 'yellow');
-      execSync(`npm install -D ${devDependencies.join(' ')}`, {
-        cwd: cwd,
-        stdio: 'inherit'
-      });
+    execSync(`npm install -D ${devDependencies.join(' ')}`, {
+      cwd: cwd,
+      stdio: 'inherit'
+    });
     }
     
     log('\n✅ Dependencies installed!', 'green');
@@ -203,10 +203,10 @@ function installDependencies(cwd, options = {}) {
     log('\n❌ Failed to install dependencies', 'red');
     log('Please run manually:', 'yellow');
     if (dependencies.length > 0) {
-      log(`npm install ${dependencies.join(' ')}`, 'blue');
+    log(`npm install ${dependencies.join(' ')}`, 'blue');
     }
     if (devDependencies.length > 0) {
-      log(`npm install -D ${devDependencies.join(' ')}`, 'blue');
+    log(`npm install -D ${devDependencies.join(' ')}`, 'blue');
     }
     return false;
   }
@@ -835,192 +835,7 @@ export { configureStore, createSlice, Provider } from './redux-store.js';
     }
   }
 
-  // Create main index file in baseDir (not components dir)
-  const indexExt = options.lang === 'ts' ? '.ts' : '.js';
-  const mainIndexPath = path.join(baseDir, `index${indexExt}`);
-  
-  let indexContent = `// Styles
-import './styles/index.css';
-
-// ============================================
-// GENERAL COMPONENTS
-// ============================================
-export * from './components/General';
-
-// ============================================
-// LAYOUT COMPONENTS
-// ============================================
-export * from './components/Layout';
-
-// ============================================
-// NAVIGATION COMPONENTS
-// ============================================
-export * from './components/Navigation';
-
-// ============================================
-// DATA ENTRY COMPONENTS
-// ============================================
-export * from './components/DataEntry';
-
-// ============================================
-// DATA DISPLAY COMPONENTS
-// ============================================
-export * from './components/DataDisplay';
-
-// ============================================
-// TABLE COMPONENTS
-// ============================================
-export * from './components/Table';
-
-// ============================================
-// FEEDBACK COMPONENTS
-// ============================================
-export * from './components/Feedback';
-
-// ============================================
-// HOOKS
-// ============================================
-export { useTableSearch } from './hooks/useTableSearch';
-export { useLocalStorage } from './hooks/useLocalStorage';
-`;
-
-  // Add useForm only if form library is selected
-  if (options.formLibrary !== 'none') {
-    if (options.lang === 'ts') {
-      indexContent += `
-// ============================================
-// FORMS
-// ============================================
-export { useForm } from './hooks/useForm';
-export type { FormLibrary, UseFormConfig } from './hooks/useForm';
-export { Controller, FormProvider, useFormContext, useController, useWatch, useFieldArray } from './hooks/useForm';
-`;
-    } else {
-      indexContent += `
-// ============================================
-// FORMS
-// ============================================
-export { useForm } from './hooks/useForm';
-export { Controller, FormProvider, useFormContext, useController, useWatch, useFieldArray } from './hooks/useForm';
-`;
-    }
-  }
-
-  indexContent += `
-// ============================================
-// OTHER COMPONENTS
-// ============================================
-export * from './components/Other';
-
-// ============================================
-// UTILS
-// ============================================
-export { formatDate, formatThaiDate, getDatePresets, getDateRangePresets } from './utils/dateUtils';
-export { cn } from './utils/cn';
-
-// ============================================
-// SERVICES
-// ============================================
-export { axiosInstant, AxiosInstant } from './services';
-`;
-
-  // Add type exports for TypeScript
-  if (options.lang === 'ts') {
-    indexContent += `export type { AxiosInstantConfig, ApiResponse } from './services';
-`;
-  }
-
-  // Add Tanstack Query only if selected
-  if (options.tanstackQuery) {
-    const ext = options.lang === 'ts' ? '' : '.js';
-    indexContent += `
-// ============================================
-// TANSTACK QUERY
-// ============================================
-export { QueryProvider, queryClient } from './lib/tanstack-query${ext}';
-export { useApiQuery, useApiMutation, useApiPut, useApiDelete } from './lib/tanstack-query-hooks${ext}';
-export { useQuery, useMutation, useQueryClient, useInfiniteQuery } from './lib/tanstack-query${ext}';
-`;
-  }
-
-  // Add routing only if selected
-  if (options.routing !== 'none') {
-    const ext = options.lang === 'ts' ? '' : '.js';
-    if (options.routing === 'tanstack-router') {
-      indexContent += `
-// ============================================
-// ROUTING - Tanstack Router
-// ============================================
-export { TanstackRouterProvider, createAppRoute, router } from './lib/routing/tanstack-router${options.lang === 'ts' ? '' : '.jsx'}';
-`;
-    } else if (options.routing === 'react-router-dom') {
-      if (options.lang === 'ts') {
-        indexContent += `
-// ============================================
-// ROUTING - React Router DOM
-// ============================================
-export { ReactRouterProvider } from './lib/routing/react-router';
-export type { RouteConfig, ReactRouterProviderProps } from './lib/routing/react-router';
-export { Link, NavLink, useNavigate, useParams, useLocation } from './lib/routing/react-router';
-`;
-      } else {
-        indexContent += `
-// ============================================
-// ROUTING - React Router DOM
-// ============================================
-export { ReactRouterProvider } from './lib/routing/react-router.jsx';
-export { Link, NavLink, useNavigate, useParams, useLocation } from './lib/routing/react-router.jsx';
-`;
-      }
-    }
-  }
-
-  // Add state management only if selected
-  if (options.stateManagement !== 'none') {
-    const ext = options.lang === 'ts' ? '' : '.js';
-    if (options.stateManagement === 'zustand') {
-      if (options.lang === 'ts') {
-        indexContent += `
-// ============================================
-// STATE MANAGEMENT - Zustand
-// ============================================
-export { createZustandStore, create, persist, createJSONStorage } from './lib/store/zustand-store${ext}';
-export type { ZustandStoreConfig } from './lib/store/zustand-store${ext}';
-`;
-      } else {
-        indexContent += `
-// ============================================
-// STATE MANAGEMENT - Zustand
-// ============================================
-export { createZustandStore, create, persist, createJSONStorage } from './lib/store/zustand-store${ext}';
-`;
-      }
-    } else if (options.stateManagement === 'redux') {
-      if (options.lang === 'ts') {
-        indexContent += `
-// ============================================
-// STATE MANAGEMENT - Redux
-// ============================================
-export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './lib/store/redux-store${ext}';
-export type { ReduxSliceConfig } from './lib/store/redux-store${ext}';
-export { configureStore, createSlice, Provider } from './lib/store/redux-store${ext}';
-`;
-      } else {
-        indexContent += `
-// ============================================
-// STATE MANAGEMENT - Redux
-// ============================================
-export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './lib/store/redux-store${ext}';
-export { configureStore, createSlice, Provider } from './lib/store/redux-store${ext}';
-`;
-      }
-    }
-  }
-
-  fs.writeFileSync(mainIndexPath, indexContent);
-  log(`\n  + index${indexExt} (main)`, 'green');
-
-  // Also create components index file
+  // Create components index file
   const componentsIndexPath = path.join(targetDir, `index${indexExt}`);
   const componentsIndexContent = `// Antd Custom Components
 // Generated by antd-components CLI
