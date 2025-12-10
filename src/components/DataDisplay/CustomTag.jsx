@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag, TagProps } from 'antd';
+import { Tag } from 'antd';
 import { CloseOutlined, CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -20,8 +20,7 @@ export const CustomTag = ({
   const sizeClass = {
     small: 'text-xs px-1.5 py-0',
     default: 'text-sm px-2 py-0.5',
-    large: 'text-base px-3 py-1',
-  }[size];
+    large: 'text-base px-3 py-1' }[size];
 
   return (
     <Tag
@@ -53,8 +52,7 @@ export const StatusTag = ({
   status,
   text,
   showIcon = true,
-  className,
-}) => {
+  className }) => {
   const config = statusConfig[status];
 
   return (
@@ -75,8 +73,7 @@ StatusTag.displayName = 'StatusTag';
 export const TagGroup = ({
   tags,
   onRemove,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('flex flex-wrap gap-1', className)}>
       {tags.map((tag) => (

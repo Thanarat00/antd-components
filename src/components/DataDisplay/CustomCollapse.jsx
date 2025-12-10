@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse, CollapseProps } from 'antd';
+import { Collapse } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -47,8 +47,7 @@ export const CollapsiblePanel = ({
   children,
   defaultOpen = false,
   extra,
-  className,
-}) => {
+  className }) => {
   return (
     <Collapse
       defaultActiveKey={defaultOpen ?  : []}
@@ -72,8 +71,7 @@ CollapsiblePanel.displayName = 'CollapsiblePanel';
 
 export const FAQAccordion = ({
   items,
-  className,
-}) => {
+  className }) => {
   const collapseItems = items.map((item, index) => ({
     key(index),
     label: <span className="font-medium">{item.question}</span>,

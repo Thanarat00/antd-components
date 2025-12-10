@@ -6,8 +6,7 @@ import { Button, Form, Input } from 'antd';
 const meta= {
   title: 'Feedback/CustomModal',
   component: {
-    layout: 'centered',
-  },
+    layout: 'centered' },
   tags: ,
 };
 
@@ -38,8 +37,7 @@ export const Default= {
       <p>นี่คือเนื้อหาภายใน Modal</p>
       <p>สามารถใส่เนื้อหาอะไรก็ได้</p>
     </ModalDemo>
-  ),
-};
+  ) };
 
 export const WithConfirm= {
   render: () => (
@@ -141,8 +139,7 @@ export const Sizes= {
         <p>ขนาด Large (720px)</p>
       </ModalDemo>
     </div>
-  ),
-};
+  ) };
 
 export const HideCancel= {
   render: () => (

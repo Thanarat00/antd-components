@@ -1,5 +1,5 @@
 import React from 'react';
-import { Statistic, StatisticProps, Progress } from 'antd';
+import { Statistic, Progress } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -44,8 +44,7 @@ export const StatisticCard = ({
   suffix,
   trend,
   icon,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('bg-white rounded-lg p-4 border border-gray-200', className)}>
       <div className="flex justify-between items-start">
@@ -86,8 +85,7 @@ export const ProgressStatistic = ({
   value,
   total,
   unit = '',
-  className,
-}) => {
+  className }) => {
   const percent = Math.round((value / total) * 100);
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select, SelectProps, Tag } from 'antd';
+import { Select, Tag } from 'antd';
 import { cn } from '../../utils/cn';
 
 

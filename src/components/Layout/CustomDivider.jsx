@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, DividerProps } from 'antd';
+import { Divider } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -17,8 +17,7 @@ export const CustomDivider = ({
   const spacingClass = {
     small: 'my-2',
     medium: 'my-4',
-    large: 'my-6',
-  }[spacing];
+    large: 'my-6' }[spacing];
 
   return (
     <Divider
@@ -41,8 +40,7 @@ export const SectionDivider = ({
   title,
   subtitle,
   orientation = 'left',
-  className,
-}) => {
+  className }) => {
   return (
     <Divider orientation={orientation} className={cn('my-6', className)}>
       <div className={cn(orientation === 'center' && 'text-center')}>

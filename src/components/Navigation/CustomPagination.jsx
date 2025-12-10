@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pagination, PaginationProps } from 'antd';
+import { Pagination } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -76,8 +76,7 @@ export const PaginationInfo = ({
   current,
   pageSize,
   total,
-  className,
-}) => {
+  className }) => {
   const start = (current - 1) * pageSize + 1;
   const end = Math.min(current * pageSize, total);
 

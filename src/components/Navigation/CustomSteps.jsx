@@ -1,5 +1,5 @@
 import React from 'react';
-import { Steps, StepsProps } from 'antd';
+import { Steps } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -24,8 +24,7 @@ export const CustomSteps = ({
     description.description,
     icon.icon,
     status.status,
-    disabled.disabled,
-  }));
+    disabled.disabled }));
 
   const handleChange = clickable ? onChange ;
 
@@ -74,8 +73,7 @@ CustomSteps.displayName = 'CustomSteps';
 export const ProgressSteps = ({
   steps,
   currentStep,
-  className,
-}) => {
+  className }) => {
   const percent = Math.round((currentStep / (steps.length - 1)) * 100);
 
   return (
@@ -98,8 +96,7 @@ ProgressSteps.displayName = 'ProgressSteps';
 
 export const StatusSteps = ({
   steps,
-  className,
-}) => {
+  className }) => {
   const getStatus = (status'status'])'items'][0] => {
     switch (status) {
       case 'completed':

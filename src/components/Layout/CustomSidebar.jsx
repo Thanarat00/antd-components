@@ -3,8 +3,7 @@ import { Menu, Button, Tooltip, Avatar } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  LogoutOutlined,
-} from '@ant-design/icons';
+  LogoutOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
 
@@ -47,8 +46,7 @@ export const CustomSidebar = ({
   className,
   width = 256,
   collapsedWidth = 80,
-  theme = 'dark',
-}) => {
+  theme = 'dark' }) => {
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
   const isCollapsed = controlledCollapsed ?? internalCollapsed;
 
@@ -70,8 +68,7 @@ export const CustomSidebar = ({
       icon.icon,
       label.label,
       disabled.disabled,
-      danger.danger,
-    })),
+      danger.danger })),
   }));
 
   const handleMenuClick'onClick'] = ({ key }) => {
@@ -94,8 +91,7 @@ export const CustomSidebar = ({
 
   const themeStyles = {
     dark: 'bg-slate-900 text-white',
-    light: 'bg-white text-gray-800 border-r border-gray-200',
-  };
+    light: 'bg-white text-gray-800 border-r border-gray-200' };
 
   return (
     <aside

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Radio, RadioProps, RadioGroupProps } from 'antd';
+import { Radio } from 'antd';
 import { cn } from '../../utils/cn';
 
 

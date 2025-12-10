@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, AlertProps } from 'antd';
+import { Alert } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -49,14 +49,12 @@ BannerAlert.displayName = 'BannerAlert';
 export const InlineAlert = ({
   type,
   message,
-  className,
-}) => {
+  className }) => {
   const colorClass = {
     success: 'text-green-600 bg-green-50',
     info: 'text-blue-600 bg-blue-50',
     warning: 'text-yellow-600 bg-yellow-50',
-    error: 'text-red-600 bg-red-50',
-  }[type];
+    error: 'text-red-600 bg-red-50' }[type];
 
   return (
     <div className={cn('text-sm px-3 py-2 rounded', colorClass, className)}>

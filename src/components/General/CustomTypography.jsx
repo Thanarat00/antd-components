@@ -52,23 +52,20 @@ export const CustomText = ({
     success: 'text-green-600',
     warning: 'text-yellow-600',
     danger: 'text-red-600',
-    muted: 'text-gray-400',
-  }[variant];
+    muted: 'text-gray-400' }[variant];
 
   const sizeClass = {
     xs: 'text-xs',
     sm: 'text-sm',
     base: 'text-base',
     lg: 'text-lg',
-    xl: 'text-xl',
-  }[size];
+    xl: 'text-xl' }[size];
 
   const weightClass = {
     normal: 'font-normal',
     medium: 'font-medium',
     semibold: 'font-semibold',
-    bold: 'font-bold',
-  }[weight];
+    bold: 'font-bold' }[weight];
 
   return (
     <Text className={cn(variantClass, sizeClass, weightClass, className)} {...props}>
@@ -90,8 +87,7 @@ export const CustomParagraph = ({
   const sizeClass = {
     sm: 'text-sm',
     base: 'text-base',
-    lg: 'text-lg',
-  }[size];
+    lg: 'text-lg' }[size];
 
   return (
     <Paragraph
@@ -112,8 +108,7 @@ export const CustomLink = ({
   children,
   className,
   underline = true,
-  onClick,
-}) => {
+  onClick }) => {
   return (
     <Link
       href={href}
@@ -133,8 +128,7 @@ export const Label = ({
   children,
   required = false,
   htmlFor,
-  className,
-}) => {
+  className }) => {
   return (
     <label
       htmlFor={htmlFor}
@@ -152,8 +146,7 @@ Label.displayName = 'Label';
 export const HelperText = ({
   children,
   error = false,
-  className,
-}) => {
+  className }) => {
   return (
     <p
       className={cn(

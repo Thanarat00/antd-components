@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, BadgeProps } from 'antd';
+import { Badge } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -17,8 +17,7 @@ export const CustomBadge = ({
     processing: 'processing',
     success: 'success',
     warning: 'warning',
-    error: 'error',
-  };
+    error: 'error' };
 
   if (variant === 'dot') {
     return (
@@ -51,8 +50,7 @@ CustomBadge.displayName = 'CustomBadge';
 export const StatusBadge = ({
   status,
   text,
-  className,
-}) => {
+  className }) => {
   return (
     <Badge status={status} text={text} className={className} />
   );
@@ -68,8 +66,7 @@ export const CountBadge = ({
   max = 99,
   showZero = false,
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <Badge
       count={count}
@@ -92,8 +89,7 @@ export const RibbonBadge = ({
   color,
   placement = 'end',
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <Badge.Ribbon text={text} color={color} placement={placement} className={className}>
       {children}

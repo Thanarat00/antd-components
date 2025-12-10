@@ -1,5 +1,5 @@
 import React from 'react';
-import { Slider, SliderSingleProps, InputNumber, Space } from 'antd';
+import { Slider, InputNumber, Space } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -80,8 +80,7 @@ export const CustomRangeSlider = ({
   value = [min, max],
   onChange,
   unit = '',
-  className,
-}) => {
+  className }) => {
   return (
     <div className={className}>
       {label && (

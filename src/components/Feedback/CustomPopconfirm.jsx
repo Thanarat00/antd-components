@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popconfirm, PopconfirmProps, Button } from 'antd';
+import { Popconfirm, Button } from 'antd';
 import { ExclamationCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -42,8 +42,7 @@ export const DeleteConfirmButton = ({
   buttonText,
   loading = false,
   disabled = false,
-  size = 'middle',
-}) => {
+  size = 'middle' }) => {
   return (
     <CustomPopconfirm
       variant="danger"
@@ -77,8 +76,7 @@ export const ActionConfirm = ({
   children,
   okText = 'ยืนยัน',
   cancelText = 'ยกเลิก',
-  danger = false,
-}) => {
+  danger = false }) => {
   return (
     <CustomPopconfirm
       variant={danger ? 'danger' : 'default'}

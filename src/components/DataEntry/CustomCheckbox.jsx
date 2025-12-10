@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, CheckboxProps } from 'antd';
+import { Checkbox } from 'antd';
 import { cn } from '../../utils/cn';
 
 

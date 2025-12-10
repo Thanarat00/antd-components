@@ -9,14 +9,12 @@ import {
   FileTextOutlined,
   TeamOutlined,
   BarChartOutlined,
-  ShopOutlined,
-} from '@ant-design/icons';
+  ShopOutlined } from '@ant-design/icons';
 
 const meta= {
   title: 'Layout/CustomSidebar',
   component: {
-    layout: 'fullscreen',
-  },
+    layout: 'fullscreen' },
   tags: ,
 };
 
@@ -27,8 +25,7 @@ const menuItems = [
   {
     key: 'dashboard',
     label: 'แดชบอร์ด',
-    icon: <DashboardOutlined />,
-  },
+    icon: <DashboardOutlined /> },
   {
     key: 'products',
     label: 'สินค้า',
@@ -42,13 +39,11 @@ const menuItems = [
   {
     key: 'orders',
     label: 'คำสั่งซื้อ',
-    icon: <FileTextOutlined />,
-  },
+    icon: <FileTextOutlined /> },
   {
     key: 'customers',
     label: 'ลูกค้า',
-    icon: <TeamOutlined />,
-  },
+    icon: <TeamOutlined /> },
   {
     key: 'reports',
     label: 'รายงาน',
@@ -62,8 +57,7 @@ const menuItems = [
   {
     key: 'settings',
     label: 'ตั้งค่า',
-    icon: <SettingOutlined />,
-  },
+    icon: <SettingOutlined /> },
 ];
 
 const InteractiveSidebar = (props.ComponentProps<typeof CustomSidebar>>) => {
@@ -80,8 +74,7 @@ const InteractiveSidebar = (props.ComponentProps<typeof CustomSidebar>>) => {
         onOpenChange={setOpenKeys}
         user={{
           name: 'สมชาย ใจดี',
-          role: 'ผู้ดูแลระบบ',
-        }}
+          role: 'ผู้ดูแลระบบ' }}
         onLogout={() => console.log('Logout')}
         {...props}
       />
@@ -94,16 +87,13 @@ const InteractiveSidebar = (props.ComponentProps<typeof CustomSidebar>>) => {
 };
 
 export const Default= {
-  render: () => <InteractiveSidebar />,
-};
+  render: () => <InteractiveSidebar /> };
 
 export const LightTheme= {
-  render: () => <InteractiveSidebar theme="light" />,
-};
+  render: () => <InteractiveSidebar theme="light" /> };
 
 export const InitiallyCollapsed= {
-  render: () => <InteractiveSidebar defaultCollapsed />,
-};
+  render: () => <InteractiveSidebar defaultCollapsed /> };
 
 export const WithCustomLogo= {
   render: () => (
@@ -134,8 +124,7 @@ export const WithAvatar= {
       user={{
         name: 'สมชาย ใจดี',
         role: 'ผู้ดูแลระบบ',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john',
-      }}
+        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=john' }}
     />
   ),
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Affix, AffixProps, Button } from 'antd';
+import { Affix, Button } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -28,8 +28,7 @@ CustomAffix.displayName = 'CustomAffix';
 export const StickyHeader = ({
   children,
   offsetTop = 0,
-  className,
-}) => {
+  className }) => {
   return (
     <Affix offsetTop={offsetTop}>
       <div className={cn('bg-white shadow-sm', className)}>
@@ -47,8 +46,7 @@ StickyHeader.displayName = 'StickyHeader';
 export const StickyFooter = ({
   children,
   offsetBottom = 0,
-  className,
-}) => {
+  className }) => {
   return (
     <Affix offsetBottom={offsetBottom}>
       <div className={cn('bg-white shadow-sm', className)}>
@@ -66,8 +64,7 @@ StickyFooter.displayName = 'StickyFooter';
 export const StickyActions = ({
   children,
   offsetBottom = 0,
-  className,
-}) => {
+  className }) => {
   return (
     <Affix offsetBottom={offsetBottom}>
       <div className={cn('bg-white border-t border-gray-200 py-3 px-4', className)}>
@@ -85,8 +82,7 @@ StickyActions.displayName = 'StickyActions';
 export const StickySidebar = ({
   children,
   offsetTop = 80,
-  className,
-}) => {
+  className }) => {
   return (
     <Affix offsetTop={offsetTop}>
       <div className={className}>

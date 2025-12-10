@@ -1,5 +1,5 @@
 import React from 'react';
-import { Drawer, DrawerProps, Button, Space } from 'antd';
+import { Drawer, Button, Space } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -56,8 +56,7 @@ export const FilterDrawer = ({
   onReset,
   children,
   title = 'ตัวกรอง',
-  loading = false,
-}) => {
+  loading = false }) => {
   return (
     <CustomDrawer
       title={title}
@@ -96,8 +95,7 @@ export const DetailDrawer = ({
   title = 'รายละเอียด',
   children,
   extra,
-  width = 480,
-}) => {
+  width = 480 }) => {
   return (
     <Drawer
       title={title}

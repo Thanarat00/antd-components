@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rate, RateProps } from 'antd';
+import { Rate } from 'antd';
 import { StarFilled, HeartFilled, LikeFilled } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -23,14 +23,12 @@ export const CustomRate = ({
   const iconMap = {
     star: <StarFilled />,
     heart: <HeartFilled className="text-red-500" />,
-    like: <LikeFilled className="text-blue-500" />,
-  };
+    like: <LikeFilled className="text-blue-500" /> };
 
   const sizeClass = {
     small: 'text-sm',
     default: 'text-base',
-    large: 'text-xl',
-  }[size];
+    large: 'text-xl' }[size];
 
   const currentText = value ? texts[Math.ceil(value) - 1] : '';
 
@@ -66,8 +64,7 @@ export const RatingDisplay = ({
   total = 5,
   reviewCount,
   size = 'default',
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('flex items-center gap-2', className)}>
       <Rate

@@ -7,15 +7,13 @@ import {
   Dropdown,
   Tag,
   Empty,
-  Tooltip,
-} from 'antd';
+  Tooltip } from 'antd';
 import {
   SearchOutlined,
   ReloadOutlined,
   DownloadOutlined,
   SettingOutlined,
-  FilterOutlined,
-} from '@ant-design/icons';
+  FilterOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
 
@@ -273,8 +271,7 @@ export function createActionColumn<T>(
           typeof action.disabled === 'function'
             ? action.disabled(record)
             .disabled,
-        onClick: () => action.onClick(record),
-      }));
+        onClick: () => action.onClick(record) }));
 
       return (
         <Dropdown menu={{ items}} trigger={}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, FlexProps } from 'antd';
+import { Flex } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -30,8 +30,7 @@ export const Row = ({
   align = 'center',
   justify = 'start',
   wrap = false,
-  className,
-}) => {
+  className }) => {
   const gapSize = { none: 0, small: 8, medium: 16, large: 24 }[gap];
   const alignItems = { start: 'flex-start', center: 'center', end: 'flex-end', stretch: 'stretch' }[align];
   const justifyContent = {
@@ -40,8 +39,7 @@ export const Row = ({
     end: 'flex-end',
     between: 'space-between',
     around: 'space-around',
-    evenly: 'space-evenly',
-  }[justify];
+    evenly: 'space-evenly' }[justify];
 
   return (
     <Flex
@@ -65,8 +63,7 @@ export const Column = ({
   children,
   gap = 'medium',
   align = 'stretch',
-  className,
-}) => {
+  className }) => {
   const gapSize = { none: 0, small: 8, medium: 16, large: 24 }[gap];
   const alignItems = { start: 'flex-start', center: 'center', end: 'flex-end', stretch: 'stretch' }[align];
 
@@ -89,8 +86,7 @@ Column.displayName = 'Column';
 
 export const Center = ({
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <Flex
       align="center"

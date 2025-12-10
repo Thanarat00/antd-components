@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormProps, FormItemProps, Button, Space } from 'antd';
+import { Form, Button } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -54,13 +54,11 @@ export const FormActions = ({
   disabled = false,
   showCancel = true,
   align = 'right',
-  className,
-}) => {
+  className }) => {
   const alignClass = {
     left: 'justify-start',
     center: 'justify-center',
-    right: 'justify-end',
-  }[align];
+    right: 'justify-end' }[align];
 
   return (
     <Form.Item className={cn('mb-0 mt-6', className)}>
@@ -92,8 +90,7 @@ export const FormSection = ({
   title,
   description,
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('mb-6', className)}>
       {(title || description) && (
@@ -116,20 +113,17 @@ export const FormGrid = ({
   children,
   columns = 2,
   gap = 'medium',
-  className,
-}) => {
+  className }) => {
   const colsClass = {
     1: 'grid-cols-1',
     2: 'grid-cols-1 md:grid-cols-2',
     3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
-    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
-  }[columns];
+    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4' }[columns];
 
   const gapClass = {
     small: 'gap-3',
     medium: 'gap-4',
-    large: 'gap-6',
-  }[gap];
+    large: 'gap-6' }[gap];
 
   return (
     <div className={cn('grid', colsClass, gapClass, className)}>

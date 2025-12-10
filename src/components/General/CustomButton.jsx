@@ -31,8 +31,7 @@ export const CustomButton = ({
 
   const colorClass = {
     success: 'bg-green-500 hover:bg-green-600 border-green-500',
-    warning: 'bg-yellow-500 hover:bg-yellow-600 border-yellow-500',
-  }[variant];
+    warning: 'bg-yellow-500 hover:bg-yellow-600 border-yellow-500' }[variant];
 
   return (
     <Button
@@ -62,8 +61,7 @@ export const CustomButtonGroup = ({
   children,
   className,
   direction = 'horizontal',
-  size = 'middle',
-}) => {
+  size = 'middle' }) => {
   return (
     <Space
       direction={direction}

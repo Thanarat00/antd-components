@@ -5,8 +5,7 @@ import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   InfoCircleOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
+  QuestionCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
 
@@ -15,8 +14,7 @@ const sizeMap = {
   small: 400,
   medium: 520,
   large: 720,
-  fullscreen: '100%',
-};
+  fullscreen: '100%' };
 
 /**
  * CustomModal - Enhanced Ant Design Modal with additional features
@@ -99,8 +97,7 @@ const iconMap = {
   success: <CheckCircleOutlined className="text-green-500 text-4xl" />,
   warning: <ExclamationCircleOutlined className="text-yellow-500 text-4xl" />,
   error: <CloseCircleOutlined className="text-red-500 text-4xl" />,
-  confirm: <QuestionCircleOutlined className="text-yellow-500 text-4xl" />,
-};
+  confirm: <QuestionCircleOutlined className="text-yellow-500 text-4xl" /> };
 
 /**
  * ConfirmModal - Modal for confirmation dialogs
@@ -114,8 +111,7 @@ export const ConfirmModal = ({
   onConfirm,
   confirmText = 'ยืนยัน',
   cancelText = 'ยกเลิก',
-  confirmLoading = false,
-}) => {
+  confirmLoading = false }) => {
   return (
     <CustomModal
       open={open}
@@ -148,8 +144,7 @@ export const DeleteConfirmModal = ({
   open,
   onClose,
   onConfirm,
-  confirmLoading = false,
-}) => {
+  confirmLoading = false }) => {
   return (
     <ConfirmModal
       type="error"
@@ -179,8 +174,7 @@ export const ResultModal = ({
   subtitle,
   open,
   onClose,
-  extra,
-}) => {
+  extra }) => {
   return (
     <CustomModal
       open={open}

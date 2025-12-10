@@ -29,8 +29,7 @@ export const CustomPageHeader = ({
   extra,
   tags,
   className,
-  sticky = false,
-}) => {
+  sticky = false }) => {
   // Build breadcrumb items
   const breadcrumbItems = React.useMemo(() => {
     const items= [];
@@ -39,8 +38,7 @@ export const CustomPageHeader = ({
       items.push({
         title: 'หน้าแรก',
         icon: <HomeOutlined />,
-        onClick? undefined : '/',
-      });
+        onClick? undefined : '/' });
     }
 
     if (breadcrumbs) {
@@ -135,8 +133,7 @@ CustomPageHeader.displayName = 'CustomPageHeader';
 export const CompactPageHeader = ({
   title,
   actions,
-  className,
-}) => {
+  className }) => {
   return (
     <div
       className={cn(

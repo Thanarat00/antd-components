@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, BreadcrumbProps } from 'antd';
+import { Breadcrumb } from 'antd';
 import { HomeOutlined, RightOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 

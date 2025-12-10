@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, AvatarProps, Tooltip } from 'antd';
+import { Avatar, Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -66,8 +66,7 @@ export const CustomAvatarGroup = ({
   items,
   max = 4,
   size = 'default',
-  className,
-}) => {
+  className }) => {
   return (
     <Avatar.Group maxCount={max} size={size} className={className}>
       {items.map((item, index) => (
@@ -94,8 +93,7 @@ export const UserAvatar = ({
   subtitle,
   size = 'default',
   direction = 'horizontal',
-  className,
-}) => {
+  className }) => {
   const avatarSize = { small: 32, default: 40, large: 48 }[size];
 
   return (

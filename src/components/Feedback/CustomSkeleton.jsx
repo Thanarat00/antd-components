@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, SkeletonProps } from 'antd';
+import { Skeleton } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -39,8 +39,7 @@ CustomSkeleton.displayName = 'CustomSkeleton';
 export const CardSkeleton = ({
   showAvatar = true,
   rows = 4,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('bg-white rounded-lg p-4 border border-gray-200', className)}>
       <Skeleton
@@ -60,8 +59,7 @@ CardSkeleton.displayName = 'CardSkeleton';
 export const ListSkeleton = ({
   count = 3,
   showAvatar = true,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('space-y-4', className)}>
       {Array.from({ length}).map((_, index) => (
@@ -84,8 +82,7 @@ ListSkeleton.displayName = 'ListSkeleton';
 export const TableSkeleton = ({
   rows = 5,
   columns = 4,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('space-y-3', className)}>
       {/* Header */}
@@ -113,8 +110,7 @@ TableSkeleton.displayName = 'TableSkeleton';
 
 export const FormSkeleton = ({
   fields = 4,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('space-y-4', className)}>
       {Array.from({ length}).map((_, index) => (

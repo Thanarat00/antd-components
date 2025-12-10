@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, TabsProps, Badge } from 'antd';
+import { Tabs, Badge } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -74,8 +74,7 @@ CustomTabs.displayName = 'CustomTabs';
 
 export const TabPanel = ({
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('py-4', className)}>
       {children}
@@ -96,8 +95,7 @@ export const TabBar = ({
   items,
   activeKey,
   onChange,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('flex gap-1 border-b border-gray-200', className)}>
       {items.map((item) => (

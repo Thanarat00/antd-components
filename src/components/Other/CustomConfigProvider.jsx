@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConfigProvider, ConfigProviderProps, theme, App } from 'antd';
+import { ConfigProvider, theme, App } from 'antd';
 import thTH from 'antd/locale/th_TH';
 import enUS from 'antd/locale/en_US';
 
@@ -10,8 +10,7 @@ import enUS from 'antd/locale/en_US';
 
 const localeMap = {
   th: thTH,
-  en: enUS,
-};
+  en: enUS };
 
 /**
  * CustomConfigProvider - Enhanced ConfigProvider with Thai locale
@@ -22,8 +21,7 @@ export const CustomConfigProvider = ({
   themeMode = 'light',
   primaryColor = '#1677ff',
   borderRadius = 6,
-  compact = false,
-}) => {
+  compact = false }) => {
   const algorithm = themeMode === 'dark'
     ? [theme.darkAlgorithm]
     : compact
@@ -37,8 +35,7 @@ export const CustomConfigProvider = ({
         algorithm,
         token: {
           colorPrimary: primaryColor,
-          borderRadius: borderRadius,
-        },
+          borderRadius: borderRadius },
       }}
     >
       <App>
@@ -56,15 +53,13 @@ CustomConfigProvider.displayName = 'CustomConfigProvider';
 export const ThemeProvider = ({
   children,
   theme = 'light',
-  primaryColor = '#1677ff',
-}) => {
+  primaryColor = '#1677ff' }) => {
   return (
     <ConfigProvider
       theme={{
         algorithm: theme === 'dark' ? theme.darkAlgorithm : undefined,
         token: {
-          colorPrimary: primaryColor,
-        },
+          colorPrimary: primaryColor },
       }}
     >
       {children}
@@ -78,8 +73,7 @@ ThemeProvider.displayName = 'ThemeProvider';
 
 
 export const ThaiLocaleProvider = ({
-  children,
-}) => {
+  children }) => {
   return (
     <ConfigProvider locale={thTH}>
       <App>
@@ -102,8 +96,7 @@ export const presetThemes = {
   pink: '#eb2f96',
   volcano: '#fa541c',
   gold: '#faad14',
-  lime: '#a0d911',
-};
+  lime: '#a0d911' };
 
 // Custom theme generator
 export function createTheme(options = {}) {
@@ -114,8 +107,7 @@ export function createTheme(options = {}) {
       colorWarning: options.warningColor || '#faad14',
       colorError: options.errorColor || '#ff4d4f',
       borderRadius: options.borderRadius ?? 6,
-      fontSize: options.fontSize ?? 14,
-    },
+      fontSize: options.fontSize ?? 14 },
   };
 }
 

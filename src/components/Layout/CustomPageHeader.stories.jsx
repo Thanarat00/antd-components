@@ -6,8 +6,7 @@ import { PlusOutlined, DownloadOutlined, SettingOutlined } from '@ant-design/ico
 const meta= {
   title: 'Layout/CustomPageHeader',
   component: {
-    layout: 'fullscreen',
-  },
+    layout: 'fullscreen' },
   tags: ,
 };
 
@@ -16,15 +15,13 @@ type Story = StoryObj<typeof CustomPageHeader>;
 
 export const Default= {
   args: {
-    title: 'รายการสินค้า',
-  },
+    title: 'รายการสินค้า' },
 };
 
 export const WithSubtitle= {
   args: {
     title: 'รายการสินค้า',
-    subtitle: 'จัดการสินค้าทั้งหมดในระบบ',
-  },
+    subtitle: 'จัดการสินค้าทั้งหมดในระบบ' },
 };
 
 export const WithBreadcrumbs= {
@@ -106,8 +103,7 @@ export const WithExtra= {
           <span className="ml-2 font-semibold text-blue-500">234</span>
         </div>
       </div>
-    ),
-  },
+    ) },
 };
 
 export const Sticky= {

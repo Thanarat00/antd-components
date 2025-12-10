@@ -6,8 +6,7 @@ import { useNotification, showNotification, showToast } from './CustomNotificati
 const meta= {
   title: 'Feedback/CustomNotification',
   parameters: {
-    layout: 'centered',
-  },
+    layout: 'centered' },
   tags: ,
 };
 
@@ -25,8 +24,7 @@ const NotificationDemo = () => {
             onClick={() =>
               success({
                 message: 'สำเร็จ!',
-                description: 'บันทึกข้อมูลเรียบร้อยแล้ว',
-              })
+                description: 'บันทึกข้อมูลเรียบร้อยแล้ว' })
             }
           >
             Success
@@ -36,8 +34,7 @@ const NotificationDemo = () => {
             onClick={() =>
               error({
                 message: 'เกิดข้อผิดพลาด',
-                description: 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง',
-              })
+                description: 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง' })
             }
           >
             Error
@@ -46,8 +43,7 @@ const NotificationDemo = () => {
             onClick={() =>
               info({
                 message: 'ข้อมูลเพิ่มเติม',
-                description: 'ระบบจะทำการอัพเดทข้อมูลอัตโนมัติทุก 5 นาที',
-              })
+                description: 'ระบบจะทำการอัพเดทข้อมูลอัตโนมัติทุก 5 นาที' })
             }
           >
             Info
@@ -56,8 +52,7 @@ const NotificationDemo = () => {
             onClick={() =>
               warning({
                 message: 'คำเตือน',
-                description: 'พื้นที่เก็บข้อมูลใกล้เต็มแล้ว กรุณาลบไฟล์ที่ไม่ใช้',
-              })
+                description: 'พื้นที่เก็บข้อมูลใกล้เต็มแล้ว กรุณาลบไฟล์ที่ไม่ใช้' })
             }
           >
             Warning
@@ -102,8 +97,7 @@ const NotificationDemo = () => {
               success({
                 message: 'Top Left',
                 description: 'แสดงที่มุมบนซ้าย',
-                placement: 'topLeft',
-              })
+                placement: 'topLeft' })
             }
           >
             Top Left
@@ -113,8 +107,7 @@ const NotificationDemo = () => {
               success({
                 message: 'Top Right',
                 description: 'แสดงที่มุมบนขวา',
-                placement: 'topRight',
-              })
+                placement: 'topRight' })
             }
           >
             Top Right
@@ -124,8 +117,7 @@ const NotificationDemo = () => {
               success({
                 message: 'Bottom Left',
                 description: 'แสดงที่มุมล่างซ้าย',
-                placement: 'bottomLeft',
-              })
+                placement: 'bottomLeft' })
             }
           >
             Bottom Left
@@ -135,8 +127,7 @@ const NotificationDemo = () => {
               success({
                 message: 'Bottom Right',
                 description: 'แสดงที่มุมล่างขวา',
-                placement: 'bottomRight',
-              })
+                placement: 'bottomRight' })
             }
           >
             Bottom Right
@@ -152,8 +143,7 @@ const NotificationDemo = () => {
               info({
                 message: 'แสดง 10 วินาที',
                 description: 'Notification นี้จะแสดง 10 วินาที',
-                duration: 10,
-              })
+                duration: 10 })
             }
           >
             10 seconds
@@ -163,8 +153,7 @@ const NotificationDemo = () => {
               info({
                 message: 'แสดงจนกว่าจะปิด',
                 description: 'Notification นี้จะไม่ปิดอัตโนมัติ',
-                duration: 0,
-              })
+                duration: 0 })
             }
           >
             Never auto-close
@@ -176,8 +165,7 @@ const NotificationDemo = () => {
 };
 
 export const Default= {
-  render: () => <NotificationDemo />,
-};
+  render: () => <NotificationDemo /> };
 
 // Static Methods (outside React components)
 export const StaticMethods= {
@@ -190,8 +178,7 @@ export const StaticMethods= {
             onClick={() =>
               showNotification.success({
                 message: 'Static Success',
-                description: 'ใช้ได้นอก React Component',
-              })
+                description: 'ใช้ได้นอก React Component' })
             }
           >
             Static Success
@@ -200,8 +187,7 @@ export const StaticMethods= {
             onClick={() =>
               showNotification.error({
                 message: 'Static Error',
-                description: 'ใช้ได้นอก React Component',
-              })
+                description: 'ใช้ได้นอก React Component' })
             }
           >
             Static Error
@@ -246,13 +232,11 @@ export const ExampleUsage= {
 
         success({
           message: 'บันทึกสำเร็จ!',
-          description: 'ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว',
-        });
+          description: 'ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว' });
       } catch (err) {
         error({
           message: 'เกิดข้อผิดพลาด',
-          description: 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง',
-        });
+          description: 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่อีกครั้ง' });
       }
     };
 

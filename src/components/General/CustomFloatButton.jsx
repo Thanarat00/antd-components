@@ -5,8 +5,7 @@ import {
   CustomerServiceOutlined,
   CommentOutlined,
   UpOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+  PlusOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
 /**
@@ -55,8 +54,7 @@ CustomFloatButtonGroup.displayName = 'CustomFloatButtonGroup';
 export const BackToTopButton = ({
   visibilityHeight = 400,
   duration = 450,
-  position = 'right',
-}) => {
+  position = 'right' }) => {
   const positionStyle = position === 'left' ? { left: 24, right: 'auto' } : {};
 
   return (
@@ -76,8 +74,7 @@ export const HelpFloatButton = ({
   onHelp,
   onChat,
   onFeedback,
-  position = 'right',
-}) => {
+  position = 'right' }) => {
   const positionStyle = position === 'left' ? { left: 24, right: 'auto' } : {};
 
   return (
@@ -116,8 +113,7 @@ HelpFloatButton.displayName = 'HelpFloatButton';
 // Action Float Button (FAB)
 export const ActionFloatButton = ({
   actions,
-  position = 'right',
-}) => {
+  position = 'right' }) => {
   const positionStyle = position === 'left' ? { left: 24, right: 'auto' } : {};
 
   return (

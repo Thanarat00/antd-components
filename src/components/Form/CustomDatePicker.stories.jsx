@@ -5,8 +5,7 @@ import dayjs from 'dayjs';
 const meta= {
   title: 'Form/CustomDatePicker',
   component: {
-    layout: 'centered',
-  },
+    layout: 'centered' },
   tags: ,
 };
 

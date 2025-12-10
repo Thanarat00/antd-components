@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip, TooltipProps, Popover, PopoverProps } from 'antd';
+import { Tooltip, Popover } from 'antd';
 import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -29,8 +29,7 @@ export const InfoTooltip = ({
   content,
   iconType = 'info',
   placement = 'top',
-  className,
-}) => {
+  className }) => {
   const Icon = iconType === 'info' ? InfoCircleOutlined ;
 
   return (
@@ -66,8 +65,7 @@ export const HelpPopover = ({
   title = 'ข้อมูลเพิ่มเติม',
   content,
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <Popover title={title} content={content} trigger="click">
       {children || (

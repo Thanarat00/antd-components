@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, SpinProps } from 'antd';
+import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -63,8 +63,7 @@ export const LoadingOverlay = ({
   loading,
   text = 'กำลังโหลด...',
   children,
-  className,
-}) => {
+  className }) => {
   return (
     <Spin
       spinning={loading}
@@ -83,8 +82,7 @@ LoadingOverlay.displayName = 'LoadingOverlay';
 
 
 export const PageLoading = ({
-  text = 'กำลังโหลด...',
-}) => {
+  text = 'กำลังโหลด...' }) => {
   return (
     <div className="min-h-[400px] flex items-center justify-center">
       <div className="text-center">
@@ -101,13 +99,11 @@ PageLoading.displayName = 'PageLoading';
 
 
 export const ButtonLoading = ({
-  size = 'default',
-}) => {
+  size = 'default' }) => {
   const sizeClass = {
     small: 'text-sm',
     default: 'text-base',
-    large: 'text-lg',
-  }[size];
+    large: 'text-lg' }[size];
 
   return <LoadingOutlined className={sizeClass} spin />;
 };

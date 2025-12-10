@@ -1,5 +1,5 @@
 import React from 'react';
-import { Descriptions, DescriptionsProps } from 'antd';
+import { Descriptions } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -21,8 +21,7 @@ export const CustomDescriptions = ({
     key.key,
     label.label,
     children.children,
-    span.span,
-  }));
+    span.span }));
 
   return (
     <Descriptions
@@ -47,8 +46,7 @@ CustomDescriptions.displayName = 'CustomDescriptions';
 export const KeyValueList = ({
   items,
   direction = 'vertical',
-  className,
-}) => {
+  className }) => {
   if (direction === 'horizontal') {
     return (
       <div className={cn('flex flex-wrap gap-x-6 gap-y-2', className)}>
@@ -83,8 +81,7 @@ export const DetailCard = ({
   title,
   items,
   extra,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('bg-white rounded-lg border border-gray-200 p-4', className)}>
       {(title || extra) && (

@@ -7,24 +7,20 @@ import {
   ShoppingCartOutlined,
   UserOutlined,
   DollarOutlined,
-  LineChartOutlined,
-} from '@ant-design/icons';
+  LineChartOutlined } from '@ant-design/icons';
 
 const meta= {
   title: 'Layout/CustomCard',
   component: {
-    layout: 'centered',
-  },
+    layout: 'centered' },
   tags: ,
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'bordered', 'elevated'],
-    },
+      options: ['default', 'bordered', 'elevated'] },
     padding: {
       control: 'select',
-      options: ['none', 'small', 'medium', 'large'],
-    },
+      options: ['none', 'small', 'medium', 'large'] },
   },
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardProps, Skeleton, Button, Dropdown } from 'antd';
+import { Card, Skeleton, Button, Dropdown } from 'antd';
 import { MoreOutlined, ReloadOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -36,15 +36,13 @@ export const CustomCard = ({
   const variantStyles = {
     default: 'sgn-card',
     bordered: 'sgn-card border border-gray-200',
-    elevated: 'sgn-card shadow-antd-md',
-  };
+    elevated: 'sgn-card shadow-antd-md' };
 
   const paddingStyles = {
     none: '[&_.ant-card-body]:p-0',
     small: '[&_.ant-card-body]:p-3',
     medium: '[&_.ant-card-body]:p-4',
-    large: '[&_.ant-card-body]:p-6',
-  };
+    large: '[&_.ant-card-body]:p-6' };
 
   // Build extra content
   const extra = (
@@ -124,8 +122,7 @@ export const StatsCard = ({
   icon,
   trend,
   className,
-  loading = false,
-}) => {
+  loading = false }) => {
   return (
     <CustomCard className={className} loading={loading} padding="medium">
       <div className="flex items-start justify-between">

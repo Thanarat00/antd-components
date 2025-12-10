@@ -16,16 +16,14 @@ export const CustomDropdown = ({
   trigger = ,
   placement = 'bottomLeft',
   disabled = false,
-  className,
-}) => {
+  className }) => {
   const menuItems'items'] = items.map((item) => ({
     key.key,
     label.label,
     icon.icon,
     disabled.disabled,
     danger.danger,
-    onClick.onClick,
-  }));
+    onClick.onClick }));
 
   return (
     <Dropdown
@@ -56,16 +54,14 @@ export const ActionDropdown = ({
   items,
   trigger = ,
   placement = 'bottomRight',
-  iconType = 'vertical',
-}) => {
+  iconType = 'vertical' }) => {
   const menuItems'items'] = items.map((item) => ({
     key.key,
     label.label,
     icon.icon,
     disabled.disabled,
     danger.danger,
-    onClick.onClick,
-  }));
+    onClick.onClick }));
 
   return (
     <Dropdown menu={{ items}} trigger={trigger} placement={placement}>
@@ -88,16 +84,14 @@ export const ButtonDropdown = ({
   loading = false,
   trigger = ,
   placement = 'bottomLeft',
-  disabled = false,
-}) => {
+  disabled = false }) => {
   const menuItems'items'] = items.map((item) => ({
     key.key,
     label.label,
     icon.icon,
     disabled.disabled,
     danger.danger,
-    onClick.onClick,
-  }));
+    onClick.onClick }));
 
   return (
     <Dropdown menu={{ items}} trigger={trigger} placement={placement} disabled={disabled}>

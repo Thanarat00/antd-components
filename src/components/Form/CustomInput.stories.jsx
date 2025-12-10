@@ -5,18 +5,15 @@ import { UserOutlined, MailOutlined } from '@ant-design/icons';
 const meta= {
   title: 'Form/CustomInput',
   component: {
-    layout: 'centered',
-  },
+    layout: 'centered' },
   tags: ,
   argTypes: {
     size: {
       control: 'select',
-      options: ['small', 'middle', 'large'],
-    },
+      options: ['small', 'middle', 'large'] },
     variant: {
       control: 'select',
-      options: ['outlined', 'filled', 'borderless'],
-    },
+      options: ['outlined', 'filled', 'borderless'] },
   },
 };
 
@@ -25,8 +22,7 @@ type Story = StoryObj<typeof CustomInput>;
 
 export const Default= {
   args: {
-    placeholder: 'กรอกข้อความ...',
-  },
+    placeholder: 'กรอกข้อความ...' },
 };
 
 export const WithLabel= {
@@ -40,8 +36,7 @@ export const WithHelperText= {
   args: {
     label: 'อีเมล',
     placeholder: 'example@email.com',
-    helperText: 'กรุณากรอกอีเมลที่ใช้งานได้จริง',
-  },
+    helperText: 'กรุณากรอกอีเมลที่ใช้งานได้จริง' },
 };
 
 export const WithError= {
@@ -57,16 +52,14 @@ export const WithSuccess= {
     label: 'ชื่อผู้ใช้',
     placeholder: 'กรอกชื่อผู้ใช้',
     defaultValue: 'john_doe',
-    success: 'ชื่อผู้ใช้นี้ใช้ได้',
-  },
+    success: 'ชื่อผู้ใช้นี้ใช้ได้' },
 };
 
 export const WithIcon= {
   args: {
     label: 'อีเมล',
     placeholder: 'กรอกอีเมล',
-    prefix: <MailOutlined />,
-  },
+    prefix: <MailOutlined /> },
 };
 
 export const Disabled= {
@@ -84,16 +77,14 @@ export const Sizes= {
       <CustomInput size="middle" placeholder="Middle" label="Middle Size" />
       <CustomInput size="large" placeholder="Large" label="Large Size" />
     </div>
-  ),
-};
+  ) };
 
 export const SearchInput= {
   render: () => (
     <div className="w-80">
       <CustomSearchInput placeholder="ค้นหาสินค้า..." />
     </div>
-  ),
-};
+  ) };
 
 export const PasswordInput= {
   render: () => (
@@ -104,8 +95,7 @@ export const PasswordInput= {
         required
       />
     </div>
-  ),
-};
+  ) };
 
 export const TextArea= {
   render: () => (

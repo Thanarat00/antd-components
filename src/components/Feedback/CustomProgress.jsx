@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress, ProgressProps } from 'antd';
+import { Progress } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -37,8 +37,7 @@ export const CircleProgress = ({
   size = 120,
   strokeWidth = 8,
   label,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('text-center', className)}>
       <Progress
@@ -61,8 +60,7 @@ export const StepsProgress = ({
   current,
   total,
   label,
-  className,
-}) => {
+  className }) => {
   const percent = Math.round((current / total) * 100);
 
   return (
@@ -92,8 +90,7 @@ StepsProgress.displayName = 'StepsProgress';
 export const DashboardProgress = ({
   items,
   size = 80,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('flex gap-6 flex-wrap', className)}>
       {items.map((item, index) => (

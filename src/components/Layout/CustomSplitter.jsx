@@ -1,5 +1,5 @@
 import React from 'react';
-import { Splitter, SplitterProps } from 'antd';
+import { Splitter } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -31,8 +31,7 @@ export const CustomSplitterPanel = ({
   max,
   collapsible = false,
   resizable = true,
-  className,
-}) => {
+  className }) => {
   return (
     <Splitter.Panel
       defaultSize={defaultSize}
@@ -59,8 +58,7 @@ export const TwoPanelSplitter = ({
   leftMin = '20%',
   leftMax = '50%',
   direction = 'horizontal',
-  className,
-}) => {
+  className }) => {
   return (
     <Splitter layout={direction} className={cn('h-full', className)}>
       <Splitter.Panel defaultSize={leftWidth} min={leftMin} max={leftMax}>
@@ -84,8 +82,7 @@ export const ThreePanelSplitter = ({
   right,
   leftWidth = '20%',
   rightWidth = '20%',
-  className,
-}) => {
+  className }) => {
   return (
     <Splitter className={cn('h-full', className)}>
       <Splitter.Panel defaultSize={leftWidth} min="10%" max="40%">

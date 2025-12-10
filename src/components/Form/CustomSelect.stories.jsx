@@ -5,8 +5,7 @@ import { UserOutlined, TeamOutlined, CrownOutlined } from '@ant-design/icons';
 const meta= {
   title: 'Form/CustomSelect',
   component: {
-    layout: 'centered',
-  },
+    layout: 'centered' },
   tags: ,
 };
 

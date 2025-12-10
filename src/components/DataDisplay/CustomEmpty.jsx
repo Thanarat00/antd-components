@@ -1,5 +1,5 @@
 import React from 'react';
-import { Empty, EmptyProps, Button } from 'antd';
+import { Empty, Button } from 'antd';
 import { InboxOutlined, SearchOutlined, FileOutlined, FolderOpenOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
@@ -8,24 +8,19 @@ import { cn } from '../../utils/cn';
 const variantConfig = {
   default: {
     image.PRESENTED_IMAGE_DEFAULT,
-    description: 'ไม่มีข้อมูล',
-  },
+    description: 'ไม่มีข้อมูล' },
   simple: {
     image.PRESENTED_IMAGE_SIMPLE,
-    description: 'ไม่มีข้อมูล',
-  },
+    description: 'ไม่มีข้อมูล' },
   search: {
     icon: <SearchOutlined className="text-4xl text-gray-300" />,
-    description: 'ไม่พบผลการค้นหา',
-  },
+    description: 'ไม่พบผลการค้นหา' },
   data: {
     icon: <InboxOutlined className="text-4xl text-gray-300" />,
-    description: 'ยังไม่มีข้อมูล',
-  },
+    description: 'ยังไม่มีข้อมูล' },
   folder: {
     icon: <FolderOpenOutlined className="text-4xl text-gray-300" />,
-    description: 'โฟลเดอร์ว่างเปล่า',
-  },
+    description: 'โฟลเดอร์ว่างเปล่า' },
 };
 
 /**
@@ -77,8 +72,7 @@ export const EmptyState = ({
   title,
   description,
   action,
-  className,
-}) => {
+  className }) => {
   return (
     <div className={cn('flex flex-col items-center justify-center py-12 text-center', className)}>
       {icon && (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputNumber, InputNumberProps } from 'antd';
+import { InputNumber } from 'antd';
 import { cn } from '../../utils/cn';
 
 

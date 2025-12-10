@@ -4,8 +4,7 @@ import {
   CheckCircleOutlined,
   CloseCircleOutlined,
   InfoCircleOutlined,
-  ExclamationCircleOutlined,
-} from '@ant-design/icons';
+  ExclamationCircleOutlined } from '@ant-design/icons';
 
 
 const NotificationContext = createContext(null);
@@ -14,8 +13,7 @@ const iconMap = {
   success: <CheckCircleOutlined className="text-green-500" />,
   error: <CloseCircleOutlined className="text-red-500" />,
   info: <InfoCircleOutlined className="text-blue-500" />,
-  warning: <ExclamationCircleOutlined className="text-yellow-500" />,
-};
+  warning: <ExclamationCircleOutlined className="text-yellow-500" /> };
 
 
 
@@ -30,8 +28,7 @@ const iconMap = {
  * - Customizable placement and duration
  */
 export const CustomNotification = ({
-  children,
-}) => {
+  children }) => {
   const [notificationApi, notificationHolder] = notification.useNotification();
   const [messageApi, messageHolder] = message.useMessage();
 
@@ -44,8 +41,7 @@ export const CustomNotification = ({
         placement: config.placement ?? 'topRight',
         icon: iconMap[type],
         onClick: config.onClick,
-        className: 'sgn-notification',
-      });
+        className: 'sgn-notification' });
     },
     [notificationApi]
   );
@@ -94,8 +90,7 @@ export const CustomNotification = ({
     error,
     info,
     warning,
-    toast,
-  };
+    toast };
 
   return (
     <NotificationContext.Provider value={contextValue}>
@@ -142,8 +137,7 @@ export const showNotification = {
       description: config.description,
       duration: config.duration ?? 4.5,
       placement: config.placement ?? 'topRight',
-      icon: iconMap.success,
-    });
+      icon: iconMap.success });
   },
   error: (config) => {
     notification.error({
@@ -151,8 +145,7 @@ export const showNotification = {
       description: config.description,
       duration: config.duration ?? 4.5,
       placement: config.placement ?? 'topRight',
-      icon: iconMap.error,
-    });
+      icon: iconMap.error });
   },
   info: (config) => {
     notification.info({
@@ -160,8 +153,7 @@ export const showNotification = {
       description: config.description,
       duration: config.duration ?? 4.5,
       placement: config.placement ?? 'topRight',
-      icon: iconMap.info,
-    });
+      icon: iconMap.info });
   },
   warning: (config) => {
     notification.warning({
@@ -169,8 +161,7 @@ export const showNotification = {
       description: config.description,
       duration: config.duration ?? 4.5,
       placement: config.placement ?? 'topRight',
-      icon: iconMap.warning,
-    });
+      icon: iconMap.warning });
   },
 };
 
@@ -180,6 +171,5 @@ export const showToast = {
   error: (content, duration = 3) => message.error(content, duration),
   info: (content, duration = 3) => message.info(content, duration),
   warning: (content, duration = 3) => message.warning(content, duration),
-  loading: (content, duration = 0) => message.loading(content, duration),
-};
+  loading: (content, duration = 0) => message.loading(content, duration) };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, SpaceProps } from 'antd';
+import { Space } from 'antd';
 import { cn } from '../../utils/cn';
 
 
@@ -45,13 +45,11 @@ CompactSpace.displayName = 'CompactSpace';
 export const ButtonGroupSpace = ({
   children,
   align = 'left',
-  className,
-}) => {
+  className }) => {
   const alignClass = {
     left: 'justify-start',
     center: 'justify-center',
-    right: 'justify-end',
-  }[align];
+    right: 'justify-end' }[align];
 
   return (
     <Space className={cn('flex', alignClass, className)}>
@@ -68,8 +66,7 @@ ButtonGroupSpace.displayName = 'ButtonGroupSpace';
 export const InlineSpace = ({
   children,
   size = 'small',
-  className,
-}) => {
+  className }) => {
   return (
     <Space size={size} className={cn('inline-flex', className)}>
       {children}

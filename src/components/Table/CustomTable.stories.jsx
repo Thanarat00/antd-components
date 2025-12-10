@@ -7,8 +7,7 @@ import { PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined } from '@ant-de
 const meta= {
   title: 'Table/CustomTable',
   component: {
-    layout: 'fullscreen',
-  },
+    layout: 'fullscreen' },
   tags: ,
 };
 

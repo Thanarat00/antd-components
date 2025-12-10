@@ -1,11 +1,10 @@
 import React from 'react';
-import { Upload, UploadProps, Button, message } from 'antd';
+import { Upload, Button, message } from 'antd';
 import {
   UploadOutlined,
   InboxOutlined,
   PlusOutlined,
-  LoadingOutlined,
-} from '@ant-design/icons';
+  LoadingOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
 const { Dragger } = Upload;

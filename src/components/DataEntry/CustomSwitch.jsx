@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, SwitchProps } from 'antd';
+import { Switch } from 'antd';
 import { cn } from '../../utils/cn';
 
 

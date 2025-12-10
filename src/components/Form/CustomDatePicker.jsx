@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePicker, DatePickerProps } from 'antd';
+import { DatePicker } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/th';
 import buddhistEra from 'dayjs/plugin/buddhistEra';
@@ -60,11 +60,9 @@ const thaiLocale = {
       'ต.ค.',
       'พ.ย.',
       'ธ.ค.',
-    ],
-  },
+    ] },
   timePickerLocale: {
-    placeholder: 'เลือกเวลา',
-  },
+    placeholder: 'เลือกเวลา' },
 };
 
 /**
