@@ -1,34 +1,15 @@
 import React from 'react';
 import { Menu, MenuProps } from 'antd';
-import type { ItemType } from 'antd/es/menu/interface';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  key;
-  label;
-  icon?.ReactNode;
-  disabled?;
-  danger?;
-  children?;
-  type?: 'group' | 'divider';
-  onClick?: () => void;
-}
 
-// Interface'items'> {
-  items;
-  variant?: 'horizontal' | 'vertical' | 'inline';
-  collapsed?;
-  selectedKey?;
-  openKeys?;
-  onSelect?: (key) => void;
-  onOpenChange?: (keys) => void;
-  className?;
-}
+
+
 
 /**
  * CustomMenu - Enhanced Menu component
  */
-export const CustomMenu.FC<CustomMenuProps> = ({
+export const CustomMenu = ({
   items,
   variant = 'vertical',
   collapsed = false,

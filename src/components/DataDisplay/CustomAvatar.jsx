@@ -3,17 +3,12 @@ import { Avatar, AvatarProps, Tooltip } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  name?;
-  showTooltip?;
-  online?;
-  className?;
-}
+
 
 /**
  * CustomAvatar - Enhanced Avatar
  */
-export const CustomAvatar.FC<CustomAvatarProps> = ({
+export const CustomAvatar = ({
   name,
   src,
   showTooltip = false,
@@ -63,20 +58,11 @@ export const CustomAvatar.FC<CustomAvatarProps> = ({
 CustomAvatar.displayName = 'CustomAvatar';
 
 // Avatar Group
-// Interface{
-  name?;
-  src?;
-  color?;
-}
 
-// Interface{
-  items;
-  max?;
-  size?'size'];
-  className?;
-}
 
-export const CustomAvatarGroup.FC<CustomAvatarGroupProps> = ({
+
+
+export const CustomAvatarGroup = ({
   items,
   max = 4,
   size = 'default',
@@ -100,16 +86,9 @@ export const CustomAvatarGroup.FC<CustomAvatarGroupProps> = ({
 CustomAvatarGroup.displayName = 'CustomAvatarGroup';
 
 // User Avatar (with name display)
-// Interface{
-  name;
-  src?;
-  subtitle?;
-  size?: 'small' | 'default' | 'large';
-  direction?: 'horizontal' | 'vertical';
-  className?;
-}
 
-export const UserAvatar.FC<UserAvatarProps> = ({
+
+export const UserAvatar = ({
   name,
   src,
   subtitle,

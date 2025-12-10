@@ -2,14 +2,12 @@ import React from 'react';
 import { Splitter, SplitterProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  className?;
-}
+
 
 /**
  * CustomSplitter - Enhanced Splitter
  */
-export const CustomSplitter.FC<CustomSplitterProps> = ({
+export const CustomSplitter = ({
   children,
   className,
   ...props
@@ -24,17 +22,9 @@ export const CustomSplitter.FC<CustomSplitterProps> = ({
 CustomSplitter.displayName = 'CustomSplitter';
 
 // Splitter Panel
-// Interface{
-  children.ReactNode;
-  defaultSize?;
-  min?;
-  max?;
-  collapsible?;
-  resizable?;
-  className?;
-}
 
-export const CustomSplitterPanel.FC<CustomSplitterPanelProps> = ({
+
+export const CustomSplitterPanel = ({
   children,
   defaultSize,
   min,
@@ -60,17 +50,9 @@ export const CustomSplitterPanel.FC<CustomSplitterPanelProps> = ({
 CustomSplitterPanel.displayName = 'CustomSplitterPanel';
 
 // Two Panel Splitter (common pattern)
-// Interface{
-  left.ReactNode;
-  right.ReactNode;
-  leftWidth?;
-  leftMin?;
-  leftMax?;
-  direction?: 'horizontal' | 'vertical';
-  className?;
-}
 
-export const TwoPanelSplitter.FC<TwoPanelSplitterProps> = ({
+
+export const TwoPanelSplitter = ({
   left,
   right,
   leftWidth = '30%',
@@ -94,16 +76,9 @@ export const TwoPanelSplitter.FC<TwoPanelSplitterProps> = ({
 TwoPanelSplitter.displayName = 'TwoPanelSplitter';
 
 // Three Panel Splitter
-// Interface{
-  left.ReactNode;
-  center.ReactNode;
-  right.ReactNode;
-  leftWidth?;
-  rightWidth?;
-  className?;
-}
 
-export const ThreePanelSplitter.FC<ThreePanelSplitterProps> = ({
+
+export const ThreePanelSplitter = ({
   left,
   center,
   right,

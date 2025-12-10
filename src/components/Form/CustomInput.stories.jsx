@@ -7,7 +7,7 @@ const meta= {
   component: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ,
   argTypes: {
     size: {
       control: 'select',

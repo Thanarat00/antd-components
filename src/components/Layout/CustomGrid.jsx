@@ -1,14 +1,11 @@
 import React from 'react';
 import { Row} from 'antd';
-import type { RowProps} from 'antd';
 import { cn } from '../../utils/cn';
 
 // Grid Row
-// Interface{
-  className?;
-}
 
-export const GridRow.FC<GridRowProps> = ({
+
+export const GridRow = ({
   children,
   className,
   gutter = [16, 16],
@@ -24,11 +21,9 @@ export const GridRow.FC<GridRowProps> = ({
 GridRow.displayName = 'GridRow';
 
 // Grid Col
-// Interface{
-  className?;
-}
 
-export const GridCol.FC<GridColProps> = ({
+
+export const GridCol = ({
   children,
   className,
   ...props
@@ -43,14 +38,9 @@ export const GridCol.FC<GridColProps> = ({
 GridCol.displayName = 'GridCol';
 
 // Simple Grid
-// Interface{
-  children.ReactNode;
-  columns?: 1 | 2 | 3 | 4 | 5 | 6;
-  gap?: 'small' | 'medium' | 'large';
-  className?;
-}
 
-export const SimpleGrid.FC<SimpleGridProps> = ({
+
+export const SimpleGrid = ({
   children,
   columns = 3,
   gap = 'medium',
@@ -81,14 +71,9 @@ export const SimpleGrid.FC<SimpleGridProps> = ({
 SimpleGrid.displayName = 'SimpleGrid';
 
 // Auto Grid (auto-fit columns)
-// Interface{
-  children.ReactNode;
-  minWidth?;
-  gap?: 'small' | 'medium' | 'large';
-  className?;
-}
 
-export const AutoGrid.FC<AutoGridProps> = ({
+
+export const AutoGrid = ({
   children,
   minWidth = 280,
   gap = 'medium',

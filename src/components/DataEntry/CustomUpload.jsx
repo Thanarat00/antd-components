@@ -1,6 +1,5 @@
 import React from 'react';
 import { Upload, UploadProps, Button, message } from 'antd';
-import type { UploadFile, RcFile } from 'antd/es/upload/interface';
 import {
   UploadOutlined,
   InboxOutlined,
@@ -11,20 +10,12 @@ import { cn } from '../../utils/cn';
 
 const { Dragger } = Upload;
 
-// Interface'onChange'> {
-  label?;
-  hint?;
-  error?;
-  maxSize?; // MB
-  variant?: 'button' | 'drag' | 'picture' | 'avatar';
-  onChange?: (files) => void;
-  className?;
-}
+
 
 /**
  * CustomUpload - Enhanced Upload component
  */
-export const CustomUpload.FC<CustomUploadProps> = ({
+export const CustomUpload = ({
   label,
   hint,
   error,
@@ -96,15 +87,7 @@ export const CustomUpload.FC<CustomUploadProps> = ({
 
     if (variant === 'picture') {
       return (
-        <Upload
-          listType="picture-card"
-          accept={accept || 'image/*'}
-          maxCount={maxCount}
-          fileList={fileList}
-          beforeUpload={beforeUpload}
-          onChange={handleChange}
-          {...props}
-        >
+        
           {(!maxCount || (fileList?.length ?? 0) < maxCount) && pictureButton}
         </Upload>
       );
@@ -112,16 +95,7 @@ export const CustomUpload.FC<CustomUploadProps> = ({
 
     if (variant === 'avatar') {
       return (
-        <Upload
-          listType="picture-circle"
-          accept={accept || 'image/*'}
-          maxCount={1}
-          fileList={fileList}
-          beforeUpload={beforeUpload}
-          onChange={handleChange}
-          showUploadList={false}
-          {...props}
-        >
+        
           {fileList && fileList.length > 0 ? (
             <img
               src={fileList[0].url || fileList[0].thumbUrl}

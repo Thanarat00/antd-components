@@ -1,34 +1,19 @@
 import React from 'react';
 import { Dropdown, Button, Space } from 'antd';
-import type { DropdownProps, MenuProps } from 'antd';
 import { DownOutlined, MoreOutlined, EllipsisOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  key;
-  label;
-  icon?.ReactNode;
-  disabled?;
-  danger?;
-  onClick?: () => void;
-}
 
-// Interface{
-  items;
-  children?.ReactNode;
-  trigger?'trigger'];
-  placement?'placement'];
-  disabled?;
-  className?;
-}
+
+
 
 /**
  * CustomDropdown - Enhanced Dropdown
  */
-export const CustomDropdown.FC<CustomDropdownProps> = ({
+export const CustomDropdown = ({
   items,
   children,
-  trigger = ['click'],
+  trigger = ,
   placement = 'bottomLeft',
   disabled = false,
   className,
@@ -65,16 +50,11 @@ export const CustomDropdown.FC<CustomDropdownProps> = ({
 CustomDropdown.displayName = 'CustomDropdown';
 
 // Action Dropdown (3 dots menu)
-// Interface{
-  items;
-  trigger?'trigger'];
-  placement?'placement'];
-  iconType?: 'vertical' | 'horizontal';
-}
 
-export const ActionDropdown.FC<ActionDropdownProps> = ({
+
+export const ActionDropdown = ({
   items,
-  trigger = ['click'],
+  trigger = ,
   placement = 'bottomRight',
   iconType = 'vertical',
 }) => {
@@ -89,9 +69,7 @@ export const ActionDropdown.FC<ActionDropdownProps> = ({
 
   return (
     <Dropdown menu={{ items}} trigger={trigger} placement={placement}>
-      <Button
-        type="text"
-        icon={iconType === 'vertical' ? <MoreOutlined /> : <EllipsisOutlined />}
+       : <EllipsisOutlined />}
         className="text-gray-500 hover:text-gray-700"
       />
     </Dropdown>
@@ -101,18 +79,14 @@ export const ActionDropdown.FC<ActionDropdownProps> = ({
 ActionDropdown.displayName = 'ActionDropdown';
 
 // Button Dropdown
-// Interface{
-  buttonText;
-  buttonType?: 'primary' | 'default' | 'dashed' | 'link' | 'text';
-  loading?;
-}
 
-export const ButtonDropdown.FC<ButtonDropdownProps> = ({
+
+export const ButtonDropdown = ({
   items,
   buttonText,
   buttonType = 'default',
   loading = false,
-  trigger = ['click'],
+  trigger = ,
   placement = 'bottomLeft',
   disabled = false,
 }) => {
@@ -127,7 +101,7 @@ export const ButtonDropdown.FC<ButtonDropdownProps> = ({
 
   return (
     <Dropdown menu={{ items}} trigger={trigger} placement={placement} disabled={disabled}>
-      <Button type={buttonType} loading={loading}>
+      
         <Space>
           {buttonText}
           <DownOutlined />

@@ -1,8 +1,5 @@
 import React, { createContext, useContext, useCallback } from 'react';
 import { notification, message } from 'antd';
-import type { NotificationArgsProps } from 'antd';
-import type { MessageInstance } from 'antd/es/message/interface';
-import type { NotificationInstance } from 'antd/es/notification/interface';
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -12,30 +9,12 @@ import {
 
 
 
-// Interface{
-  message;
-  description?;
-  duration?;
-  placement?'placement'];
-  onClick?: () => void;
+
+
+;
 }
 
-// Interface{
-  notify: (type) => void;
-  success: (config) => void;
-  error: (config) => void;
-  info: (config) => void;
-  warning: (config) => void;
-  toast: {
-    success: (content?) => void;
-    error: (content?) => void;
-    info: (content?) => void;
-    warning: (content?) => void;
-    loading: (content?) => void;
-  };
-}
-
-const NotificationContext = createContext<NotificationContextType | null>(null);
+const NotificationContext = createContext(null);
 
 const iconMap.ReactNode> = {
   success: <CheckCircleOutlined className="text-green-500" />,
@@ -44,9 +23,7 @@ const iconMap.ReactNode> = {
   warning: <ExclamationCircleOutlined className="text-yellow-500" />,
 };
 
-// Interface{
-  children.ReactNode;
-}
+
 
 /**
  * CustomNotification Provider
@@ -58,7 +35,7 @@ const iconMap.ReactNode> = {
  * - Toast messages
  * - Customizable placement and duration
  */
-export const CustomNotification.FC<CustomNotificationProviderProps> = ({
+export const CustomNotification = ({
   children,
 }) => {
   const [notificationApi, notificationHolder] = notification.useNotification();

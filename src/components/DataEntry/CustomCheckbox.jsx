@@ -1,19 +1,13 @@
 import React from 'react';
 import { Checkbox, CheckboxProps } from 'antd';
-import type { CheckboxGroupProps } from 'antd/es/checkbox';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  description?;
-  error?;
-  className?;
-}
+
 
 /**
  * CustomCheckbox - Enhanced Checkbox
  */
-export const CustomCheckbox.FC<CustomCheckboxProps> = ({
+export const CustomCheckbox = ({
   label,
   description,
   error,
@@ -39,13 +33,7 @@ export const CustomCheckbox.FC<CustomCheckboxProps> = ({
 CustomCheckbox.displayName = 'CustomCheckbox';
 
 // Checkbox Group
-// Interface'options'> {
-  options{
-    label;
-    value;
-    disabled?;
-    description?;
-  }>;
+>;
   direction?: 'horizontal' | 'vertical';
   label?;
   error?;
@@ -53,7 +41,7 @@ CustomCheckbox.displayName = 'CustomCheckbox';
   className?;
 }
 
-export const CustomCheckboxGroup.FC<CustomCheckboxGroupProps> = ({
+export const CustomCheckboxGroup = ({
   options,
   direction = 'vertical',
   label,

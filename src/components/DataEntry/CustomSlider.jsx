@@ -2,19 +2,12 @@ import React from 'react';
 import { Slider, SliderSingleProps, InputNumber, Space } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  showValue?;
-  showInput?;
-  unit?;
-  error?;
-  className?;
-}
+
 
 /**
  * CustomSlider - Enhanced Slider
  */
-export const CustomSlider.FC<CustomSliderProps> = ({
+export const CustomSlider = ({
   label,
   showValue = false,
   showInput = false,
@@ -78,17 +71,9 @@ export const CustomSlider.FC<CustomSliderProps> = ({
 CustomSlider.displayName = 'CustomSlider';
 
 // Range Slider
-// Interface{
-  label?;
-  min?;
-  max?;
-  value?: [number, number];
-  onChange?: (value: [number, number]) => void;
-  unit?;
-  className?;
-}
 
-export const CustomRangeSlider.FC<CustomRangeSliderProps> = ({
+
+export const CustomRangeSlider = ({
   label,
   min = 0,
   max = 100,

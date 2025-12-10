@@ -3,24 +3,14 @@ import { Collapse, CollapseProps } from 'antd';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  key;
-  label;
-  children.ReactNode;
-  extra?.ReactNode;
-  disabled?;
-}
 
-// Interface'items'> {
-  items;
-  variant?: 'default' | 'borderless' | 'ghost';
-  className?;
-}
+
+
 
 /**
  * CustomCollapse - Enhanced Collapse/Accordion
  */
-export const CustomCollapse.FC<CustomCollapseProps> = ({
+export const CustomCollapse = ({
   items,
   variant = 'default',
   className,
@@ -50,15 +40,9 @@ export const CustomCollapse.FC<CustomCollapseProps> = ({
 CustomCollapse.displayName = 'CustomCollapse';
 
 // Single Collapsible Panel
-// Interface{
-  title;
-  children.ReactNode;
-  defaultOpen?;
-  extra?.ReactNode;
-  className?;
-}
 
-export const CollapsiblePanel.FC<CollapsiblePanelProps> = ({
+
+export const CollapsiblePanel = ({
   title,
   children,
   defaultOpen = false,
@@ -67,7 +51,7 @@ export const CollapsiblePanel.FC<CollapsiblePanelProps> = ({
 }) => {
   return (
     <Collapse
-      defaultActiveKey={defaultOpen ? ['1'] : []}
+      defaultActiveKey={defaultOpen ?  : []}
       ghost
       items={[
         {
@@ -82,17 +66,11 @@ export const CollapsiblePanel.FC<CollapsiblePanelProps> = ({
 CollapsiblePanel.displayName = 'CollapsiblePanel';
 
 // FAQ Accordion
-// Interface{
-  question;
-  answer.ReactNode;
-}
 
-// Interface{
-  items;
-  className?;
-}
 
-export const FAQAccordion.FC<FAQAccordionProps> = ({
+
+
+export const FAQAccordion = ({
   items,
   className,
 }) => {

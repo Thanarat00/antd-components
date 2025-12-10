@@ -3,14 +3,12 @@ import { Affix, AffixProps, Button } from 'antd';
 import { UpOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  className?;
-}
+
 
 /**
  * CustomAffix - Enhanced Affix
  */
-export const CustomAffix.FC<CustomAffixProps> = ({
+export const CustomAffix = ({
   children,
   className,
   ...props
@@ -25,13 +23,9 @@ export const CustomAffix.FC<CustomAffixProps> = ({
 CustomAffix.displayName = 'CustomAffix';
 
 // Sticky Header
-// Interface{
-  children.ReactNode;
-  offsetTop?;
-  className?;
-}
 
-export const StickyHeader.FC<StickyHeaderProps> = ({
+
+export const StickyHeader = ({
   children,
   offsetTop = 0,
   className,
@@ -48,13 +42,9 @@ export const StickyHeader.FC<StickyHeaderProps> = ({
 StickyHeader.displayName = 'StickyHeader';
 
 // Sticky Footer
-// Interface{
-  children.ReactNode;
-  offsetBottom?;
-  className?;
-}
 
-export const StickyFooter.FC<StickyFooterProps> = ({
+
+export const StickyFooter = ({
   children,
   offsetBottom = 0,
   className,
@@ -71,13 +61,9 @@ export const StickyFooter.FC<StickyFooterProps> = ({
 StickyFooter.displayName = 'StickyFooter';
 
 // Sticky Actions (for form actions)
-// Interface{
-  children.ReactNode;
-  offsetBottom?;
-  className?;
-}
 
-export const StickyActions.FC<StickyActionsProps> = ({
+
+export const StickyActions = ({
   children,
   offsetBottom = 0,
   className,
@@ -94,13 +80,9 @@ export const StickyActions.FC<StickyActionsProps> = ({
 StickyActions.displayName = 'StickyActions';
 
 // Sticky Sidebar
-// Interface{
-  children.ReactNode;
-  offsetTop?;
-  className?;
-}
 
-export const StickySidebar.FC<StickySidebarProps> = ({
+
+export const StickySidebar = ({
   children,
   offsetTop = 80,
   className,

@@ -8,12 +8,12 @@ const meta= {
   component: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ,
 };
 
 export default meta;
 
-const ModalDemo = ({ children, ...props }.ComponentProps<typeof CustomModal>> & { children?.ReactNode }) => {
+const ModalDemo = ({ children, ...props }.ComponentProps<typeof CustomModal>> & { children }) => {
   const [open, setOpen] = useState(false);
 
   return (

@@ -3,27 +3,14 @@ import { Steps, StepsProps } from 'antd';
 import { CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  title;
-  description?;
-  icon?.ReactNode;
-  status?: 'wait' | 'process' | 'finish' | 'error';
-  disabled?;
-}
 
-// Interface'items'> {
-  items;
-  currentStep?;
-  onChange?: (step) => void;
-  variant?: 'default' | 'navigation' | 'inline';
-  clickable?;
-  className?;
-}
+
+
 
 /**
  * CustomSteps - Enhanced Steps component
  */
-export const CustomSteps.FC<CustomStepsProps> = ({
+export const CustomSteps = ({
   items,
   currentStep = 0,
   onChange,
@@ -82,13 +69,9 @@ export const CustomSteps.FC<CustomStepsProps> = ({
 CustomSteps.displayName = 'CustomSteps';
 
 // Progress Steps (with percentage)
-// Interface{
-  steps;
-  currentStep;
-  className?;
-}
 
-export const ProgressSteps.FC<ProgressStepsProps> = ({
+
+export const ProgressSteps = ({
   steps,
   currentStep,
   className,
@@ -109,23 +92,15 @@ export const ProgressSteps.FC<ProgressStepsProps> = ({
 ProgressSteps.displayName = 'ProgressSteps';
 
 // Status Steps (Order tracking style)
-// Interface{
-  title;
-  description?;
-  time?;
-  status: 'completed' | 'current' | 'pending' | 'error';
-}
 
-// Interface{
-  steps;
-  className?;
-}
 
-export const StatusSteps.FC<StatusStepsProps> = ({
+
+
+export const StatusSteps = ({
   steps,
   className,
 }) => {
-  const getStatus = (status'status'])'items'][0]['status'] => {
+  const getStatus = (status'status'])'items'][0] => {
     switch (status) {
       case 'completed':
         return 'finish';

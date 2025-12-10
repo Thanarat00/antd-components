@@ -3,18 +3,12 @@ import { Tag, TagProps } from 'antd';
 import { CloseOutlined, CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'default' | 'outlined' | 'filled';
-  size?: 'small' | 'default' | 'large';
-  removable?;
-  onRemove?: () => void;
-  className?;
-}
+
 
 /**
  * CustomTag - Enhanced Tag
  */
-export const CustomTag.FC<CustomTagProps> = ({
+export const CustomTag = ({
   variant = 'default',
   size = 'default',
   removable = false,
@@ -45,12 +39,7 @@ export const CustomTag.FC<CustomTagProps> = ({
 CustomTag.displayName = 'CustomTag';
 
 // Status Tag
-// Interface{
-  status: 'success' | 'processing' | 'warning' | 'error' | 'default';
-  text?;
-  showIcon?;
-  className?;
-}
+
 
 const statusConfig = {
   success: { color: 'success', icon: <CheckCircleOutlined /> },
@@ -60,7 +49,7 @@ const statusConfig = {
   default: { color: 'default', icon},
 };
 
-export const StatusTag.FC<StatusTagProps> = ({
+export const StatusTag = ({
   status,
   text,
   showIcon = true,
@@ -78,18 +67,12 @@ export const StatusTag.FC<StatusTagProps> = ({
 StatusTag.displayName = 'StatusTag';
 
 // Tag Group
-// Interface{
-  tags{
-    key;
-    label;
-    color?;
-    removable?;
-  }>;
+>;
   onRemove?: (key) => void;
   className?;
 }
 
-export const TagGroup.FC<TagGroupProps> = ({
+export const TagGroup = ({
   tags,
   onRemove,
   className,

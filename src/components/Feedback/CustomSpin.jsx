@@ -3,16 +3,12 @@ import { Spin, SpinProps } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  fullscreen?;
-  text?;
-  className?;
-}
+
 
 /**
  * CustomSpin - Enhanced Spin/Loading
  */
-export const CustomSpin.FC<CustomSpinProps> = ({
+export const CustomSpin = ({
   fullscreen = false,
   text,
   children,
@@ -61,14 +57,9 @@ export const CustomSpin.FC<CustomSpinProps> = ({
 CustomSpin.displayName = 'CustomSpin';
 
 // Loading Overlay
-// Interface{
-  loading;
-  text?;
-  children.ReactNode;
-  className?;
-}
 
-export const LoadingOverlay.FC<LoadingOverlayProps> = ({
+
+export const LoadingOverlay = ({
   loading,
   text = 'กำลังโหลด...',
   children,
@@ -89,11 +80,9 @@ export const LoadingOverlay.FC<LoadingOverlayProps> = ({
 LoadingOverlay.displayName = 'LoadingOverlay';
 
 // Page Loading
-// Interface{
-  text?;
-}
 
-export const PageLoading.FC<PageLoadingProps> = ({
+
+export const PageLoading = ({
   text = 'กำลังโหลด...',
 }) => {
   return (
@@ -109,11 +98,9 @@ export const PageLoading.FC<PageLoadingProps> = ({
 PageLoading.displayName = 'PageLoading';
 
 // Button Loading
-// Interface{
-  size?: 'small' | 'default' | 'large';
-}
 
-export const ButtonLoading.FC<ButtonLoadingProps> = ({
+
+export const ButtonLoading = ({
   size = 'default',
 }) => {
   const sizeClass = {

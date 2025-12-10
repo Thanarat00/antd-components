@@ -3,15 +3,12 @@ import { Popconfirm, PopconfirmProps, Button } from 'antd';
 import { ExclamationCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'default' | 'danger';
-  className?;
-}
+
 
 /**
  * CustomPopconfirm - Enhanced Popconfirm
  */
-export const CustomPopconfirm.FC<CustomPopconfirmProps> = ({
+export const CustomPopconfirm = ({
   variant = 'default',
   children,
   okText = 'ยืนยัน',
@@ -36,17 +33,9 @@ export const CustomPopconfirm.FC<CustomPopconfirmProps> = ({
 CustomPopconfirm.displayName = 'CustomPopconfirm';
 
 // Delete Confirm Button
-// Interface{
-  onConfirm: () => void;
-  title?;
-  description?;
-  buttonText?;
-  loading?;
-  disabled?;
-  size?: 'small' | 'middle' | 'large';
-}
 
-export const DeleteConfirmButton.FC<DeleteConfirmButtonProps> = ({
+
+export const DeleteConfirmButton = ({
   onConfirm,
   title = 'ยืนยันการลบ',
   description = 'คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?',
@@ -79,17 +68,9 @@ export const DeleteConfirmButton.FC<DeleteConfirmButtonProps> = ({
 DeleteConfirmButton.displayName = 'DeleteConfirmButton';
 
 // Action Confirm
-// Interface{
-  title;
-  description?;
-  onConfirm: () => void;
-  children.ReactNode;
-  okText?;
-  cancelText?;
-  danger?;
-}
 
-export const ActionConfirm.FC<ActionConfirmProps> = ({
+
+export const ActionConfirm = ({
   title,
   description,
   onConfirm,

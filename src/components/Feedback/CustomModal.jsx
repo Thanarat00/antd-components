@@ -1,6 +1,5 @@
 import React from 'react';
 import { Modal, Button, Space, Result } from 'antd';
-import type { ModalProps } from 'antd';
 import {
   ExclamationCircleOutlined,
   CheckCircleOutlined,
@@ -10,40 +9,7 @@ import {
 } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface'onOk' | 'onCancel'> {
-  /** Modal title */
-  title?.ReactNode;
-  /** Modal content */
-  children?.ReactNode;
-  /** Modal open state */
-  open;
-  /** On close callback */
-  onClose: () => void;
-  /** On confirm callback */
-  onConfirm?: () => void | Promise<void>;
-  /** Confirm button text */
-  confirmText?;
-  /** Cancel button text */
-  cancelText?;
-  /** Show footer */
-  showFooter?;
-  /** Custom footer */
-  footer?.ReactNode;
-  /** Loading state for confirm button */
-  confirmLoading?;
-  /** Confirm button danger style */
-  confirmDanger?;
-  /** Hide cancel button */
-  hideCancel?;
-  /** Modal size */
-  size?: 'small' | 'medium' | 'large' | 'fullscreen';
-  /** Custom class name */
-  className?;
-  /** Center modal vertically */
-  centered?;
-  /** Close on overlay click */
-  maskClosable?;
-}
+
 
 const sizeMap = {
   small: 400,
@@ -61,7 +27,7 @@ const sizeMap = {
  * - Loading state support
  * - Customizable footer
  */
-export const CustomModal.FC<CustomModalProps> = ({
+export const CustomModal = ({
   title,
   children,
   open,
@@ -129,17 +95,7 @@ CustomModal.displayName = 'CustomModal';
 // Confirm Modal types
 
 
-// Interface{
-  type?;
-  title;
-  content?.ReactNode;
-  open;
-  onClose: () => void;
-  onConfirm?: () => void | Promise<void>;
-  confirmText?;
-  cancelText?;
-  confirmLoading?;
-}
+
 
 const iconMap.ReactNode> = {
   info: <InfoCircleOutlined className="text-blue-500 text-4xl" />,
@@ -152,7 +108,7 @@ const iconMap.ReactNode> = {
 /**
  * ConfirmModal - Modal for confirmation dialogs
  */
-export const ConfirmModal.FC<ConfirmModalProps> = ({
+export const ConfirmModal = ({
   type = 'confirm',
   title,
   content,
@@ -188,15 +144,9 @@ export const ConfirmModal.FC<ConfirmModalProps> = ({
 ConfirmModal.displayName = 'ConfirmModal';
 
 // Delete Confirm Modal
-// Interface{
-  itemName?;
-  open;
-  onClose: () => void;
-  onConfirm: () => void | Promise<void>;
-  confirmLoading?;
-}
 
-export const DeleteConfirmModal.FC<DeleteConfirmModalProps> = ({
+
+export const DeleteConfirmModal = ({
   itemName,
   open,
   onClose,
@@ -224,16 +174,9 @@ export const DeleteConfirmModal.FC<DeleteConfirmModalProps> = ({
 DeleteConfirmModal.displayName = 'DeleteConfirmModal';
 
 // Result Modal
-// Interface{
-  type: 'success' | 'error' | 'info' | 'warning';
-  title;
-  subtitle?;
-  open;
-  onClose: () => void;
-  extra?.ReactNode;
-}
 
-export const ResultModal.FC<ResultModalProps> = ({
+
+export const ResultModal = ({
   type,
   title,
   subtitle,

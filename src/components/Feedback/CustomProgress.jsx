@@ -2,16 +2,12 @@ import React from 'react';
 import { Progress, ProgressProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  showValue?;
-  className?;
-}
+
 
 /**
  * CustomProgress - Enhanced Progress
  */
-export const CustomProgress.FC<CustomProgressProps> = ({
+export const CustomProgress = ({
   label,
   showValue = true,
   className,
@@ -34,15 +30,9 @@ export const CustomProgress.FC<CustomProgressProps> = ({
 CustomProgress.displayName = 'CustomProgress';
 
 // Circle Progress
-// Interface{
-  percent;
-  size?;
-  strokeWidth?;
-  label?;
-  className?;
-}
 
-export const CircleProgress.FC<CircleProgressProps> = ({
+
+export const CircleProgress = ({
   percent,
   size = 120,
   strokeWidth = 8,
@@ -65,14 +55,9 @@ export const CircleProgress.FC<CircleProgressProps> = ({
 CircleProgress.displayName = 'CircleProgress';
 
 // Steps Progress
-// Interface{
-  current;
-  total;
-  label?;
-  className?;
-}
 
-export const StepsProgress.FC<StepsProgressProps> = ({
+
+export const StepsProgress = ({
   current,
   total,
   label,
@@ -100,19 +85,11 @@ export const StepsProgress.FC<StepsProgressProps> = ({
 StepsProgress.displayName = 'StepsProgress';
 
 // Dashboard Progress (multiple circles)
-// Interface{
-  label;
-  percent;
-  color?;
-}
 
-// Interface{
-  items;
-  size?;
-  className?;
-}
 
-export const DashboardProgress.FC<DashboardProgressProps> = ({
+
+
+export const DashboardProgress = ({
   items,
   size = 80,
   className,

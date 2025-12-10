@@ -3,14 +3,12 @@ import { Tooltip, TooltipProps, Popover, PopoverProps } from 'antd';
 import { InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  className?;
-}
+
 
 /**
  * CustomTooltip - Enhanced Tooltip
  */
-export const CustomTooltip.FC<CustomTooltipProps> = ({
+export const CustomTooltip = ({
   children,
   className,
   ...props
@@ -25,14 +23,9 @@ export const CustomTooltip.FC<CustomTooltipProps> = ({
 CustomTooltip.displayName = 'CustomTooltip';
 
 // Info Tooltip (with icon)
-// Interface{
-  content.ReactNode;
-  iconType?: 'info' | 'question';
-  placement?'placement'];
-  className?;
-}
 
-export const InfoTooltip.FC<InfoTooltipProps> = ({
+
+export const InfoTooltip = ({
   content,
   iconType = 'info',
   placement = 'top',
@@ -50,11 +43,9 @@ export const InfoTooltip.FC<InfoTooltipProps> = ({
 InfoTooltip.displayName = 'InfoTooltip';
 
 // Custom Popover
-// Interface{
-  className?;
-}
 
-export const CustomPopover.FC<CustomPopoverProps> = ({
+
+export const CustomPopover = ({
   children,
   className,
   ...props
@@ -69,14 +60,9 @@ export const CustomPopover.FC<CustomPopoverProps> = ({
 CustomPopover.displayName = 'CustomPopover';
 
 // Help Popover
-// Interface{
-  title?;
-  content.ReactNode;
-  children?.ReactNode;
-  className?;
-}
 
-export const HelpPopover.FC<HelpPopoverProps> = ({
+
+export const HelpPopover = ({
   title = 'ข้อมูลเพิ่มเติม',
   content,
   children,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FloatButton, FloatButtonProps, FloatButtonGroupProps } from 'antd';
+import { FloatButton } from 'antd';
 import {
   QuestionCircleOutlined,
   CustomerServiceOutlined,
@@ -9,17 +9,10 @@ import {
 } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  /** Tooltip text */
-  tooltipText?;
-  /** Position */
-  position?: 'right' | 'left';
-}
-
 /**
  * CustomFloatButton - Enhanced Float Button
  */
-export const CustomFloatButton.FC<CustomFloatButtonProps> = ({
+export const CustomFloatButton = ({
   tooltipText,
   position = 'right',
   className,
@@ -41,11 +34,7 @@ export const CustomFloatButton.FC<CustomFloatButtonProps> = ({
 CustomFloatButton.displayName = 'CustomFloatButton';
 
 // Float Button Group
-// Interface{
-  position?: 'right' | 'left';
-}
-
-export const CustomFloatButtonGroup.FC<CustomFloatButtonGroupProps> = ({
+export const CustomFloatButtonGroup = ({
   position = 'right',
   style,
   children,
@@ -63,13 +52,7 @@ export const CustomFloatButtonGroup.FC<CustomFloatButtonGroupProps> = ({
 CustomFloatButtonGroup.displayName = 'CustomFloatButtonGroup';
 
 // Back to Top Button
-// Interface{
-  visibilityHeight?;
-  duration?;
-  position?: 'right' | 'left';
-}
-
-export const BackToTopButton.FC<BackToTopButtonProps> = ({
+export const BackToTopButton = ({
   visibilityHeight = 400,
   duration = 450,
   position = 'right',
@@ -89,14 +72,7 @@ export const BackToTopButton.FC<BackToTopButtonProps> = ({
 BackToTopButton.displayName = 'BackToTopButton';
 
 // Help Float Button
-// Interface{
-  onHelp?: () => void;
-  onChat?: () => void;
-  onFeedback?: () => void;
-  position?: 'right' | 'left';
-}
-
-export const HelpFloatButton.FC<HelpFloatButtonProps> = ({
+export const HelpFloatButton = ({
   onHelp,
   onChat,
   onFeedback,
@@ -138,17 +114,7 @@ export const HelpFloatButton.FC<HelpFloatButtonProps> = ({
 HelpFloatButton.displayName = 'HelpFloatButton';
 
 // Action Float Button (FAB)
-// Interface{
-  actions{
-    key;
-    icon.ReactNode;
-    tooltip?;
-    onClick?: () => void;
-  }>;
-  position?: 'right' | 'left';
-}
-
-export const ActionFloatButton.FC<ActionFloatButtonProps> = ({
+export const ActionFloatButton = ({
   actions,
   position = 'right',
 }) => {

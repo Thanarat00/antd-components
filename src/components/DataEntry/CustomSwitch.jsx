@@ -2,17 +2,12 @@ import React from 'react';
 import { Switch, SwitchProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  description?;
-  labelPosition?: 'left' | 'right';
-  className?;
-}
+
 
 /**
  * CustomSwitch - Enhanced Switch
  */
-export const CustomSwitch.FC<CustomSwitchProps> = ({
+export const CustomSwitch = ({
   label,
   description,
   labelPosition = 'right',
@@ -41,13 +36,9 @@ export const CustomSwitch.FC<CustomSwitchProps> = ({
 CustomSwitch.displayName = 'CustomSwitch';
 
 // Switch with confirmation
-// Interface{
-  confirmTitle?;
-  confirmDescription?;
-  onConfirm?: (checked) => Promise<boolean> | boolean;
-}
 
-export const ConfirmSwitch.FC<ConfirmSwitchProps> = ({
+
+export const ConfirmSwitch = ({
   confirmTitle = 'ยืนยันการเปลี่ยนแปลง',
   confirmDescription,
   onConfirm,

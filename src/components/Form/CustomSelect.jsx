@@ -2,36 +2,9 @@ import React from 'react';
 import { Select, SelectProps, Tag } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label;
-  value;
-  disabled?;
-  description?;
-  icon?.ReactNode;
-}
 
-// Interface'options'> {
-  /** Select options */
-  options;
-  /** Label for the select */
-  label?;
-  /** Helper text below select */
-  helperText?;
-  /** Error message */
-  error?;
-  /** Required field indicator */
-  required?;
-  /** Custom class name */
-  className?;
-  /** Show search */
-  showSearch?;
-  /** Enable multiple selection */
-  multiple?;
-  /** Max tag count for multiple mode */
-  maxTagCount?'responsive';
-  /** Custom tag render */
-  tagRender?'tagRender'];
-}
+
+
 
 /**
  * CustomSelect - Enhanced Ant Design Select with additional features
@@ -43,7 +16,7 @@ import { cn } from '../../utils/cn';
  * - Custom option rendering with icons and descriptions
  * - Multiple selection with tag styling
  */
-export const CustomSelect.FC<CustomSelectProps> = ({
+export const CustomSelect = ({
   options,
   label,
   helperText,
@@ -140,15 +113,11 @@ export const CustomSelect.FC<CustomSelectProps> = ({
 CustomSelect.displayName = 'CustomSelect';
 
 // Preset select components
-// Interface{
-  color?;
-}
 
-// Interface'options'> {
-  options;
-}
 
-export const CustomStatusSelect.FC<CustomStatusSelectProps> = ({
+
+
+export const CustomStatusSelect = ({
   options,
   ...props
 }) => {

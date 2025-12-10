@@ -1,39 +1,9 @@
 import React from 'react';
 import { Card, CardProps, Skeleton, Button, Dropdown } from 'antd';
 import { MoreOutlined, ReloadOutlined } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface'actions'> {
-  /** Card title */
-  title?.ReactNode;
-  /** Subtitle below title */
-  subtitle?;
-  /** Loading state */
-  loading?;
-  /** Custom class name */
-  className?;
-  /** Header actions */
-  headerActions?.ReactNode;
-  /** Footer content */
-  footer?.ReactNode;
-  /** Menu items for dropdown */
-  menuItems?'items'];
-  /** On menu click */
-  onMenuClick?'onClick'];
-  /** Show refresh button */
-  showRefresh?;
-  /** On refresh click */
-  onRefresh?: () => void;
-  /** Hoverable effect */
-  hoverable?;
-  /** Card variant */
-  variant?: 'default' | 'bordered' | 'elevated';
-  /** Full height */
-  fullHeight?;
-  /** Padding size */
-  padding?: 'none' | 'small' | 'medium' | 'large';
-}
+
 
 /**
  * CustomCard - Enhanced Ant Design Card with additional features
@@ -45,7 +15,7 @@ import { cn } from '../../utils/cn';
  * - Multiple variants
  * - Refresh button
  */
-export const CustomCard.FC<CustomCardProps> = ({
+export const CustomCard = ({
   title,
   subtitle,
   loading = false,
@@ -92,7 +62,7 @@ export const CustomCard.FC<CustomCardProps> = ({
       {menuItems && menuItems.length > 0 && (
         <Dropdown
           menu={{ items}}
-          trigger={['click']}
+          trigger={}
           placement="bottomRight"
         >
           <Button
@@ -146,19 +116,12 @@ export const CustomCard.FC<CustomCardProps> = ({
 CustomCard.displayName = 'CustomCard';
 
 // Stats Card variant
-// Interface{
-  title;
-  value;
-  icon?.ReactNode;
-  trend?: {
-    value;
-    isPositive;
-  };
+;
   className?;
   loading?;
 }
 
-export const StatsCard.FC<StatsCardProps> = ({
+export const StatsCard = ({
   title,
   value,
   icon,

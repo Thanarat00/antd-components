@@ -9,20 +9,12 @@ const meta= {
   component: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ,
 };
 
 export default meta;
 
-// Interface{
-  id;
-  name;
-  category;
-  price;
-  stock;
-  status;
-  createdAt;
-}
+
 
 const sampleData= [
   { id: '1', name: 'iPhone 15 Pro', category: 'โทรศัพท์', price: 48900, stock: 25, status: 'active', createdAt: '2024-01-15' },

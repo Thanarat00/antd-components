@@ -2,32 +2,14 @@ import React from 'react';
 import { Tabs, TabsProps, Badge } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  key;
-  label;
-  icon?.ReactNode;
-  badge?;
-  disabled?;
-  children?.ReactNode;
-  closable?;
-}
 
-// Interface'items'> {
-  items;
-  activeKey?;
-  onChange?: (key) => void;
-  variant?: 'default' | 'card' | 'editable-card';
-  position?: 'top' | 'right' | 'bottom' | 'left';
-  centered?;
-  className?;
-  onAdd?: () => void;
-  onRemove?: (key) => void;
-}
+
+
 
 /**
  * CustomTabs - Enhanced Tabs component
  */
-export const CustomTabs.FC<CustomTabsProps> = ({
+export const CustomTabs = ({
   items,
   activeKey,
   onChange,
@@ -88,12 +70,9 @@ export const CustomTabs.FC<CustomTabsProps> = ({
 CustomTabs.displayName = 'CustomTabs';
 
 // Tab Panel (for controlled usage)
-// Interface{
-  children.ReactNode;
-  className?;
-}
 
-export const TabPanel.FC<TabPanelProps> = ({
+
+export const TabPanel = ({
   children,
   className,
 }) => {
@@ -107,19 +86,13 @@ export const TabPanel.FC<TabPanelProps> = ({
 TabPanel.displayName = 'TabPanel';
 
 // Simple Tab Bar (without content)
-// Interface{
-  items{
-    key;
-    label;
-    icon?.ReactNode;
-    badge?;
-  }>;
+>;
   activeKey;
   onChange: (key) => void;
   className?;
 }
 
-export const TabBar.FC<TabBarProps> = ({
+export const TabBar = ({
   items,
   activeKey,
   onChange,

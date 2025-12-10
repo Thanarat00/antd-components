@@ -2,15 +2,12 @@ import React from 'react';
 import { Space, SpaceProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  fullWidth?;
-  className?;
-}
+
 
 /**
  * CustomSpace - Enhanced Space
  */
-export const CustomSpace.FC<CustomSpaceProps> = ({
+export const CustomSpace = ({
   children,
   fullWidth = false,
   className,
@@ -26,11 +23,9 @@ export const CustomSpace.FC<CustomSpaceProps> = ({
 CustomSpace.displayName = 'CustomSpace';
 
 // Compact Space
-// Interface{
-  className?;
-}
 
-export const CompactSpace.FC<CompactSpaceProps> = ({
+
+export const CompactSpace = ({
   children,
   className,
   ...props
@@ -45,13 +40,9 @@ export const CompactSpace.FC<CompactSpaceProps> = ({
 CompactSpace.displayName = 'CompactSpace';
 
 // Button Group Space
-// Interface{
-  children.ReactNode;
-  align?: 'left' | 'center' | 'right';
-  className?;
-}
 
-export const ButtonGroupSpace.FC<ButtonGroupSpaceProps> = ({
+
+export const ButtonGroupSpace = ({
   children,
   align = 'left',
   className,
@@ -72,13 +63,9 @@ export const ButtonGroupSpace.FC<ButtonGroupSpaceProps> = ({
 ButtonGroupSpace.displayName = 'ButtonGroupSpace';
 
 // Inline Space (for inline elements)
-// Interface{
-  children.ReactNode;
-  size?: 'small' | 'middle' | 'large';
-  className?;
-}
 
-export const InlineSpace.FC<InlineSpaceProps> = ({
+
+export const InlineSpace = ({
   children,
   size = 'small',
   className,

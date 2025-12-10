@@ -2,15 +2,12 @@ import React from 'react';
 import { Badge, BadgeProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'default' | 'dot' | 'processing' | 'success' | 'warning' | 'error';
-  className?;
-}
+
 
 /**
  * CustomBadge - Enhanced Badge
  */
-export const CustomBadge.FC<CustomBadgeProps> = ({
+export const CustomBadge = ({
   variant = 'default',
   children,
   className,
@@ -49,13 +46,9 @@ export const CustomBadge.FC<CustomBadgeProps> = ({
 CustomBadge.displayName = 'CustomBadge';
 
 // Status Badge (standalone)
-// Interface{
-  status: 'success' | 'processing' | 'warning' | 'error' | 'default';
-  text?;
-  className?;
-}
 
-export const StatusBadge.FC<StatusBadgeProps> = ({
+
+export const StatusBadge = ({
   status,
   text,
   className,
@@ -68,15 +61,9 @@ export const StatusBadge.FC<StatusBadgeProps> = ({
 StatusBadge.displayName = 'StatusBadge';
 
 // Count Badge
-// Interface{
-  count;
-  max?;
-  showZero?;
-  children?.ReactNode;
-  className?;
-}
 
-export const CountBadge.FC<CountBadgeProps> = ({
+
+export const CountBadge = ({
   count,
   max = 99,
   showZero = false,
@@ -98,15 +85,9 @@ export const CountBadge.FC<CountBadgeProps> = ({
 CountBadge.displayName = 'CountBadge';
 
 // Ribbon Badge
-// Interface{
-  text;
-  color?;
-  placement?: 'start' | 'end';
-  children.ReactNode;
-  className?;
-}
 
-export const RibbonBadge.FC<RibbonBadgeProps> = ({
+
+export const RibbonBadge = ({
   text,
   color,
   placement = 'end',

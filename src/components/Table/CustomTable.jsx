@@ -9,9 +9,6 @@ import {
   Empty,
   Tooltip,
 } from 'antd';
-import type { TableProps, ColumnType, TablePaginationConfig } from 'antd/es/table';
-import type { FilterValue, SorterResult } from 'antd/es/table/interface';
-import type { MenuProps } from 'antd';
 import {
   SearchOutlined,
   ReloadOutlined,
@@ -21,84 +18,6 @@ import {
 } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// Interface= any> 'render'> {
-  /** Column key */
-  key;
-  /** Column title */
-  title;
-  /** Data index */
-  dataIndex;
-  /** Enable sorting */
-  sortable?;
-  /** Enable filtering */
-  filterable?;
-  /** Filter options */
-  filters?: { text; value}[];
-  /** Custom render function */
-  render?: (value) => React.ReactNode;
-  /** Column width */
-  width?;
-  /** Fixed column */
-  fixed?: 'left' | 'right';
-  /** Hide column */
-  hidden?;
-  /** Ellipsis */
-  ellipsis?;
-  /** Align */
-  align?: 'left' | 'center' | 'right';
-}
-
-// Interface'columns'> {
-  /** Table columns configuration */
-  columns;
-  /** Data source */
-  dataSource;
-  /** Row key */
-  rowKey((record) => string);
-  /** Loading state */
-  loading?;
-  /** Enable row selection */
-  selectable?;
-  /** Selected row keys */
-  selectedRowKeys?.Key[];
-  /** On selection change */
-  onSelectionChange?: (keys.Key[], rows) => void;
-  /** Enable global search */
-  searchable?;
-  /** Search placeholder */
-  searchPlaceholder?;
-  /** Fields to search */
-  searchFields?: (keyof T)[];
-  /** On search */
-  onSearch?: (value) => void;
-  /** Show refresh button */
-  showRefresh?;
-  /** On refresh */
-  onRefresh?: () => void;
-  /** Show export button */
-  showExport?;
-  /** On export */
-  onExport?: (data) => void;
-  /** Export options */
-  exportOptions?'items'];
-  /** Custom toolbar actions */
-  toolbarActions?.ReactNode;
-  /** Show toolbar */
-  showToolbar?;
-  /** Table title */
-  title?;
-  /** Custom class name */
-  className?;
-  /** Card style wrapper */
-  cardStyle?;
-  /** Empty text */
-  emptyText?;
-  /** Sticky header */
-  stickyHeader?;
-  /** Scroll config */
-  scroll?: { x?; y?};
-}
 
 /**
  * CustomTable - Enhanced Ant Design Table with built-in features
@@ -111,7 +30,7 @@ import { cn } from '../../utils/cn';
  * - Toolbar with actions
  * - Responsive design
  */
-export function CustomTable<T ({
+export function CustomTable({
   columns,
   dataSource,
   rowKey,
@@ -288,7 +207,7 @@ export function CustomTable<T ({
                 </Tooltip>
               )}
               {showExport && (
-                <Dropdown menu={exportMenu} trigger={['click']}>
+                <Dropdown menu={exportMenu} trigger={}>
                   <Button icon={<DownloadOutlined />}>Export</Button>
                 </Dropdown>
               )}
@@ -332,14 +251,7 @@ function getNestedValue<T>(obj){
 }
 
 // Action Column helper
-// Interface{
-  key;
-  label;
-  icon?.ReactNode;
-  onClick: (record) => void;
-  danger?;
-  disabled?((record) => boolean);
-}
+
 
 export function createActionColumn<T>(
   actions= 'จัดการ'
@@ -365,7 +277,7 @@ export function createActionColumn<T>(
       }));
 
       return (
-        <Dropdown menu={{ items}} trigger={['click']}>
+        <Dropdown menu={{ items}} trigger={}>
           <Button type="text" icon={<SettingOutlined />} />
         </Dropdown>
       );
@@ -374,11 +286,7 @@ export function createActionColumn<T>(
 }
 
 // Status Column helper
-// Interface{
-  value;
-  label;
-  color;
-}
+
 
 export function createStatusColumn<T>(
   dataIndex){

@@ -6,14 +6,7 @@ import enUS from 'antd/locale/en_US';
 
 
 
-// Interface{
-  children.ReactNode;
-  locale?;
-  themeMode?;
-  primaryColor?;
-  borderRadius?;
-  compact?;
-}
+
 
 const localeMap = {
   th};
@@ -21,7 +14,7 @@ const localeMap = {
 /**
  * CustomConfigProvider - Enhanced ConfigProvider with Thai locale
  */
-export const CustomConfigProvider.FC<CustomConfigProviderProps> = ({
+export const CustomConfigProvider = ({
   children,
   locale = 'th',
   themeMode = 'light',
@@ -53,13 +46,9 @@ export const CustomConfigProvider.FC<CustomConfigProviderProps> = ({
 CustomConfigProvider.displayName = 'CustomConfigProvider';
 
 // Theme Provider (simpler version)
-// Interface{
-  children.ReactNode;
-  theme?;
-  primaryColor?;
-}
 
-export const ThemeProvider.FC<ThemeProviderProps> = ({
+
+export const ThemeProvider = ({
   children,
   theme= 'light',
   primaryColor = '#1677ff',
@@ -80,11 +69,9 @@ export const ThemeProvider.FC<ThemeProviderProps> = ({
 ThemeProvider.displayName = 'ThemeProvider';
 
 // Thai Locale Provider
-// Interface{
-  children.ReactNode;
-}
 
-export const ThaiLocaleProvider.FC<ThaiLocaleProviderProps> = ({
+
+export const ThaiLocaleProvider = ({
   children,
 }) => {
   return (

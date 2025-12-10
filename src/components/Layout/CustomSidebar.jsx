@@ -7,45 +7,9 @@ import {
 } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  key;
-  label;
-  icon?.ReactNode;
-  children?;
-  disabled?;
-  danger?;
-  onClick?: () => void;
-}
 
-// Interface{
-  /** Menu items */
-  items;
-  /** Currently selected key */
-  selectedKey?;
-  /** Currently open keys (for submenus) */
-  openKeys?;
-  /** On menu item click */
-  onSelect?: (key) => void;
-  /** On submenu open/close */
-  onOpenChange?: (keys) => void;
-  /** Logo/brand component */
-  logo?.ReactNode;
-  /** Collapsed logo (shown when sidebar is collapsed) */
-  collapsedLogo?.ReactNode;
-  /** Initially collapsed */
-  defaultCollapsed?;
-  /** Controlled collapsed state */
-  collapsed?;
-  /** On collapse change */
-  onCollapse?: (collapsed) => void;
-  /** Show collapse toggle */
-  showCollapseToggle?;
-  /** User info for footer */
-  user?: {
-    name;
-    avatar?;
-    role?;
-  };
+
+;
   /** On logout click */
   onLogout?: () => void;
   /** Custom class name */
@@ -68,7 +32,7 @@ import { cn } from '../../utils/cn';
  * - Dark/light theme
  * - Logo support
  */
-export const CustomSidebar.FC<CustomSidebarProps> = ({
+export const CustomSidebar = ({
   items,
   selectedKey,
   openKeys,

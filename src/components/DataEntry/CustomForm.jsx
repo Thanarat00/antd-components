@@ -1,17 +1,13 @@
 import React from 'react';
 import { Form, FormProps, FormItemProps, Button, Space } from 'antd';
-import type { FormInstance } from 'antd/es/form';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  children.ReactNode;
-  className?;
-}
+
 
 /**
  * CustomForm - Enhanced Form wrapper
  */
-export const CustomForm.FC<CustomFormProps> = ({
+export const CustomForm = ({
   children,
   className,
   layout = 'vertical',
@@ -32,11 +28,9 @@ export const CustomForm.FC<CustomFormProps> = ({
 CustomForm.displayName = 'CustomForm';
 
 // Form Item
-// Interface{
-  children.ReactNode;
-}
 
-export const CustomFormItem.FC<CustomFormItemProps> = ({
+
+export const CustomFormItem = ({
   children,
   ...props
 }) => {
@@ -50,18 +44,9 @@ export const CustomFormItem.FC<CustomFormItemProps> = ({
 CustomFormItem.displayName = 'CustomFormItem';
 
 // Form Actions (Submit/Cancel buttons)
-// Interface{
-  submitText?;
-  cancelText?;
-  onCancel?: () => void;
-  loading?;
-  disabled?;
-  showCancel?;
-  align?: 'left' | 'center' | 'right';
-  className?;
-}
 
-export const FormActions.FC<FormActionsProps> = ({
+
+export const FormActions = ({
   submitText = 'บันทึก',
   cancelText = 'ยกเลิก',
   onCancel,
@@ -85,7 +70,7 @@ export const FormActions.FC<FormActionsProps> = ({
             {cancelText}
           </Button>
         )}
-        <Button type="primary" htmlType="submit" loading={loading} disabled={disabled}>
+        
           {submitText}
         </Button>
       </div>
@@ -96,14 +81,9 @@ export const FormActions.FC<FormActionsProps> = ({
 FormActions.displayName = 'FormActions';
 
 // Form Section
-// Interface{
-  title?;
-  description?;
-  children.ReactNode;
-  className?;
-}
 
-export const FormSection.FC<FormSectionProps> = ({
+
+export const FormSection = ({
   title,
   description,
   children,
@@ -125,14 +105,9 @@ export const FormSection.FC<FormSectionProps> = ({
 FormSection.displayName = 'FormSection';
 
 // Form Grid
-// Interface{
-  children.ReactNode;
-  columns?: 1 | 2 | 3 | 4;
-  gap?: 'small' | 'medium' | 'large';
-  className?;
-}
 
-export const FormGrid.FC<FormGridProps> = ({
+
+export const FormGrid = ({
   children,
   columns = 2,
   gap = 'medium',

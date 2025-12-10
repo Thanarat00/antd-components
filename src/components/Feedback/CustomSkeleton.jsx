@@ -2,15 +2,12 @@ import React from 'react';
 import { Skeleton, SkeletonProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'text' | 'avatar' | 'button' | 'input' | 'image';
-  className?;
-}
+
 
 /**
  * CustomSkeleton - Enhanced Skeleton
  */
-export const CustomSkeleton.FC<CustomSkeletonProps> = ({
+export const CustomSkeleton = ({
   variant = 'text',
   className,
   ...props
@@ -37,13 +34,9 @@ export const CustomSkeleton.FC<CustomSkeletonProps> = ({
 CustomSkeleton.displayName = 'CustomSkeleton';
 
 // Card Skeleton
-// Interface{
-  showAvatar?;
-  rows?;
-  className?;
-}
 
-export const CardSkeleton.FC<CardSkeletonProps> = ({
+
+export const CardSkeleton = ({
   showAvatar = true,
   rows = 4,
   className,
@@ -62,13 +55,9 @@ export const CardSkeleton.FC<CardSkeletonProps> = ({
 CardSkeleton.displayName = 'CardSkeleton';
 
 // List Skeleton
-// Interface{
-  count?;
-  showAvatar?;
-  className?;
-}
 
-export const ListSkeleton.FC<ListSkeletonProps> = ({
+
+export const ListSkeleton = ({
   count = 3,
   showAvatar = true,
   className,
@@ -90,13 +79,9 @@ export const ListSkeleton.FC<ListSkeletonProps> = ({
 ListSkeleton.displayName = 'ListSkeleton';
 
 // Table Skeleton
-// Interface{
-  rows?;
-  columns?;
-  className?;
-}
 
-export const TableSkeleton.FC<TableSkeletonProps> = ({
+
+export const TableSkeleton = ({
   rows = 5,
   columns = 4,
   className,
@@ -124,12 +109,9 @@ export const TableSkeleton.FC<TableSkeletonProps> = ({
 TableSkeleton.displayName = 'TableSkeleton';
 
 // Form Skeleton
-// Interface{
-  fields?;
-  className?;
-}
 
-export const FormSkeleton.FC<FormSkeletonProps> = ({
+
+export const FormSkeleton = ({
   fields = 4,
   className,
 }) => {

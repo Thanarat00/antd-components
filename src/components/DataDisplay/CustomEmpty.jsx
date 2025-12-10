@@ -3,13 +3,7 @@ import { Empty, EmptyProps, Button } from 'antd';
 import { InboxOutlined, SearchOutlined, FileOutlined, FolderOpenOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'default' | 'simple' | 'search' | 'data' | 'folder';
-  title?;
-  actionText?;
-  onAction?: () => void;
-  className?;
-}
+
 
 const variantConfig = {
   default: {
@@ -37,7 +31,7 @@ const variantConfig = {
 /**
  * CustomEmpty - Enhanced Empty state
  */
-export const CustomEmpty.FC<CustomEmptyProps> = ({
+export const CustomEmpty = ({
   variant = 'default',
   title,
   description,
@@ -76,15 +70,9 @@ export const CustomEmpty.FC<CustomEmptyProps> = ({
 CustomEmpty.displayName = 'CustomEmpty';
 
 // Empty State with illustration
-// Interface{
-  icon?.ReactNode;
-  title;
-  description?;
-  action?.ReactNode;
-  className?;
-}
 
-export const EmptyState.FC<EmptyStateProps> = ({
+
+export const EmptyState = ({
   icon,
   title,
   description,

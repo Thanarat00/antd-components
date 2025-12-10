@@ -3,39 +3,9 @@ import { Breadcrumb, Button, Space, Divider } from 'antd';
 import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  title;
-  href?;
-  icon?.ReactNode;
-  onClick?: () => void;
-}
 
-// Interface{
-  /** Page title */
-  title;
-  /** Page subtitle/description */
-  subtitle?;
-  /** Breadcrumb items */
-  breadcrumbs?;
-  /** Show home icon in breadcrumb */
-  showHomeInBreadcrumb?;
-  /** On home click */
-  onHomeClick?: () => void;
-  /** Show back button */
-  showBack?;
-  /** On back click */
-  onBack?: () => void;
-  /** Header actions (buttons) */
-  actions?.ReactNode;
-  /** Extra content below title */
-  extra?.ReactNode;
-  /** Tags next to title */
-  tags?.ReactNode;
-  /** Custom class name */
-  className?;
-  /** Sticky header */
-  sticky?;
-}
+
+
 
 /**
  * CustomPageHeader - Enhanced page header with breadcrumbs and actions
@@ -47,7 +17,7 @@ import { cn } from '../../utils/cn';
  * - Sticky positioning option
  * - Extra content area
  */
-export const CustomPageHeader.FC<CustomPageHeaderProps> = ({
+export const CustomPageHeader = ({
   title,
   subtitle,
   breadcrumbs,
@@ -160,13 +130,9 @@ export const CustomPageHeader.FC<CustomPageHeaderProps> = ({
 CustomPageHeader.displayName = 'CustomPageHeader';
 
 // Compact header variant
-// Interface{
-  title;
-  actions?.ReactNode;
-  className?;
-}
 
-export const CompactPageHeader.FC<CompactPageHeaderProps> = ({
+
+export const CompactPageHeader = ({
   title,
   actions,
   className,

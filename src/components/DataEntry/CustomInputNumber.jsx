@@ -2,21 +2,12 @@ import React from 'react';
 import { InputNumber, InputNumberProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  helperText?;
-  error?;
-  required?;
-  fullWidth?;
-  prefix?;
-  suffix?;
-  className?;
-}
+
 
 /**
  * CustomInputNumber - Enhanced InputNumber
  */
-export const CustomInputNumber.FC<CustomInputNumberProps> = ({
+export const CustomInputNumber = ({
   label,
   helperText,
   error,
@@ -60,11 +51,9 @@ export const CustomInputNumber.FC<CustomInputNumberProps> = ({
 CustomInputNumber.displayName = 'CustomInputNumber';
 
 // Currency Input
-// Interface'formatter' | 'parser'> {
-  currency?;
-}
 
-export const CurrencyInput.FC<CurrencyInputProps> = ({
+
+export const CurrencyInput = ({
   currency = '฿',
   ...props
 }) => {
@@ -80,11 +69,9 @@ export const CurrencyInput.FC<CurrencyInputProps> = ({
 CurrencyInput.displayName = 'CurrencyInput';
 
 // Percentage Input
-// Interface'min' | 'max' | 'formatter' | 'parser'> {
-  allowNegative?;
-}
 
-export const PercentageInput.FC<PercentageInputProps> = ({
+
+export const PercentageInput = ({
   allowNegative = false,
   ...props
 }) => {

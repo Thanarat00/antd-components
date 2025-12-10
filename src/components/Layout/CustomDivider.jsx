@@ -2,16 +2,12 @@ import React from 'react';
 import { Divider, DividerProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'solid' | 'dashed' | 'dotted';
-  spacing?: 'small' | 'medium' | 'large';
-  className?;
-}
+
 
 /**
  * CustomDivider - Enhanced Divider
  */
-export const CustomDivider.FC<CustomDividerProps> = ({
+export const CustomDivider = ({
   variant = 'solid',
   spacing = 'medium',
   className,
@@ -39,14 +35,9 @@ export const CustomDivider.FC<CustomDividerProps> = ({
 CustomDivider.displayName = 'CustomDivider';
 
 // Section Divider (with title)
-// Interface{
-  title;
-  subtitle?;
-  orientation?: 'left' | 'center' | 'right';
-  className?;
-}
 
-export const SectionDivider.FC<SectionDividerProps> = ({
+
+export const SectionDivider = ({
   title,
   subtitle,
   orientation = 'left',

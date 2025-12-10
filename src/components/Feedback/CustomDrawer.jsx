@@ -2,20 +2,12 @@ import React from 'react';
 import { Drawer, DrawerProps, Button, Space } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  showFooter?;
-  footer?.ReactNode;
-  onConfirm?: () => void;
-  confirmText?;
-  cancelText?;
-  confirmLoading?;
-  className?;
-}
+
 
 /**
  * CustomDrawer - Enhanced Drawer
  */
-export const CustomDrawer.FC<CustomDrawerProps> = ({
+export const CustomDrawer = ({
   children,
   showFooter = false,
   footer,
@@ -55,17 +47,9 @@ export const CustomDrawer.FC<CustomDrawerProps> = ({
 CustomDrawer.displayName = 'CustomDrawer';
 
 // Filter Drawer
-// Interface{
-  open;
-  onClose: () => void;
-  onApply?: () => void;
-  onReset?: () => void;
-  children.ReactNode;
-  title?;
-  loading?;
-}
 
-export const FilterDrawer.FC<FilterDrawerProps> = ({
+
+export const FilterDrawer = ({
   open,
   onClose,
   onApply,
@@ -104,16 +88,9 @@ export const FilterDrawer.FC<FilterDrawerProps> = ({
 FilterDrawer.displayName = 'FilterDrawer';
 
 // Detail Drawer
-// Interface{
-  open;
-  onClose: () => void;
-  title?;
-  children.ReactNode;
-  extra?.ReactNode;
-  width?;
-}
 
-export const DetailDrawer.FC<DetailDrawerProps> = ({
+
+export const DetailDrawer = ({
   open,
   onClose,
   title = 'รายละเอียด',

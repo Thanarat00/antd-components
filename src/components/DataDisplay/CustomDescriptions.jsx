@@ -2,25 +2,14 @@ import React from 'react';
 import { Descriptions, DescriptionsProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  key;
-  label;
-  children.ReactNode;
-  span?;
-}
 
-// Interface'items'> {
-  items;
-  title?;
-  variant?: 'default' | 'bordered';
-  columns?: 1 | 2 | 3 | 4;
-  className?;
-}
+
+
 
 /**
  * CustomDescriptions - Enhanced Descriptions
  */
-export const CustomDescriptions.FC<CustomDescriptionsProps> = ({
+export const CustomDescriptions = ({
   items,
   title,
   variant = 'default',
@@ -50,16 +39,12 @@ export const CustomDescriptions.FC<CustomDescriptionsProps> = ({
 CustomDescriptions.displayName = 'CustomDescriptions';
 
 // Simple Key-Value List
-// Interface{
-  items{
-    label;
-    value.ReactNode;
-  }>;
+>;
   direction?: 'horizontal' | 'vertical';
   className?;
 }
 
-export const KeyValueList.FC<KeyValueListProps> = ({
+export const KeyValueList = ({
   items,
   direction = 'vertical',
   className,
@@ -92,14 +77,9 @@ export const KeyValueList.FC<KeyValueListProps> = ({
 KeyValueList.displayName = 'KeyValueList';
 
 // Detail Card (Card with descriptions)
-// Interface{
-  title?;
-  items;
-  extra?.ReactNode;
-  className?;
-}
 
-export const DetailCard.FC<DetailCardProps> = ({
+
+export const DetailCard = ({
   title,
   items,
   extra,

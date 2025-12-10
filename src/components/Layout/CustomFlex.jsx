@@ -2,14 +2,12 @@ import React from 'react';
 import { Flex, FlexProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  className?;
-}
+
 
 /**
  * CustomFlex - Enhanced Flex container
  */
-export const CustomFlex.FC<CustomFlexProps> = ({
+export const CustomFlex = ({
   children,
   className,
   ...props
@@ -24,16 +22,9 @@ export const CustomFlex.FC<CustomFlexProps> = ({
 CustomFlex.displayName = 'CustomFlex';
 
 // Row (horizontal flex)
-// Interface{
-  children.ReactNode;
-  gap?: 'none' | 'small' | 'medium' | 'large';
-  align?: 'start' | 'center' | 'end' | 'stretch';
-  justify?: 'start' | 'center' | 'end' | 'between' | 'around' | 'evenly';
-  wrap?;
-  className?;
-}
 
-export const Row.FC<RowProps> = ({
+
+export const Row = ({
   children,
   gap = 'medium',
   align = 'center',
@@ -68,14 +59,9 @@ export const Row.FC<RowProps> = ({
 Row.displayName = 'Row';
 
 // Column (vertical flex)
-// Interface{
-  children.ReactNode;
-  gap?: 'none' | 'small' | 'medium' | 'large';
-  align?: 'start' | 'center' | 'end' | 'stretch';
-  className?;
-}
 
-export const Column.FC<ColumnProps> = ({
+
+export const Column = ({
   children,
   gap = 'medium',
   align = 'stretch',
@@ -99,12 +85,9 @@ export const Column.FC<ColumnProps> = ({
 Column.displayName = 'Column';
 
 // Center (centered content)
-// Interface{
-  children.ReactNode;
-  className?;
-}
 
-export const Center.FC<CenterProps> = ({
+
+export const Center = ({
   children,
   className,
 }) => {

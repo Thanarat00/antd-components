@@ -2,16 +2,12 @@ import React from 'react';
 import { Radio, RadioProps, RadioGroupProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  description?;
-  className?;
-}
+
 
 /**
  * CustomRadio - Enhanced Radio
  */
-export const CustomRadio.FC<CustomRadioProps> = ({
+export const CustomRadio = ({
   label,
   description,
   className,
@@ -33,13 +29,7 @@ export const CustomRadio.FC<CustomRadioProps> = ({
 CustomRadio.displayName = 'CustomRadio';
 
 // Radio Group
-// Interface'options'> {
-  options{
-    label;
-    value;
-    disabled?;
-    description?;
-  }>;
+>;
   direction?: 'horizontal' | 'vertical';
   label?;
   error?;
@@ -48,7 +38,7 @@ CustomRadio.displayName = 'CustomRadio';
   className?;
 }
 
-export const CustomRadioGroup.FC<CustomRadioGroupProps> = ({
+export const CustomRadioGroup = ({
   options,
   direction = 'vertical',
   label,

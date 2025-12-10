@@ -3,26 +3,14 @@ import { Breadcrumb, BreadcrumbProps } from 'antd';
 import { HomeOutlined, RightOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  title;
-  href?;
-  icon?.ReactNode;
-  onClick?: () => void;
-}
 
-// Interface'items'> {
-  items;
-  showHome?;
-  homeHref?;
-  onHomeClick?: () => void;
-  separator?.ReactNode;
-  className?;
-}
+
+
 
 /**
  * CustomBreadcrumb - Enhanced Breadcrumb with home icon
  */
-export const CustomBreadcrumb.FC<CustomBreadcrumbProps> = ({
+export const CustomBreadcrumb = ({
   items,
   showHome = true,
   homeHref = '/',

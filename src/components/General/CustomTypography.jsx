@@ -1,20 +1,11 @@
 import React from 'react';
 import { Typography } from 'antd';
-import type { TitleProps } from 'antd/es/typography/Title';
-import type { TextProps } from 'antd/es/typography/Text';
-import type { ParagraphProps } from 'antd/es/typography/Paragraph';
 import { cn } from '../../utils/cn';
 
 const { Title, Text, Paragraph, Link } = Typography;
 
 // Custom Title
-// Interface{
-  className?;
-  gradient?;
-  gradientColors?: [string, string];
-}
-
-export const CustomTitle.FC<CustomTitleProps> = ({
+export const CustomTitle = ({
   level = 1,
   className,
   gradient = false,
@@ -47,14 +38,7 @@ export const CustomTitle.FC<CustomTitleProps> = ({
 CustomTitle.displayName = 'CustomTitle';
 
 // Custom Text
-// Interface{
-  variant?: 'default' | 'secondary' | 'success' | 'warning' | 'danger' | 'muted';
-  size?: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
-  weight?: 'normal' | 'medium' | 'semibold' | 'bold';
-  className?;
-}
-
-export const CustomText.FC<CustomTextProps> = ({
+export const CustomText = ({
   variant = 'default',
   size = 'base',
   weight = 'normal',
@@ -96,13 +80,7 @@ export const CustomText.FC<CustomTextProps> = ({
 CustomText.displayName = 'CustomText';
 
 // Custom Paragraph
-// Interface{
-  size?: 'sm' | 'base' | 'lg';
-  muted?;
-  className?;
-}
-
-export const CustomParagraph.FC<CustomParagraphProps> = ({
+export const CustomParagraph = ({
   size = 'base',
   muted = false,
   className,
@@ -128,16 +106,7 @@ export const CustomParagraph.FC<CustomParagraphProps> = ({
 CustomParagraph.displayName = 'CustomParagraph';
 
 // Custom Link
-// Interface{
-  href?;
-  target?: '_blank' | '_self' | '_parent' | '_top';
-  children.ReactNode;
-  className?;
-  underline?;
-  onClick?: () => void;
-}
-
-export const CustomLink.FC<CustomLinkProps> = ({
+export const CustomLink = ({
   href,
   target,
   children,
@@ -160,14 +129,7 @@ export const CustomLink.FC<CustomLinkProps> = ({
 CustomLink.displayName = 'CustomLink';
 
 // Label component
-// Interface{
-  children.ReactNode;
-  required?;
-  htmlFor?;
-  className?;
-}
-
-export const Label.FC<LabelProps> = ({
+export const Label = ({
   children,
   required = false,
   htmlFor,
@@ -187,13 +149,7 @@ export const Label.FC<LabelProps> = ({
 Label.displayName = 'Label';
 
 // Helper Text
-// Interface{
-  children.ReactNode;
-  error?;
-  className?;
-}
-
-export const HelperText.FC<HelperTextProps> = ({
+export const HelperText = ({
   children,
   error = false,
   className,

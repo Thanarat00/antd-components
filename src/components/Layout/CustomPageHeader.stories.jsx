@@ -8,7 +8,7 @@ const meta= {
   component: {
     layout: 'fullscreen',
   },
-  tags: ['autodocs'],
+  tags: ,
 };
 
 export default meta;

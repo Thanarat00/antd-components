@@ -3,16 +3,12 @@ import { Statistic, StatisticProps, Progress } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  trend?;
-  trendSuffix?;
-  className?;
-}
+
 
 /**
  * CustomStatistic - Enhanced Statistic
  */
-export const CustomStatistic.FC<CustomStatisticProps> = ({
+export const CustomStatistic = ({
   trend,
   trendSuffix = '%',
   className,
@@ -39,17 +35,9 @@ export const CustomStatistic.FC<CustomStatisticProps> = ({
 CustomStatistic.displayName = 'CustomStatistic';
 
 // Statistic Card
-// Interface{
-  title;
-  value;
-  prefix?.ReactNode;
-  suffix?;
-  trend?;
-  icon?.ReactNode;
-  className?;
-}
 
-export const StatisticCard.FC<StatisticCardProps> = ({
+
+export const StatisticCard = ({
   title,
   value,
   prefix,
@@ -91,15 +79,9 @@ export const StatisticCard.FC<StatisticCardProps> = ({
 StatisticCard.displayName = 'StatisticCard';
 
 // Progress Statistic
-// Interface{
-  title;
-  value;
-  total;
-  unit?;
-  className?;
-}
 
-export const ProgressStatistic.FC<ProgressStatisticProps> = ({
+
+export const ProgressStatistic = ({
   title,
   value,
   total,
@@ -127,13 +109,9 @@ export const ProgressStatistic.FC<ProgressStatisticProps> = ({
 ProgressStatistic.displayName = 'ProgressStatistic';
 
 // Countdown
-// Interface'value'> {
-  targetDate;
-  onFinish?: () => void;
-  className?;
-}
 
-export const CustomCountdown.FC<CustomCountdownProps> = ({
+
+export const CustomCountdown = ({
   targetDate,
   onFinish,
   className,

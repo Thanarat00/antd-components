@@ -1,35 +1,22 @@
 import React from 'react';
-import { Button, ButtonProps, Space } from 'antd';
+import { Button, Space } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  /** Button variant */
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'ghost' | 'link';
-  /** Full width */
-  fullWidth?;
-  /** Left icon */
-  leftIcon?.ReactNode;
-  /** Right icon */
-  rightIcon?.ReactNode;
-  /** Custom class */
-  className?;
-}
-
-const variantMap{ type?'type']; danger?; ghost?}> = {
+const variantMap = {
   primary: { type: 'primary' },
   secondary: { type: 'default' },
-  success: { type: 'primary', ghost},
+  success: { type: 'primary', ghost: true },
   warning: { type: 'primary' },
-  danger: { type: 'primary', danger},
-  ghost: { ghost},
+  danger: { type: 'primary', danger: true },
+  ghost: { ghost: true },
   link: { type: 'link' },
 };
 
 /**
  * CustomButton - Enhanced Ant Design Button
  */
-export const CustomButton.FC<CustomButtonProps> = ({
+export const CustomButton = ({
   variant = 'primary',
   fullWidth = false,
   leftIcon,
@@ -71,14 +58,7 @@ export const CustomButton.FC<CustomButtonProps> = ({
 CustomButton.displayName = 'CustomButton';
 
 // Button Group
-// Interface{
-  children.ReactNode;
-  className?;
-  direction?: 'horizontal' | 'vertical';
-  size?: 'small' | 'middle' | 'large';
-}
-
-export const CustomButtonGroup.FC<CustomButtonGroupProps> = ({
+export const CustomButtonGroup = ({
   children,
   className,
   direction = 'horizontal',
@@ -98,12 +78,7 @@ export const CustomButtonGroup.FC<CustomButtonGroupProps> = ({
 CustomButtonGroup.displayName = 'CustomButtonGroup';
 
 // Icon Button
-// Interface'shape'> {
-  icon.ReactNode;
-  tooltip?;
-}
-
-export const IconButton.FC<IconButtonProps> = ({
+export const IconButton = ({
   icon,
   tooltip,
   ...props

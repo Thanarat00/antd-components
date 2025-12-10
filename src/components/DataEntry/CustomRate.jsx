@@ -3,21 +3,14 @@ import { Rate, RateProps } from 'antd';
 import { StarFilled, HeartFilled, LikeFilled } from '@ant-design/icons';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  label?;
-  showText?;
-  texts?;
-  variant?: 'star' | 'heart' | 'like';
-  size?: 'small' | 'default' | 'large';
-  className?;
-}
+
 
 const defaultTexts = ['แย่มาก', 'แย่', 'ปานกลาง', 'ดี', 'ดีมาก'];
 
 /**
  * CustomRate - Enhanced Rate component
  */
-export const CustomRate.FC<CustomRateProps> = ({
+export const CustomRate = ({
   label,
   showText = false,
   texts = defaultTexts,
@@ -66,15 +59,9 @@ export const CustomRate.FC<CustomRateProps> = ({
 CustomRate.displayName = 'CustomRate';
 
 // Read-only Rating Display
-// Interface{
-  value;
-  total?;
-  reviewCount?;
-  size?: 'small' | 'default' | 'large';
-  className?;
-}
 
-export const RatingDisplay.FC<RatingDisplayProps> = ({
+
+export const RatingDisplay = ({
   value,
   total = 5,
   reviewCount,

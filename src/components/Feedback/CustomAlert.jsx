@@ -2,15 +2,12 @@ import React from 'react';
 import { Alert, AlertProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  variant?: 'default' | 'filled' | 'outlined';
-  className?;
-}
+
 
 /**
  * CustomAlert - Enhanced Alert
  */
-export const CustomAlert.FC<CustomAlertProps> = ({
+export const CustomAlert = ({
   variant = 'default',
   className,
   ...props
@@ -29,11 +26,9 @@ export const CustomAlert.FC<CustomAlertProps> = ({
 CustomAlert.displayName = 'CustomAlert';
 
 // Banner Alert (full width)
-// Interface{
-  className?;
-}
 
-export const BannerAlert.FC<BannerAlertProps> = ({
+
+export const BannerAlert = ({
   className,
   ...props
 }) => {
@@ -49,13 +44,9 @@ export const BannerAlert.FC<BannerAlertProps> = ({
 BannerAlert.displayName = 'BannerAlert';
 
 // Inline Alert (smaller)
-// Interface{
-  type: 'success' | 'info' | 'warning' | 'error';
-  message;
-  className?;
-}
 
-export const InlineAlert.FC<InlineAlertProps> = ({
+
+export const InlineAlert = ({
   type,
   message,
   className,

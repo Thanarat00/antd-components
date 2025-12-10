@@ -2,20 +2,12 @@ import React from 'react';
 import { Pagination, PaginationProps } from 'antd';
 import { cn } from '../../utils/cn';
 
-// Interface{
-  totalItems?;
-  pageSize?;
-  currentPage?;
-  onPageChange?: (page) => void;
-  showInfo?;
-  variant?: 'default' | 'simple' | 'mini';
-  className?;
-}
+
 
 /**
  * CustomPagination - Enhanced Pagination with Thai locale
  */
-export const CustomPagination.FC<CustomPaginationProps> = ({
+export const CustomPagination = ({
   totalItems = 0,
   pageSize = 10,
   currentPage = 1,
@@ -78,14 +70,9 @@ export const CustomPagination.FC<CustomPaginationProps> = ({
 CustomPagination.displayName = 'CustomPagination';
 
 // Pagination Info
-// Interface{
-  current;
-  pageSize;
-  total;
-  className?;
-}
 
-export const PaginationInfo.FC<PaginationInfoProps> = ({
+
+export const PaginationInfo = ({
   current,
   pageSize,
   total,

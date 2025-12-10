@@ -1,6 +1,5 @@
 import React from 'react';
 import { DatePicker, DatePickerProps } from 'antd';
-import type { RangePickerProps } from 'antd/es/date-picker';
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/th';
 import buddhistEra from 'dayjs/plugin/buddhistEra';
@@ -12,39 +11,9 @@ dayjs.locale('th');
 
 const { RangePicker } = DatePicker;
 
-// Interface'locale'> {
-  /** Label for the date picker */
-  label?;
-  /** Helper text below date picker */
-  helperText?;
-  /** Error message */
-  error?;
-  /** Required field indicator */
-  required?;
-  /** Custom class name */
-  className?;
-  /** Use Thai Buddhist Era format */
-  useBuddhistEra?;
-  /** Show preset options */
-  showPresets?;
-}
 
-// Interface'locale'> {
-  /** Label for the date picker */
-  label?;
-  /** Helper text below date picker */
-  helperText?;
-  /** Error message */
-  error?;
-  /** Required field indicator */
-  required?;
-  /** Custom class name */
-  className?;
-  /** Use Thai Buddhist Era format */
-  useBuddhistEra?;
-  /** Show preset options */
-  showPresets?;
-}
+
+
 
 // Thai locale configuration
 const thaiLocale = {
@@ -107,7 +76,7 @@ const thaiLocale = {
  * - Label and helper text support
  * - Error states
  */
-export const CustomDatePicker.FC<CustomDatePickerProps> = ({
+export const CustomDatePicker = ({
   label,
   helperText,
   error,
@@ -166,7 +135,7 @@ CustomDatePicker.displayName = 'CustomDatePicker';
 /**
  * CustomRangePicker - Enhanced Ant Design RangePicker with Thai locale support
  */
-export const CustomRangePicker.FC<CustomRangePickerProps> = ({
+export const CustomRangePicker = ({
   label,
   helperText,
   error,
