@@ -215,6 +215,57 @@ function installDependencies(cwd, options = {}) {
 function setupTailwind(cwd, projectType, baseDir) {
   log('\n⚙️  Setting up Tailwind CSS v4...', 'yellow');
 
+  // Copy tailwind.config.js from package
+  const packageDir = path.dirname(__dirname);
+  const sourceTailwindConfig = path.join(packageDir, 'tailwind.config.js');
+  const targetTailwindConfig = path.join(cwd, 'tailwind.config.js');
+  
+  if (fs.existsSync(sourceTailwindConfig)) {
+    if (!fs.existsSync(targetTailwindConfig)) {
+      // Read and adapt tailwind config for target project
+      let tailwindConfig = fs.readFileSync(sourceTailwindConfig, 'utf-8');
+      
+      // Adjust content paths based on project type
+      let contentPaths = [];
+      switch (projectType) {
+        case 'nextjs-app':
+          contentPaths = [
+            './app/**/*.{js,ts,jsx,tsx}',
+            './src/app/**/*.{js,ts,jsx,tsx}',
+            './components/**/*.{js,ts,jsx,tsx}',
+            './src/components/**/*.{js,ts,jsx,tsx}',
+          ];
+          break;
+        case 'nextjs-pages':
+          contentPaths = [
+            './pages/**/*.{js,ts,jsx,tsx}',
+            './src/pages/**/*.{js,ts,jsx,tsx}',
+            './components/**/*.{js,ts,jsx,tsx}',
+            './src/components/**/*.{js,ts,jsx,tsx}',
+          ];
+          break;
+        default:
+          contentPaths = [
+            './src/**/*.{js,ts,jsx,tsx}',
+            './components/**/*.{js,ts,jsx,tsx}',
+            './src/components/**/*.{js,ts,jsx,tsx}',
+          ];
+      }
+      
+      // Replace content array
+      const contentArray = contentPaths.map(p => `    '${p}'`).join(',\n');
+      tailwindConfig = tailwindConfig.replace(
+        /content:\s*\[[\s\S]*?\]/,
+        `content: [\n${contentArray},\n  ]`
+      );
+      
+      fs.writeFileSync(targetTailwindConfig, tailwindConfig);
+      log('  + tailwind.config.js', 'green');
+    } else {
+      log('  ~ tailwind.config.js (already exists)', 'yellow');
+    }
+  }
+
   // Create postcss.config.mjs
   const postcssConfigMjs = `export default {
   plugins: {
@@ -375,6 +426,8 @@ async function init() {
   log('  ✓ Utils (cn, dateUtils)', 'green');
   log('  ✓ Hooks (useLocalStorage, useTableSearch, useForm)', 'green');
   log('  ✓ Services (axiosInstant)', 'green');
+  log('  ✓ Tailwind CSS config (tailwind.config.js)', 'green');
+  log('  ✓ PostCSS config (postcss.config.mjs)', 'green');
   if (options.tanstackQuery) {
     log('  ✓ Tanstack Query setup', 'green');
   }
