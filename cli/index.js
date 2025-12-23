@@ -786,7 +786,7 @@ function createReadline() {
   });
 }
 
-async function promptUser() {
+async function promptUser(projectType) {
   const rl = createReadline();
 
   const options = {};
@@ -798,14 +798,19 @@ async function promptUser() {
   const langChoice = await question(rl, 'Select language (1-2, default: 1): ');
   options.lang = langChoice.trim() === '2' ? 'js' : 'ts';
 
-  // Routing selection
-  log('\n🛣️  Routing Library:', 'cyan');
-  log('  1) None', 'blue');
-  log('  2) Tanstack Router', 'blue');
-  log('  3) React Router DOM', 'blue');
-  const routingChoice = await question(rl, 'Select routing (1-3, default: 1): ');
-  const routingMap = { '1': 'none', '2': 'tanstack-router', '3': 'react-router-dom' };
-  options.routing = routingMap[routingChoice.trim()] || 'none';
+  // Routing selection - Skip for Next.js (has built-in routing)
+  if (projectType === 'nextjs-app' || projectType === 'nextjs-pages') {
+    log('\n🛣️  Routing: Next.js has built-in routing (skipped)', 'cyan');
+    options.routing = 'none';
+  } else {
+    log('\n🛣️  Routing Library:', 'cyan');
+    log('  1) None', 'blue');
+    log('  2) Tanstack Router', 'blue');
+    log('  3) React Router DOM', 'blue');
+    const routingChoice = await question(rl, 'Select routing (1-3, default: 1): ');
+    const routingMap = { '1': 'none', '2': 'tanstack-router', '3': 'react-router-dom' };
+    options.routing = routingMap[routingChoice.trim()] || 'none';
+  }
 
   // State management selection
   log('\n🗄️  State Management:', 'cyan');
@@ -839,21 +844,27 @@ async function init() {
   
   log('\n🚀 Antd Components Generator\n', 'cyan');
   
+  // Detect project type first (needed for routing selection)
+  const projectType = detectProjectType(cwd);
+  
   // Prompt user for options
-  const options = await promptUser();
+  const options = await promptUser(projectType);
   
   // Show summary
   log('\n📋 Configuration Summary:', 'cyan');
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'blue');
   log(`  Language: ${options.lang === 'ts' ? 'TypeScript' : 'JavaScript'}`, 'blue');
-  log(`  Routing: ${options.routing === 'none' ? 'None' : options.routing === 'tanstack-router' ? 'Tanstack Router' : 'React Router DOM'}`, 'blue');
+  if (projectType === 'nextjs-app' || projectType === 'nextjs-pages') {
+    log(`  Routing: Next.js built-in routing`, 'blue');
+  } else {
+    log(`  Routing: ${options.routing === 'none' ? 'None' : options.routing === 'tanstack-router' ? 'Tanstack Router' : 'React Router DOM'}`, 'blue');
+  }
   log(`  State Management: ${options.stateManagement === 'none' ? 'None' : options.stateManagement === 'zustand' ? 'Zustand' : 'Redux'}`, 'blue');
   log(`  Form Library: ${options.formLibrary === 'none' ? 'None' : options.formLibrary === 'react-hook-form' ? 'React Hook Form' : 'Olapat'}`, 'blue');
   log(`  Tanstack Query: ${options.tanstackQuery ? 'Yes' : 'No'}`, 'blue');
   log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'blue');
   
-  // Detect project type
-  const projectType = detectProjectType(cwd);
+  // Project type already detected above
   log(`\n📋 Detected project: ${projectType}`, 'blue');
   
   // Show what will be created
@@ -869,6 +880,8 @@ async function init() {
   }
   if (options.routing !== 'none') {
     log(`  ✓ Routing (${options.routing === 'tanstack-router' ? 'Tanstack Router' : 'React Router DOM'})`, 'green');
+  } else if (projectType === 'nextjs-app' || projectType === 'nextjs-pages') {
+    log('  ✓ Next.js built-in routing', 'green');
   }
   if (options.stateManagement !== 'none') {
     log(`  ✓ State Management (${options.stateManagement === 'zustand' ? 'Zustand' : 'Redux'})`, 'green');
