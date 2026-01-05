@@ -1051,12 +1051,44 @@ async function init() {
   const targetDir = getComponentsDir(cwd, projectType, baseDir);
   
   // Find the package directory
-  const packageDir = path.dirname(__dirname);
-  const srcDir = path.join(packageDir, 'src');
+  // Try multiple paths to find source files
+  let packageDir = path.dirname(__dirname);
+  let srcDir = path.join(packageDir, 'src');
+  
+  // If src doesn't exist, try alternative paths
+  if (!fs.existsSync(srcDir)) {
+    // Try parent directory (if cli is in a subdirectory)
+    const parentDir = path.dirname(packageDir);
+    const parentSrcDir = path.join(parentDir, 'src');
+    if (fs.existsSync(parentSrcDir)) {
+      packageDir = parentDir;
+      srcDir = parentSrcDir;
+    } else {
+      // Try to find package.json and use its directory
+      let currentDir = __dirname;
+      for (let i = 0; i < 5; i++) {
+        const packageJsonPath = path.join(currentDir, 'package.json');
+        if (fs.existsSync(packageJsonPath)) {
+          const testSrcDir = path.join(currentDir, 'src');
+          if (fs.existsSync(testSrcDir)) {
+            packageDir = currentDir;
+            srcDir = testSrcDir;
+            break;
+          }
+        }
+        const parent = path.dirname(currentDir);
+        if (parent === currentDir) break; // Reached root
+        currentDir = parent;
+      }
+    }
+  }
   
   // Check if src exists
   if (!fs.existsSync(srcDir)) {
     log('❌ Source files not found!', 'red');
+    log(`   Searched in: ${srcDir}`, 'yellow');
+    log(`   CLI location: ${__dirname}`, 'yellow');
+    log(`   Package directory: ${packageDir}`, 'yellow');
     return;
   }
 

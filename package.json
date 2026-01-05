@@ -19,7 +19,8 @@
   },
   "files": [
     "dist",
-    "cli"
+    "cli",
+    "src"
   ],
   "scripts": {
     "dev": "npx vite",
