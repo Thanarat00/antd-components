@@ -269,6 +269,11 @@ function installDependencies(cwd, options = {}) {
 }
 
 function setupJSXConfig(cwd, projectType) {
+  // Determine JSX mode based on project type
+  // Next.js uses 'preserve', others use 'react-jsx'
+  const isNextJs = projectType === 'nextjs-app' || projectType === 'nextjs-pages';
+  const jsxMode = isNextJs ? 'preserve' : 'react-jsx';
+  
   // Check if tsconfig.json exists (TypeScript project)
   const tsconfigPath = path.join(cwd, 'tsconfig.json');
   if (fs.existsSync(tsconfigPath)) {
@@ -283,9 +288,9 @@ function setupJSXConfig(cwd, projectType) {
       if (!tsconfig.compilerOptions) {
         tsconfig.compilerOptions = {};
       }
-      tsconfig.compilerOptions.jsx = 'react-jsx';
+      tsconfig.compilerOptions.jsx = jsxMode;
       fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
-      log('  + Updated tsconfig.json (added JSX support)', 'green');
+      log(`  + Updated tsconfig.json (added JSX support: ${jsxMode})`, 'green');
       return;
     } catch (e) {
       // Ignore parse errors
@@ -307,9 +312,9 @@ function setupJSXConfig(cwd, projectType) {
       if (!existingConfig.compilerOptions) {
         existingConfig.compilerOptions = {};
       }
-      existingConfig.compilerOptions.jsx = 'react-jsx';
+      existingConfig.compilerOptions.jsx = jsxMode;
       fs.writeFileSync(jsconfigPath, JSON.stringify(existingConfig, null, 2));
-      log('  + Updated jsconfig.json (added JSX support)', 'green');
+      log(`  + Updated jsconfig.json (added JSX support: ${jsxMode})`, 'green');
       return;
     } catch (e) {
       log('  ⚠️  Could not parse existing jsconfig.json', 'yellow');
@@ -317,9 +322,26 @@ function setupJSXConfig(cwd, projectType) {
   }
   
   // Create new jsconfig.json
+  const baseUrl = fs.existsSync(path.join(cwd, 'src')) ? '.' : '.';
+  const paths = fs.existsSync(path.join(cwd, 'src')) 
+    ? { '@/*': ['./src/*'] }
+    : { '@/*': ['./*'] };
+  
+  const includePaths = [];
+  if (isNextJs) {
+    if (projectType === 'nextjs-app') {
+      includePaths.push('./app/**/*', './src/app/**/*');
+    } else {
+      includePaths.push('./pages/**/*', './src/pages/**/*');
+    }
+  } else {
+    includePaths.push('src/**/*');
+  }
+  includePaths.push('./components/**/*', './src/components/**/*');
+  
   const jsconfig = {
     compilerOptions: {
-      jsx: 'react-jsx',
+      jsx: jsxMode,
       module: 'ESNext',
       moduleResolution: 'bundler',
       target: 'ES2020',
@@ -331,15 +353,10 @@ function setupJSXConfig(cwd, projectType) {
       skipLibCheck: true,
       resolveJsonModule: true,
       isolatedModules: true,
-      baseUrl: '.',
-      paths: {
-        '@/*': ['./src/*']
-      }
+      baseUrl: baseUrl,
+      paths: paths
     },
-    include: [
-      'src/**/*',
-      'components/**/*'
-    ],
+    include: includePaths,
     exclude: [
       'node_modules',
       'dist',
@@ -384,80 +401,210 @@ function setupNextJSConfig(cwd, projectType, lang = 'ts') {
     }
   }
   
-  // Update or create tsconfig.json for Next.js
-  const tsconfigPath = path.join(cwd, 'tsconfig.json');
-  if (lang === 'ts' && fs.existsSync(tsconfigPath)) {
-    try {
-      const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
-      
-      // Ensure Next.js specific settings
-      if (!tsconfig.compilerOptions) {
-        tsconfig.compilerOptions = {};
-      }
-      
-      // Add Next.js recommended settings
-      if (!tsconfig.compilerOptions.jsx) {
-        tsconfig.compilerOptions.jsx = 'preserve'; // Next.js uses 'preserve'
-      }
-      
-      // Ensure paths are set for @ imports
-      if (!tsconfig.compilerOptions.paths) {
-        tsconfig.compilerOptions.paths = {};
-      }
-      if (!tsconfig.compilerOptions.paths['@/*']) {
-        if (fs.existsSync(path.join(cwd, 'src'))) {
-          tsconfig.compilerOptions.paths['@/*'] = ['./src/*'];
+  // Update or create tsconfig.json/jsconfig.json for Next.js
+  if (lang === 'ts') {
+    const tsconfigPath = path.join(cwd, 'tsconfig.json');
+    if (fs.existsSync(tsconfigPath)) {
+      try {
+        const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
+        
+        // Ensure Next.js specific settings
+        if (!tsconfig.compilerOptions) {
+          tsconfig.compilerOptions = {};
+        }
+        
+        // Add Next.js recommended settings
+        if (!tsconfig.compilerOptions.jsx) {
+          tsconfig.compilerOptions.jsx = 'preserve'; // Next.js uses 'preserve'
+        }
+        
+        // Ensure paths are set for @ imports
+        if (!tsconfig.compilerOptions.paths) {
+          tsconfig.compilerOptions.paths = {};
+        }
+        if (!tsconfig.compilerOptions.paths['@/*']) {
+          if (fs.existsSync(path.join(cwd, 'src'))) {
+            tsconfig.compilerOptions.paths['@/*'] = ['./src/*'];
+          } else {
+            tsconfig.compilerOptions.paths['@/*'] = ['./*'];
+          }
+        }
+        
+        // Update include paths for Next.js
+        if (!tsconfig.include) {
+          tsconfig.include = [];
+        }
+        
+        // Add Next.js specific paths
+        const includesToAdd = [];
+        if (projectType === 'nextjs-app') {
+          if (!tsconfig.include.some(inc => inc.includes('app'))) {
+            includesToAdd.push('./app/**/*', './src/app/**/*');
+          }
         } else {
-          tsconfig.compilerOptions.paths['@/*'] = ['./*'];
+          if (!tsconfig.include.some(inc => inc.includes('pages'))) {
+            includesToAdd.push('./pages/**/*', './src/pages/**/*');
+          }
         }
-      }
-      
-      // Update include paths for Next.js
-      if (!tsconfig.include) {
-        tsconfig.include = [];
-      }
-      
-      // Add Next.js specific paths
-      const includesToAdd = [];
-      if (projectType === 'nextjs-app') {
-        if (!tsconfig.include.some(inc => inc.includes('app'))) {
-          includesToAdd.push('./app/**/*', './src/app/**/*');
+        
+        // Add components to include
+        if (!tsconfig.include.some(inc => inc.includes('components'))) {
+          includesToAdd.push('./components/**/*', './src/components/**/*');
         }
-      } else {
-        if (!tsconfig.include.some(inc => inc.includes('pages'))) {
-          includesToAdd.push('./pages/**/*', './src/pages/**/*');
-        }
+        
+        // Add new includes
+        includesToAdd.forEach(inc => {
+          if (!tsconfig.include.includes(inc)) {
+            tsconfig.include.push(inc);
+          }
+        });
+        
+        fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
+        log('  + Updated tsconfig.json (Next.js optimized)', 'green');
+      } catch (e) {
+        log('  ⚠️  Could not update tsconfig.json', 'yellow');
       }
-      
-      // Add components to include
-      if (!tsconfig.include.some(inc => inc.includes('components'))) {
-        includesToAdd.push('./components/**/*', './src/components/**/*');
-      }
-      
-      // Add new includes
-      includesToAdd.forEach(inc => {
-        if (!tsconfig.include.includes(inc)) {
-          tsconfig.include.push(inc);
+    }
+  } else {
+    // JavaScript project - update jsconfig.json
+    const jsconfigPath = path.join(cwd, 'jsconfig.json');
+    if (fs.existsSync(jsconfigPath)) {
+      try {
+        const jsconfig = JSON.parse(fs.readFileSync(jsconfigPath, 'utf-8'));
+        
+        // Ensure Next.js specific settings
+        if (!jsconfig.compilerOptions) {
+          jsconfig.compilerOptions = {};
         }
-      });
-      
-      fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
-      log('  + Updated tsconfig.json (Next.js optimized)', 'green');
-    } catch (e) {
-      log('  ⚠️  Could not update tsconfig.json', 'yellow');
+        
+        // Add Next.js recommended settings
+        if (!jsconfig.compilerOptions.jsx) {
+          jsconfig.compilerOptions.jsx = 'preserve'; // Next.js uses 'preserve'
+        }
+        
+        // Ensure paths are set for @ imports
+        if (!jsconfig.compilerOptions.paths) {
+          jsconfig.compilerOptions.paths = {};
+        }
+        if (!jsconfig.compilerOptions.paths['@/*']) {
+          if (fs.existsSync(path.join(cwd, 'src'))) {
+            jsconfig.compilerOptions.paths['@/*'] = ['./src/*'];
+          } else {
+            jsconfig.compilerOptions.paths['@/*'] = ['./*'];
+          }
+        }
+        
+        // Update include paths for Next.js
+        if (!jsconfig.include) {
+          jsconfig.include = [];
+        }
+        
+        // Add Next.js specific paths
+        const includesToAdd = [];
+        if (projectType === 'nextjs-app') {
+          if (!jsconfig.include.some(inc => inc.includes('app'))) {
+            includesToAdd.push('./app/**/*', './src/app/**/*');
+          }
+        } else {
+          if (!jsconfig.include.some(inc => inc.includes('pages'))) {
+            includesToAdd.push('./pages/**/*', './src/pages/**/*');
+          }
+        }
+        
+        // Add components to include
+        if (!jsconfig.include.some(inc => inc.includes('components'))) {
+          includesToAdd.push('./components/**/*', './src/components/**/*');
+        }
+        
+        // Add new includes
+        includesToAdd.forEach(inc => {
+          if (!jsconfig.include.includes(inc)) {
+            jsconfig.include.push(inc);
+          }
+        });
+        
+        fs.writeFileSync(jsconfigPath, JSON.stringify(jsconfig, null, 2));
+        log('  + Updated jsconfig.json (Next.js optimized)', 'green');
+      } catch (e) {
+        log('  ⚠️  Could not update jsconfig.json', 'yellow');
+      }
     }
   }
   
   // Check next.config.js/ts/mjs
   const nextConfigFiles = [
     path.join(cwd, 'next.config.js'),
-    path.join(cwd, 'next.config.mjs'),
     path.join(cwd, 'next.config.ts'),
+    path.join(cwd, 'next.config.mjs'),
   ];
   
-  const hasNextConfig = nextConfigFiles.some(file => fs.existsSync(file));
-  if (!hasNextConfig) {
-    log('  ℹ️  No next.config found (optional)', 'blue');
+  let nextConfigUpdated = false;
+  for (const configFile of nextConfigFiles) {
+    if (fs.existsSync(configFile)) {
+      try {
+        let configContent = fs.readFileSync(configFile, 'utf-8');
+        
+        // Add transpilePackages for antd-components
+        if (!configContent.includes('transpilePackages:')) {
+          // Try to add transpilePackages to the config
+          if (configFile.endsWith('.ts')) {
+            // TypeScript config
+            if (configContent.includes('export default')) {
+              configContent = configContent.replace(
+                /export default\s*\{/,
+                `export default {\n  transpilePackages: ['antd-components'],`
+              );
+            } else if (configContent.includes('const nextConfig =')) {
+              configContent = configContent.replace(
+                /const nextConfig\s*=\s*\{/,
+                `const nextConfig = {\n  transpilePackages: ['antd-components'],`
+              );
+            }
+          } else {
+            // JavaScript config
+            if (configContent.includes('module.exports =')) {
+              configContent = configContent.replace(
+                /module\.exports\s*=\s*\{/,
+                `module.exports = {\n  transpilePackages: ['antd-components'],`
+              );
+            } else if (configContent.includes('export default')) {
+              configContent = configContent.replace(
+                /export default\s*\{/,
+                `export default {\n  transpilePackages: ['antd-components'],`
+              );
+            }
+          }
+          
+          fs.writeFileSync(configFile, configContent);
+          log(`  + Updated ${path.basename(configFile)} (added transpilePackages)`, 'green');
+          nextConfigUpdated = true;
+          break;
+        } else if (!configContent.includes("'antd-components'") && !configContent.includes('"antd-components"')) {
+          // If transpilePackages exists but doesn't include antd-components
+          configContent = configContent.replace(
+            /transpilePackages:\s*\[([^\]]*)\]/,
+            (match, existing) => {
+              const trimmed = existing.trim();
+              return `transpilePackages: [${trimmed ? `${trimmed}, ` : ''}'antd-components']`;
+            }
+          );
+          fs.writeFileSync(configFile, configContent);
+          log(`  + Updated ${path.basename(configFile)} (added antd-components to transpilePackages)`, 'green');
+          nextConfigUpdated = true;
+          break;
+        } else {
+          log(`  ~ ${path.basename(configFile)} (transpilePackages already configured)`, 'yellow');
+          nextConfigUpdated = true;
+          break;
+        }
+      } catch (e) {
+        log(`  ⚠️  Could not update ${path.basename(configFile)}: ${e.message}`, 'yellow');
+      }
+    }
+  }
+  
+  if (!nextConfigUpdated) {
+    log('  ⚠️  Could not find or update next.config.js/ts/mjs. Please ensure `transpilePackages: [\'antd-components\']` is added.', 'yellow');
   }
 }
 
@@ -1068,26 +1215,26 @@ export { Link, NavLink, useNavigate, useParams, useLocation } from './react-rout
         if (options.stateManagement === 'zustand') {
           if (options.lang === 'ts') {
             storeIndexContent = `// Zustand
-export { createZustandStore, create, persist, createJSONStorage } from './zustand-store';
-export type { ZustandStoreConfig } from './zustand-store';
-`;
+                export { createZustandStore, create, persist, createJSONStorage } from './zustand-store';
+                export type { ZustandStoreConfig } from './zustand-store';
+            `;
           } else {
             storeIndexContent = `// Zustand
-export { createZustandStore, create, persist, createJSONStorage } from './zustand-store.js';
-`;
+                export { createZustandStore, create, persist, createJSONStorage } from './zustand-store.js';
+            `;
           }
         } else if (options.stateManagement === 'redux') {
           if (options.lang === 'ts') {
             storeIndexContent = `// Redux
-export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './redux-store';
-export type { ReduxSliceConfig } from './redux-store';
-export { configureStore, createSlice, Provider } from './redux-store';
-`;
+                  export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './redux-store';
+                  export type { ReduxSliceConfig } from './redux-store';
+                  export { configureStore, createSlice, Provider } from './redux-store';
+            `;
           } else {
             storeIndexContent = `// Redux
-export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './redux-store.js';
-export { configureStore, createSlice, Provider } from './redux-store.js';
-`;
+                  export { createReduxSlice, createReduxStore, ReduxProvider, useAppDispatch, useAppSelector } from './redux-store.js';
+                  export { configureStore, createSlice, Provider } from './redux-store.js';
+            `;
           }
         }
         
